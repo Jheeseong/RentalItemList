@@ -1,7 +1,7 @@
 const mongoose = require('mongoose'); // mongoose를 선언해주고,
 //const bcrypt = require('bcrypt')
 const saltRounds = 10
-//const jwt = require('jsonwebtoken')
+const jwt = require('../modules/jwt')
 
 const userSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 작성해준다.
     name: {
@@ -49,6 +49,10 @@ const userSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 �
         type: Number
     }
 });
+const User = mongoose.model('User', userSchema); // userSchema를 model로 감싸준다.
+
+module.exports = { User }; // User라는 모델을 본 파일 밖에서도 사용할 수 있도록 export 구문을 작성해준다.
+
 
 // userSchema.pre('save', function (next) {
 //
@@ -101,8 +105,3 @@ const userSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 �
 //         });
 //     });
 // };
-
-const User = mongoose.model('User', userSchema); // userSchema를 model로 감싸준다.
-
-module.exports = { User }; // User라는 모델을 본 파일 밖에서도 사용할 수 있도록 export 구문을 작성해준다.
-
