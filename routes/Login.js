@@ -2,6 +2,7 @@ const express = require('express');
 const {User} = require("../models/User");
 const router = express.Router();
 const jwt = require("../config/jwt/jwt");
+const indexController = require('../controller/index')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -21,9 +22,7 @@ router.post("/api/login", (req, res) => {
         }
 
     });
-
-
-
 })
+
 
 module.exports = router;
