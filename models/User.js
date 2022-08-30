@@ -1,7 +1,6 @@
 const mongoose = require('mongoose'); // mongoose를 선언해주고,
 //const bcrypt = require('bcrypt')
 const saltRounds = 10
-const jwt = require('../modules/jwt')
 
 const userSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 작성해준다.
     name: {

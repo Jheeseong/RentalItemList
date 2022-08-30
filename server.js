@@ -3,7 +3,7 @@ const app = express(); // app생성
 const port = 3000;
 const path = require('path');
 
-const { User } = require('./models/User')
+const { User } = require('./models/User');
 
 const config = require('./config/key');
 const bodyParser = require("body-parser"); //body-parser 사용
