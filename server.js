@@ -32,8 +32,11 @@ mongoose.connect(config.mongoURI, {
 //     res.send('hello world!!');
 // });
 
+// router 연결
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const loginRouter = require('./routes/Login');
 
 app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
+app.use("/login", loginRouter)
