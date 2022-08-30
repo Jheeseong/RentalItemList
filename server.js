@@ -36,8 +36,11 @@ mongoose.connect(config.mongoURI, {
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const loginRouter = require('./routes/Login');
+const signUpRouter = require('./routes/signUp')
 
 
 app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
-app.use("/login", loginRouter)
+app.use("/login", loginRouter);
+app.use("/signUp", signUpRouter)
+
