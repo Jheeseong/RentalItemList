@@ -5,7 +5,7 @@ const path = require('path');
 
 const { User } = require('./models/User');
 
-const config = require('./config/key');
+const config = require('./config/MongoDB/key');
 const bodyParser = require("body-parser"); //body-parser 사용
 app.use(bodyParser.urlencoded({ extended: true })); //application/x-www-form-urlencoded 로 된 데이터를 분석해서 가져올 수 있게 한다
 app.use(bodyParser.json()); //application/json 타입으로 된 데이터를 분석해서 가져올 수 있게 한다 -> json형식으로 파싱
@@ -36,6 +36,7 @@ mongoose.connect(config.mongoURI, {
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const loginRouter = require('./routes/Login');
+
 
 app.use("/", indexRouter);
 app.use("/api/users", usersRouter);

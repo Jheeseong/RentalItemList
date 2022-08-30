@@ -13,7 +13,7 @@ const userSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 �
     role: {
         type: String,
     },
-    number: {
+    workNumber: {
         type: Number,
     },
     email: {
