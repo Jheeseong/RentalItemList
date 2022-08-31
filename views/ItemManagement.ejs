@@ -3,9 +3,48 @@
 <head>
     <title>물품 관리</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/ItemManagement.css' />
+    <style>
+        table, th, tr, td{
+            border: 1px solid black;
+        }
+    </style>
 </head>
 <body>
 <h1>물품관리</h1>
-
+<div class="itemSearch">
+    <select name="searchCategory" id="searchCategory">
+        <option value="itemName">물품이름</option>
+        <option value="lenderName">대여자이름</option>
+    </select>
+    <input type="text" name="input_search", id="input_search">
+    <button name="btn_search">검색</button>
+</div>
+<div class="itemInfoList">
+    <table class="itemInfoListTable">
+        <tr>
+            <th>물품 분류</th>
+            <th>물품 이름</th>
+            <th>물품 번호</th>
+            <th>대여 가능 여부</th>
+            <th>반납 필요 여부</th>
+            <th>대여 가능 수량</th>
+            <th>대여 중 수량</th>
+            <th>총 수량</th>
+            <th>등록일(최종 수정일)</th>
+        </tr>
+        <tr>
+            <td>a</td>
+            <td>a</td>
+            <td>a</td>
+            <td>a</td>
+            <td>a</td>
+            <td>a</td>
+            <td>a</td>
+            <td>a</td>
+            <td>a</td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>
