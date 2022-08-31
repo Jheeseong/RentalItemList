@@ -5,7 +5,6 @@ const TOKEN_INVALID = -2;
 const express = require('express');
 const app = express();
 const cookieParser = require('cookie-parser');
-const cookie = require('cookie')
 app.use(cookieParser());
 
 // 액세스 권한 인증
