@@ -13,13 +13,17 @@ const login = {
                     loginSuccess: false,
                     message: "로그인정보없음"
                 });
-            } else {
-                const jwtToken = await jwt.sign(result);
-                // res.json({loginSuccess: true, user: result.name, Token: jwtToken});
-                res.cookie("x_auth", jwtToken.token)
-                    .status(200)
-                    .redirect('/');
             }
+            result.comparePassword(req.body.password, (err, isMatch) => {
+                if (!isMatch)
+                    return res.json({loginSuccess: false, message: "비밀번호가 틀렸습니다."});
+
+                const jwtToken = jwt.sign(result);
+                // res.json({loginSuccess: true, user: result.name, Token: jwtToken});
+                    res.cookie("x_auth", jwtToken.token)
+                            .status(200)
+                            .redirect('/');
+                })
         });
     },
     logout: async (req, res) => {

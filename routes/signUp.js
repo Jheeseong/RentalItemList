@@ -8,6 +8,4 @@ router.get("/",signUpController.signUp);
 
 router.post("/api/signUp",signUpController.saveUser)
 
-router.post("/api/signIn",signUpController.loginUser)
-
 module.exports = router;
