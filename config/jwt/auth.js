@@ -1,4 +1,5 @@
 const jwt = require('./jwt');
+const cookie = require('cookie')
 const TOKEN_EXPIRED = -3;
 const TOKEN_INVALID = -2;
 const express = require('express');

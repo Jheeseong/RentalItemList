@@ -1,5 +1,5 @@
-const { User } = require('../models/User')
-const jwt = require("../config/jwt/jwt");
+const { User } = require('../../models/User')
+const jwt = require("../../config/jwt/jwt");
 
 const login = {
     /* 로그인 페이지 랜더링*/
