@@ -1,5 +1,5 @@
-const { User } = require('../models/User')
-const jwt = require("../config/jwt/jwt");
+const { User } = require('../../models/User')
+const jwt = require("../../config/jwt/jwt");
 
 const login = {
     index: async (req, res) => {
@@ -14,16 +14,17 @@ const login = {
                     message: "로그인정보없음"
                 });
             }
-            result.comparePassword(req.body.password, (err, isMatch) => {
+            result.comparePassword(req.body.password, async (err, isMatch) => {
                 if (!isMatch)
                     return res.json({loginSuccess: false, message: "비밀번호가 틀렸습니다."});
 
-                const jwtToken = jwt.sign(result);
+                const jwtToken = await jwt.sign(result);
                 // res.json({loginSuccess: true, user: result.name, Token: jwtToken});
-                    res.cookie("x_auth", jwtToken.token)
-                            .status(200)
-                            .redirect('/');
-                })
+
+                res.cookie("x_auth", jwtToken.token)
+                    .status(200)
+                    .redirect('/');
+            })
         });
     },
     logout: async (req, res) => {

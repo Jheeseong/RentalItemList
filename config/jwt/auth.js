@@ -1,4 +1,5 @@
 const jwt = require('./jwt');
+const cookie = require('cookie')
 const TOKEN_EXPIRED = -3;
 const TOKEN_INVALID = -2;
 
@@ -6,7 +7,9 @@ const TOKEN_INVALID = -2;
 const authUtil = {
     checkToken: async (req, res, next) => {
         // const token = req.body.token;
-        const token = req.cookies.x_auth;
+        const token = req.headers.cookie;
+        cookie.parse(token);
+        console.log(cookie.serialize())
         if(!token)
             // 토큰 없음
             return res.json({code : "Token check fail", message : "TOKEN EMPTY"});
