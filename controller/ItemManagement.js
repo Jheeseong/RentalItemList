@@ -9,7 +9,20 @@ const itemManagement = {
         });
     },
     findAll: async (req, res) => {
-        Category.find({});
+        Item.find({}, async(err, result) => {
+            res.json({ items : result });
+        });
+    },
+    findByItem: async (req, res) => {
+
+        Item.find( { name : { $regex: req.params.keyword}}, async(err, result) =>{
+            res.json({ items : result});
+        });
+    },
+    findByLender: async (req, res) => {
+        Item.find({lender : {$elemMatch : {name : req.params.keyword}}}, async(err, result) =>{
+            res.json({ items : result });
+        });
     }
 }
 

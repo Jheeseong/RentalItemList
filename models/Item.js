@@ -34,6 +34,10 @@ const itemSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 �
             type : Boolean
         }
     },
+    lender:[{
+        name : String,
+        workNumber : Number
+    }]
 });
 
 const Item = mongoose.model('Item', itemSchema); // userSchema를 model로 감싸준다.

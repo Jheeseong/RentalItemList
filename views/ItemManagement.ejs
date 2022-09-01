@@ -4,6 +4,7 @@
     <title>물품 관리</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/stylesheets/ItemManagement.css' />
+
     <style>
         table, th, tr, td{
             border: 1px solid black;
@@ -17,8 +18,8 @@
         <option value="itemName">물품이름</option>
         <option value="lenderName">대여자이름</option>
     </select>
-    <input type="text" name="input_search", id="input_search">
-    <button name="btn_search">검색</button>
+    <input type="text" name="input_search" id="input_search">
+    <button type="submit" name="btn_search" id="btn_search" onclick="searchBtnEvent()">검색</button>
 </div>
 <div class="itemInfoList">
     <table class="itemInfoListTable">
@@ -50,5 +51,6 @@
         <% }); %>
     </table>
 </div>
+<script src="/javaScripts/itemManagement.js"></script>
 </body>
 </html>
