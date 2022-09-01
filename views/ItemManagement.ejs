@@ -23,7 +23,8 @@
 <div class="itemInfoList">
     <table class="itemInfoListTable">
         <tr>
-            <th>물품 분류</th>
+            <th>물품 대분류</th>
+            <th>물품 소분류</th>
             <th>물품 이름</th>
             <th>물품 번호</th>
             <th>대여 가능 여부</th>
@@ -33,17 +34,20 @@
             <th>총 수량</th>
             <th>등록일(최종 수정일)</th>
         </tr>
+        <%items.map(res => { %>
         <tr>
-            <td>a</td>
-            <td>a</td>
-            <td>a</td>
-            <td>a</td>
-            <td>a</td>
-            <td>a</td>
-            <td>a</td>
-            <td>a</td>
-            <td>a</td>
+            <td><%=res.category.parentCategory%></td>
+            <td><%=res.category.childCategory%></td>
+            <td><%=res.name%></td>
+            <td><%=res.number%></td>
+            <td><%=res.available.rental%></td>
+            <td><%=res.available.return%></td>
+            <td><%=res.count.remaining%></td>
+            <td><%=res.count.all - res.count.remaining%></td>
+            <td><%=res.count.all%></td>
+            <td><%=res.name%></td>
         </tr>
+        <% }); %>
     </table>
 </div>
 </body>

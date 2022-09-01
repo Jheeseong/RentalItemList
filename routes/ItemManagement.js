@@ -6,7 +6,6 @@ const authUtil = require('../config/jwt/auth').checkToken;
 /* GET home page. */
 router.get('/', authUtil, itemManagementController.index);
 
-// 토큰 인증 테스트
-router.post('/authutil', authUtil);
+router.get('/findAll', itemManagementController.findAll)
 
 module.exports = router;
