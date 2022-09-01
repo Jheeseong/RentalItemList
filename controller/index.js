@@ -6,7 +6,9 @@ const index = {
         console.log(req.code, req.message);
         if(req.code)
             return res.redirect("/login");
-        res.render('index', { title: 'Express' });
+        res.render('index', {
+            title: 'Express',
+        });
     },
 }
 
