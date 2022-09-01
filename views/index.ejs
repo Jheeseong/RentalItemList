@@ -47,31 +47,29 @@
     <div class="modal">
       <div class="modal_body">
         <h2>물품 등록</h2>
+          <label>대분류 : </label>
+          <input type="text" name="parentCategory" id="parentCategory">
+
+          <label>소분류 : </label>
+          <input type="text" name="childCategory" id="childCategory">
+
+          <label>물품 이름 : </label>
+          <input type="text" name="name" id="name">
+
+          <label>물품 번호 : </label>
+          <input type="Number" name="number" id="number">
+
+          <label>물품 코드 : </label>
+          <input type="text" name="code" id="code">
+
+          <label>물품 갯수 : </label>
+          <input type="Number" name="all" id="all">
+
+          <button class="btn-createItem">회원가입</button>
       </div>
     </div>
     <button class="btn-open-popup">Modal 띄우기</button>
-    <script>
-      const body = document.querySelector('body')
-      const modal = document.querySelector('.modal');
-      const btnOpenPopup = document.querySelector('.btn-open-popup');
-
-      btnOpenPopup.addEventListener('click', () => {
-        modal.classList.toggle('show');
-
-        if (modal.classList.contains('show')) {
-          body.style.overflow = 'hidden';
-        }
-      });
-
-      modal.addEventListener('click', (event) => {
-        if (event.target === modal) {
-          modal.classList.toggle('show');
-
-          if (!modal.classList.contains('show')) {
-            body.style.overflow = 'auto';
-          }
-        }
-      });
+    <script src="/js/itemIndex.js">
+      init()
     </script>
   </body>
-</html>
