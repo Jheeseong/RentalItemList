@@ -14,7 +14,6 @@ const itemManagement = {
         });
     },
     findByItem: async (req, res) => {
-
         Item.find( { name : { $regex: req.params.keyword}}, async(err, result) =>{
             res.json({ items : result});
         });
