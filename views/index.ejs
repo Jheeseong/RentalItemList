@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8">
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <style>
@@ -38,6 +39,10 @@
 
         transform: translateX(-50%) translateY(-50%);
       }
+
+      select option[value=""][disabled] {
+        display: none;
+      }
     </style>
   </head>
   <body>
@@ -50,27 +55,38 @@
       <div class="modal_body">
         <h2>물품 등록</h2>
           <label>대분류 : </label>
-          <input type="text" name="parentCategory" id="parentCategory">
-
+          <select type="text" name="parentCategory" id="parentCategory">
+            <option value="" disabled selected>대분류 선택</option>
+          </select>
+        <button onclick="btn_toggle(parentCategory)">항목추가</button>
+          <div class="parentCategory">
+          </div>
+        <br/>
           <label>소분류 : </label>
-          <input type="text" name="childCategory" id="childCategory">
-
+          <select type="text" name="childCategory" id="childCategory">
+            <option value="" disabled selected>소분류 선택</option>
+          </select>
+          <button onclick="btn_toggle(childCategory)">항목추가</button>
+            <div class="childCategory">
+            </div>
+        <br/>
           <label>물품 이름 : </label>
           <input type="text" name="name" id="name">
-
+        <br/>
           <label>물품 번호 : </label>
           <input type="Number" name="number" id="number">
-
+        <br/>
           <label>물품 코드 : </label>
           <input type="text" name="code" id="code">
-
+        <br/>
           <label>물품 갯수 : </label>
           <input type="Number" name="all" id="all">
-
+        <br/>
           <button class="btn-createItem">회원가입</button>
       </div>
 
     </div>
     <button class="btn-open-popup">Modal 띄우기</button>
     <script src="/javaScripts/itemIndex.js"></script>
+    <script src="/javaScripts/categoryIndex.js"></script>
   </body>
