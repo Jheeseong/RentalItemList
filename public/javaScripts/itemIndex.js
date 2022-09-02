@@ -3,7 +3,6 @@ const modal = document.querySelector('.modal');
 const btnOpenPopup = document.querySelector('.btn-open-popup');
 const btnCreateItem = document.querySelector('.btn-createItem');
 
-
 btnOpenPopup.addEventListener('click', () => {
     modal.classList.toggle('show');
 
@@ -22,28 +21,34 @@ modal.addEventListener('click', (event) => {
     }
 });
 
-btnCreateItem.addEventListener('click', () => {
+btnCreateItem.addEventListener('click', async () => {
     window.alert("저장 완료")
-    let item = {
-        category:{parentCategory: document.getElementById('parentCategory').value,
-            childCategory: document.getElementById('childCategory').value},
-        name : document.getElementById('name').value,
-        number : document.getElementById('number').value,
-        code : document.getElementById('code').value,
-        count:{all: document.getElementById('all').value}
+    let items = {
+        category: {
+            parentCategory: document.getElementById('parentCategory').value,
+            childCategory: document.getElementById('childCategory').value
+        },
+        name: document.getElementById('name').value,
+        number: document.getElementById('number').value,
+        code: document.getElementById('code').value,
+        count: {all: document.getElementById('all').value}
     }
 
-    console.log(item)
-    fetch('api/createItem', {
+    await fetch('api/createItem', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(item),
-    })
-        .then((res) => res.json())
+        body: JSON.stringify(items),
+    }).then((res) => {res.json()})
         .then((item) => {
-            console.log('성공', item)
+            document.getElementById('parentCategory').value = null
+            document.getElementById('childCategory').value = null
+            document.getElementById('name').value = null
+            document.getElementById('number').value = null
+            document.getElementById('code').value = null
+            document.getElementById('all').value = null
+            modal.classList.toggle('show');
         })
         .catch((err) => {
             console.log(err);
