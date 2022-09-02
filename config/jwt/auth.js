@@ -30,6 +30,12 @@ const authUtil = {
         if (user === TOKEN_EXPIRED) {
             req.code = "Token authorized fail"
             req.message = "TOKEN_EXPIRED"
+
+            // 유효기간 만료 시 토큰 재발급
+            const jwtToken = await jwt.sign(user).token;
+            res.cookie("x_auth", jwtToken)
+                .status(200);
+
             // return req.body.json({code : "Token authorized fail", message : "TOKEN EXPIRED"});
         }
         // 유효하지 않는 토큰

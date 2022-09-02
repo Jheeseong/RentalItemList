@@ -4,15 +4,10 @@
     <title>물품 관리</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/stylesheets/ItemManagement.css' />
-
-    <style>
-        table, th, tr, td{
-            border: 1px solid black;
-        }
-    </style>
+    <script src="/javaScripts/itemManagement.js"></script>
 </head>
 <body>
-<h1>물품관리</h1>
+<h1>물품관리</h1><br>
 <div class="itemSearch">
     <select name="searchCategory" id="searchCategory">
         <option value="itemName">물품이름</option>
@@ -22,19 +17,22 @@
     <button type="submit" name="btn_search" id="btn_search" onclick="searchBtnEvent()">검색</button>
 </div>
 <div class="itemInfoList">
-    <table class="itemInfoListTable">
-        <tr>
-            <th>물품 대분류</th>
-            <th>물품 소분류</th>
-            <th>물품 이름</th>
-            <th>물품 번호</th>
-            <th>대여 가능 여부</th>
-            <th>반납 필요 여부</th>
-            <th>대여 가능 수량</th>
-            <th>대여 중 수량</th>
-            <th>총 수량</th>
-            <th>등록일(최종 수정일)</th>
-        </tr>
+    <table class="itemInfoListTable" id="itemInfoListTable">
+        <thead>
+            <tr>
+                <th>물품 대분류</th>
+                <th>물품 소분류</th>
+                <th>물품 이름</th>
+                <th>물품 번호</th>
+                <th>대여 가능 여부</th>
+                <th>반납 필요 여부</th>
+                <th>대여 가능 수량</th>
+                <th>대여 중 수량</th>
+                <th>총 수량</th>
+                <th>등록일(최종 수정일)</th>
+            </tr>
+        </thead>
+        <tbody id="tr_itemInfoList">
         <%items.map(res => { %>
         <tr>
             <td><%=res.category.parentCategory%></td>
@@ -49,8 +47,9 @@
             <td><%=res.name%></td>
         </tr>
         <% }); %>
+        </tbody>
     </table>
 </div>
-<script src="/javaScripts/itemManagement.js"></script>
+
 </body>
 </html>

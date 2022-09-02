@@ -37,7 +37,12 @@ const itemSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 �
     lender:[{
         name : String,
         workNumber : Number
-    }]
+    }],
+    createDate:{
+        type : Date,
+        required : true,
+        default: () => new Date()
+    }
 });
 
 const Item = mongoose.model('Item', itemSchema); // userSchema를 model로 감싸준다.

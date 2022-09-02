@@ -3,18 +3,33 @@
 <head>
     <title>사내 물품 관리</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/login.css' />
 </head>
 <body>
-<h1>로그인</h1>
-    <form action="login/api/auth" method="post">
-        <label>사번 : </label>
-        <input type="text" name="workNumber">
-        <label>비밀번호 : </label>
-        <input type="password" name="password">
-        <input type="submit" name="login" value="로그인">
-    </form>
+    <div class="login-container">
+        <form action="login/api/auth" method="post" class="form-login">
+            <ul class="login-nav">
+                <li class="login-nav__item active">
+                    <a href="#">LOGIN</a>
+                </li>
+                <li class="login-nav__item">
+                    <a href='/signup'>Sign Up</a>
+                </li>
+            </ul>
+            <label for="login-input-user" class="login__label">
+                WORKNUMBER
+            </label>
+            <input id="workNumber" name="workNumber" class="login__input" type="text" />
+            <label for="login-input-password" class="login__label">
+                PASSWORD
+            </label>
+            <input id="password" name="password" class="login__input" type="password" />
 
-    <button onclick="location.href='/signup'">회원가입</button>
+            <button type="submit" class="login__submit">LOG IN</button>
+        </form>
+        <a href="#" class="login__forgot">비밀번호를 잊어버리셨나요?</a>
+    </div>
+
 
 </body>
 </html>

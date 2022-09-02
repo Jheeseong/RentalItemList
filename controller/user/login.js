@@ -30,7 +30,7 @@ const login = {
                 res.cookie("x_auth", jwtToken.token)
                     .status(200)
                     .redirect('/');
-            })
+            });
         });
     },
     /* 로그아웃 */
