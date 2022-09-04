@@ -16,6 +16,23 @@
     <input type="text" name="input_search" id="input_search">
     <button type="submit" name="btn_search" id="btn_search" onclick="searchBtnEvent()">검색</button>
 </div>
+<div class="category_filter">
+    <select name="parentCategory" id="parentCategory" onchange="changeParentCategory()">
+        <option value="전체">전체</option>
+        <% categories.map((res) => {%>
+            <option value=<%res.name%>><%=res.name%></option>
+        <%})%>
+    </select>
+    <select name="childCategory" id="childCategory" onchange="changeChildCategory()">
+        <option value="">전체</option>
+    </select>
+</div>
+<div class="listSort">
+    <select>
+        <option value="name">이름 순</option>
+        <option value="date">등록일 순</option>
+    </select>
+</div>
 <div class="itemInfoList">
     <table class="itemInfoListTable" id="itemInfoListTable">
         <thead>

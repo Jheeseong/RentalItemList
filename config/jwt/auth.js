@@ -42,6 +42,10 @@ const authUtil = {
         else if (user === TOKEN_INVALID){
             req.code = "Token authorized fail"
             req.message = "TOKEN_INVALID"
+            return res.clearCookie('x_auth')
+                .write("<script>window.alert('INVALID TOKEN')</script>"
+                    + "<script>location.replace('/login')</script>")
+
             // return req.body.json({code : "Token authorized fail", message : "TOKEN INVALID"});
         }
         // 토큰에 사번이 없을경우
@@ -51,7 +55,7 @@ const authUtil = {
             // return res.json({code : "Token authorized fail", message : "workNumber is undefined"});
         }
         next();
-    }
+    },
 }
 
 module.exports = authUtil;

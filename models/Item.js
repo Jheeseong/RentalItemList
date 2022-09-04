@@ -41,7 +41,7 @@ const itemSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 �
     createDate:{
         type : Date,
         required : true,
-        default: () => new Date()
+        default: Date.now
     }
 });
 

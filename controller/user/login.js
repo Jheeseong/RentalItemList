@@ -1,10 +1,25 @@
 const { User } = require('../../models/User')
 const jwt = require("../../config/jwt/jwt");
+const express = require('express');
+const app = express();
+const cookie = require('cookie')
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
 const login = {
     /* 로그인 페이지 랜더링*/
     index: async (req, res) => {
+        // if(req.headers.cookie){
+        //     if(cookie.parse(req.headers.cookie).x_auth){
+        //         console.log("로그인 정보 있음, 메인페이지로 이동");
+        //         res.redirect('/');
+        //     }
+        // }
+        // else{
+        //     res.render('login');
+        // }
         res.render('login');
+
     },
     /* 로그인(인증) */
     auth: async (req, res) => {
@@ -15,7 +30,7 @@ const login = {
             if (!result) {
                 return res.json({
                     loginSuccess: false,
-                    message: "로그인정보없음"
+                    message: "존재하지 않는 아이디입니다."
                 });
             }
             /* 아이디 정보가 있을 경우 비밀번호 대조 */
@@ -27,9 +42,10 @@ const login = {
                 const jwtToken = await jwt.sign(result);
                 // res.json({loginSuccess: true, user: result.name, Token: jwtToken});
                 /* 쿠키에 토큰 저장 */
-                res.cookie("x_auth", jwtToken.token)
-                    .status(200)
-                    .redirect('/');
+                return res.cookie("x_auth", jwtToken.token)
+                    .json({loginSuccess: true, message: result.name + "님 환영합니다."})
+
+
             });
         });
     },
