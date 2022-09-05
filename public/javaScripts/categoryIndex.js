@@ -15,7 +15,7 @@ async function save_parent_category() {
     }).then((res) => {res.json()})
         .then(() => {
             document.getElementById('parent').value = null;
-            // changeParentCategory();
+            optionParentCategory();
             optionAdd(select_parent);
         })
 }
@@ -45,6 +45,29 @@ function createInput(categoryClass) {
 function deleteInput(categoryClass) {
     categoryClass.innerHTML = "";
 }
+async function optionParentCategory() {
+    const parentCategory = document.getElementById('select_parentCategory');
+    const parentCategoryVal = parentCategory.options[parentCategory.selectedIndex].text;
+    const childCategory = document.getElementById('select_childCategory')
+
+    let rows = "<option value=\'\' disabled selected>소분류 선택</option>";
+
+    if (parentCategory === "대분류 선택") {
+        childCategory.innerHTML = rows;
+    } else {
+        await fetch('createItem/api/find/childcategory/' + parentCategoryVal, {
+            method: 'get'
+        })
+            .then((res) => res.json())
+            .then(() => {
+                childCategory.innerHTML = rows;
+            }).catch((err) => {
+                window.alert(err);
+                console.log(err);
+            });
+    }
+}
+
 function optionAdd(className) {
     console.log("test")
     className.innerHTML += "<option value='100'>테스트</option>"

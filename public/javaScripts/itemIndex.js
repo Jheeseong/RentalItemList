@@ -3,9 +3,13 @@ const modal = document.querySelector('.modal');
 const btnOpenPopup = document.querySelector('.btn-open-popup');
 const btnCreateItem = document.querySelector('.btn-createItem');
 
-btnOpenPopup.addEventListener('click', () => {
+btnOpenPopup.addEventListener('click', async () => {
     modal.classList.toggle('show');
 
+    await fetch('createItem/api/find/prentCategory', {
+        method: 'get'
+    })
+        .then((res) => res.json())
     if (modal.classList.contains('show')) {
         body.style.overflow = 'hidden';
     }
