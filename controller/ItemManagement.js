@@ -1,4 +1,3 @@
-const jwt = require("../config/jwt/jwt");
 const { Item } = require("../models/Item");
 const { Category } = require('../models/Category');
 
@@ -17,24 +16,32 @@ const itemManagement = {
         });
     },
     findByItem: async (req, res) => {
-        Item.find( { name : { $regex: req.params.keyword}}, async(err, result) =>{
+        let parentCategory = req.params.parentCategory;
+        let childCategory = req.params.childCategory;
+        if(parentCategory === "대분류 전체")
+            parentCategory = "";
+        if(childCategory === "소분류 전체")
+            childCategory = "";
+
+        Item.find({$and : [{ name : { $regex: req.params.keyword}}, {"category.parentCategory" : { $regex : parentCategory}}, {"category.childCategory" : {$regex : childCategory}}]}, async(err, result) =>{
             res.json({ items : result});
         });
     },
     findByLender: async (req, res) => {
-        Item.find({lender : {$elemMatch : {name : req.params.keyword}}}, async(err, result) =>{
+        let parentCategory = req.params.parentCategory;
+        let childCategory = req.params.childCategory;
+        if(parentCategory === "대분류 전체")
+            parentCategory = "";
+        if(childCategory === "소분류 전체")
+            childCategory = "";
+
+        Item.find({$and : [{lender : {$elemMatch : {name : req.params.keyword}}},{"category.parentCategory" : { $regex : parentCategory}}, {"category.childCategory" : {$regex : childCategory}}]}, async(err, result) =>{
             res.json({ items : result });
-        });
-    },
-    findChildCategoryByParent: async(req, res) => {
-        Category.findOne({name : req.params.keyword}, async(err, result) => {
-           res.json({children : result});
         });
     },
     findByParentCategory : async(req, res) => {
         Item.find({ "category.parentCategory" : req.params.keyword}, async(err, result) => {
             res.json({ items : result});
-            console.log(result);
         });
     },
     findByChildCategory : async(req, res) => {

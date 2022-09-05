@@ -7,11 +7,28 @@
     <link rel='stylesheet' href='/stylesheets/nav.css' />
     <link rel='stylesheet' href='/stylesheets/itemCreate.css'>
     <script src="/javaScripts/itemManagement.js"></script>
+    <!--SheetJS 라이브러리 사용-->
+    <script src="/javaScripts/xlsx.full.min.js"></script>
+    <script>
+        function putExcel(){
+            let itemTable = XLSX.utils.table_to_book(document.getElementById('itemInfoListTable'), {sheet:"물품목록", raw:true});
+            XLSX.writeFile(itemTable, ('물품목록.xlsx'));
+        }
+    </script>
 </head>
 <body>
 <%- include('./nav.ejs')%>
 <h1>물품관리</h1><br>
 <div class="itemSearch">
+    <select name="parentCategory" id="parentCategory" onchange="changeParentCategory()">
+        <option value="전체">대분류 전체</option>
+        <% categories.map((res) => {%>
+        <option value=<%res.name%>><%=res.name%></option>
+        <%})%>
+    </select>
+    <select name="childCategory" id="childCategory" onchange="changeChildCategory()">
+        <option value="">소분류 전체</option>
+    </select>
     <select name="searchCategory" id="searchCategory">
         <option value="itemName">물품이름</option>
         <option value="lenderName">대여자이름</option>
@@ -19,22 +36,12 @@
     <input type="text" name="input_search" id="input_search">
     <button type="submit" name="btn_search" id="btn_search" onclick="searchBtnEvent()">검색</button>
 </div>
-<div class="category_filter">
-    <select name="parentCategory" id="parentCategory" onchange="changeParentCategory()">
-        <option value="전체">전체</option>
-        <% categories.map((res) => {%>
-            <option value=<%res.name%>><%=res.name%></option>
-        <%})%>
-    </select>
-    <select name="childCategory" id="childCategory" onchange="changeChildCategory()">
-        <option value="">전체</option>
-    </select>
-</div>
 <div class="listSort">
-    <select>
-        <option value="name">이름 순</option>
-        <option value="date">등록일 순</option>
-    </select>
+<!--    <select>-->
+<!--        <option value="name">이름 순</option>-->
+<!--        <option value="date">등록일 순</option>-->
+<!--    </select>-->
+    <button id="btn_put_excel" onclick="putExcel()">엑셀 내보내기</button>
 </div>
 <div class="itemInfoList">
     <table class="itemInfoListTable" id="itemInfoListTable">
@@ -42,14 +49,14 @@
             <tr>
                 <th>물품 대분류</th>
                 <th>물품 소분류</th>
-                <th>물품 이름</th>
+                <th style="cursor: pointer;" onclick="tableSort(2)">물품 이름</th>
                 <th>물품 번호</th>
                 <th>대여 가능 여부</th>
                 <th>반납 필요 여부</th>
                 <th>대여 가능 수량</th>
                 <th>대여 중 수량</th>
                 <th>총 수량</th>
-                <th>등록일(최종 수정일)</th>
+                <th style="cursor: pointer;" onclick="tableSort(9)">등록일(최종 수정일)</th>
             </tr>
         </thead>
         <tbody id="tr_itemInfoList">
