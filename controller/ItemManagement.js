@@ -48,6 +48,11 @@ const itemManagement = {
         Item.find({"category.childCategory" : req.params.keyword}, async(err, result) => {
             res.json({ items : result});
         });
+    },
+    deleteById: async(req, res) => {
+        Item.deleteOne({_id: req.params.id}, async(err, result) => {
+            res.json({ deleteSuccess : "Success", message : "물품이 성공적으로 삭제되었습니다.", result : result });
+        })
     }
 }
 

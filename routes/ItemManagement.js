@@ -19,4 +19,6 @@ router.get('/find/item/parentCategory/:keyword', itemManagementController.findBy
 
 router.get('/find/item/childCategory/:keyword', itemManagementController.findByChildCategory);
 
+router.delete('/delete/:id', itemManagementController.deleteById);
+
 module.exports = router;
