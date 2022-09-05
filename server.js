@@ -42,10 +42,11 @@ const usersRouter = require('./routes/users');
 const loginRouter = require('./routes/Login');
 const signUpRouter = require('./routes/signUp');
 const itemManagement = require('./routes/ItemManagement');
-
+const createItem = require('./routes/createItem')
 app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/login", loginRouter);
 app.use("/signUp", signUpRouter);
+app.use("/createItem", createItem);
 app.use("/itemmanagement", itemManagement);
 
