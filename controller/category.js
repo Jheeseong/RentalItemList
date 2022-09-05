@@ -12,17 +12,16 @@ const category = {
                 .status(200)
         })
     },
-    findParentCategory: async(req, res) => {
-        Category.find({}, async(err, result) => {
-            res.json({categories : result});
+    findParentCategory: async (req, res) => {
+        Category.find({}, async (err, result) => {
+            res.json({categories: result});
         })
     },
-    findChildCategoryByParent: async(req, res) => {
-    Category.findOne({name : req.params.keyword}, async(err, result) => {
-        res.json({children : result});
-    });
-},
-
+    findChildCategoryByParent: async (req, res) => {
+        Category.findOne({name: req.params.keyword}, async (err, result) => {
+            res.json({children: result});
+        });
+    }
 }
 
 module.exports = category;

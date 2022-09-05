@@ -3,9 +3,9 @@
 <head>
     <title>물품 관리</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel='stylesheet' href='/stylesheets/ItemManagement.css' />
     <link rel='stylesheet' href='/stylesheets/nav.css' />
-    <link rel='stylesheet' href='/stylesheets/itemCreate.css'>
+    <link rel='stylesheet' href='/stylesheets/itemCreate.css' />
+    <link rel='stylesheet' href='/stylesheets/datasheet.css' />
     <script src="/javaScripts/itemManagement.js"></script>
     <!--SheetJS 라이브러리 사용-->
     <script src="/javaScripts/xlsx.full.min.js"></script>
@@ -44,19 +44,20 @@
     <button id="btn_put_excel" onclick="putExcel()">엑셀 내보내기</button>
 </div>
 <div class="itemInfoList">
-    <table class="itemInfoListTable" id="itemInfoListTable">
+    <table id="itemInfoListTable">
+        <caption>물품 관리 목록</caption>
         <thead>
             <tr>
-                <th>물품 대분류</th>
-                <th>물품 소분류</th>
-                <th style="cursor: pointer;" onclick="tableSort(2)">물품 이름</th>
-                <th>물품 번호</th>
-                <th>대여 가능 여부</th>
-                <th>반납 필요 여부</th>
-                <th>대여 가능 수량</th>
-                <th>대여 중 수량</th>
-                <th>총 수량</th>
-                <th style="cursor: pointer;" onclick="tableSort(9)">등록일(최종 수정일)</th>
+                <th scope="col">물품 대분류</th>
+                <th scope="col">물품 소분류</th>
+                <th scope="col" style="cursor: pointer;" onclick="tableSort(2)">물품 이름</th>
+                <th scope="col">물품 번호</th>
+                <th scope="col">대여 가능 여부</th>
+                <th scope="col">반납 필요 여부</th>
+                <th scope="col">대여 가능 수량</th>
+                <th scope="col">대여 중 수량</th>
+                <th scope="col">총 수량</th>
+                <th scope="col" style="cursor: pointer;" onclick="tableSort(9)">등록일(최종 수정일)</th>
             </tr>
         </thead>
         <tbody id="tr_itemInfoList">
@@ -79,6 +80,7 @@
 </div>
 <%- include('./createItem.ejs')%>
 <script src="/javaScripts/itemIndex.js"></script>
+<script src="/javaScripts/categoryIndex.js"></script>
 <script src="/javaScripts/nav.js"></script>
 </body>
 </html>
