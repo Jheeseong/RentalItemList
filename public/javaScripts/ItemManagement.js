@@ -13,7 +13,7 @@ function itemsRender(items){
         rows += "<td>" +res.count.remaining + "</td>";
         rows += "<td>" +(res.count.all - res.count.remaining) + "</td>";
         rows += "<td>" +res.count.all + "</td>";
-        rows += "<td>" +res.name + "</td></tr>";
+        rows += "<td>" +res.createDate + "</td></tr>";
     })
     itemInfoListTable.innerHTML=rows;
 }
