@@ -4,9 +4,12 @@
     <title>물품 관리</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/stylesheets/ItemManagement.css' />
+    <link rel='stylesheet' href='/stylesheets/nav.css' />
+    <link rel='stylesheet' href='/stylesheets/itemCreate.css'>
     <script src="/javaScripts/itemManagement.js"></script>
 </head>
 <body>
+<%- include('./nav.ejs')%>
 <h1>물품관리</h1><br>
 <div class="itemSearch">
     <select name="searchCategory" id="searchCategory">
@@ -50,6 +53,8 @@
         </tbody>
     </table>
 </div>
-
+<%- include('./createItem.ejs')%>
+<script src="/javaScripts/itemIndex.js"></script>
+<script src="/javaScripts/nav.js"></script>
 </body>
 </html>

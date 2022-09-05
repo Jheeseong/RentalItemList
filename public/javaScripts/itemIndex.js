@@ -31,7 +31,14 @@ btnCreateItem.addEventListener('click', async () => {
         name: document.getElementById('name').value,
         number: document.getElementById('number').value,
         code: document.getElementById('code').value,
-        count: {all: document.getElementById('all').value}
+        count: {
+            all: document.getElementById('all').value,
+            remaining: document.getElementById('all').value
+        },
+        available: {
+            rental: true,
+            return: true
+        }
     }
 
     await fetch('api/createItem', {
