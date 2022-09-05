@@ -4,89 +4,18 @@
     <meta charset="UTF-8">
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <style>
-      .modal {
-        position: absolute;
-        top: 0;
-        left: 0;
-
-        width: 100%;
-        height: 100%;
-
-        display: none;
-
-        background-color: rgba(0, 0, 0, 0.4);
-      }
-      .modal.show {
-        display: block;
-      }
-
-      .modal_body {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-
-        width: 400px;
-        height: 600px;
-
-        padding: 40px;
-
-        text-align: center;
-
-        background-color: rgb(255, 255, 255);
-        border-radius: 10px;
-        box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
-
-        transform: translateX(-50%) translateY(-50%);
-      }
-
-      select option[value=""][disabled] {
-        display: none;
-      }
-    </style>
+    <link rel='stylesheet' href='/stylesheets/nav.css' />
+    <link rel='stylesheet' href='/stylesheets/itemCreate.css'>
   </head>
   <body>
-    <h1><%= title %></h1>
+  <%- include('./nav.ejs')%>
+  <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
     <button id="btn_logout" name="btn_logout" onclick="location.href='/login/api/logout'">로그아웃</button>
     <button id="btn_itemManagement" name="btn_itemManagement" onclick="location.href='/itemmanagement'">물품 관리 페이지</button>
-
-    <div class="modal">
-      <div class="modal_body">
-        <h2>물품 등록</h2>
-          <label>대분류 : </label>
-          <select type="text" name="parentCategory" id="parentCategory">
-            <option value="" disabled selected>대분류 선택</option>
-          </select>
-        <button onclick="btn_toggle(parentCategory)">항목추가</button>
-          <div class="parentCategory">
-          </div>
-        <br/>
-          <label>소분류 : </label>
-          <select type="text" name="childCategory" id="childCategory">
-            <option value="" disabled selected>소분류 선택</option>
-          </select>
-          <button onclick="btn_toggle(childCategory)">항목추가</button>
-            <div class="childCategory">
-            </div>
-        <br/>
-          <label>물품 이름 : </label>
-          <input type="text" name="name" id="name">
-        <br/>
-          <label>물품 번호 : </label>
-          <input type="Number" name="number" id="number">
-        <br/>
-          <label>물품 코드 : </label>
-          <input type="text" name="code" id="code">
-        <br/>
-          <label>물품 갯수 : </label>
-          <input type="Number" name="all" id="all">
-        <br/>
-          <button class="btn-createItem">회원가입</button>
-      </div>
-
-    </div>
+  <%- include('./createItem.ejs')%>
     <button class="btn-open-popup">Modal 띄우기</button>
     <script src="/javaScripts/itemIndex.js"></script>
     <script src="/javaScripts/categoryIndex.js"></script>
+    <script src="/javaScripts/nav.js"></script>
   </body>

@@ -8,7 +8,8 @@ const createCategory = {
             //저장할 때 err 발생 시 json으로 반환
             if (err) return res.json({success: false, err})
             console.log(("category DB 저장 완료"))
-            return res.status(200)
+            return res.json(category)
+                .status(200)
         })
     }
 }
