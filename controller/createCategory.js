@@ -11,7 +11,7 @@ const createCategory = {
             return res.json(category)
                 .status(200)
         })
-    }
+    },
 }
 
 module.exports = createCategory;

@@ -15,6 +15,7 @@ async function save_parent_category() {
     }).then((res) => {res.json()})
         .then(() => {
             document.getElementById('parent').value = null;
+            // changeParentCategory();
             optionAdd(select_parent);
         })
 }
