@@ -5,6 +5,7 @@ function itemsRender(items){
     console.log(items);
 
     items.map(res => {
+
         rows += "<tr><td>" +res.number + "</td>" +
         "<td>" + res.category.parentCategory + "</td>" +
         "<td>" +res.category.childCategory + "</td>" +
@@ -15,9 +16,9 @@ function itemsRender(items){
         "<td>" +(res.count.all - res.count.remaining) + "</td>" +
         "<td>" +res.count.all + "</td>" +
         "<td>" +res.createDate + "</td>" +
-        "<td><button onclick='editItem(\"" + res._id + "\")'>편집</button>" +
-        "<button onclick='deleteItem(\"" + res._id +"\")'>삭제</button> " +
-        "<button class='btn-open-lender' onclick='lenderList(\"" + res.name + "\"," + JSON.stringify(res.lender) +")'>대여자명단</button>" +
+        "<td><button class='btn-manager' onclick='editItem(\"" + res._id + "\")'><img class=\"manage-icon\" src=\"/img/edit.png\"></button>" +
+        "<button class='btn-manager' onclick='deleteItem(\"" + res._id +"\")'><img class=\"manage-icon\" src=\"/img/trash.png\"></button> " +
+        "<button class='btn-open-lender btn-manager' onclick='lenderList(\"" + res.name + "\"," + JSON.stringify(res.lender) +")'><img class=\"manage-icon\" src=\"/img/customer.png\"></button>" +
         "</td></tr>"
     });
     itemInfoListTable.innerHTML=rows;

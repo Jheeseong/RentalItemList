@@ -5,7 +5,8 @@ const saltRounds = 10
 const userSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 작성해준다.
     name: {
         type: String,
-        maxLength: 50
+        maxLength: 50,
+        require: true
     },
     department: {
         type: String,
@@ -15,6 +16,8 @@ const userSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 �
     },
     workNumber: {
         type: Number,
+        unique:true,
+        require: true
     },
     email: {
         type: String,
@@ -26,17 +29,21 @@ const userSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 �
     },
     password: {
         type: String,
-        minLength: 5
+        minLength: 4,
+        require:true
     },
     authority: {
         rentalAuthority: {
             type: Boolean,
+            default:false
         },
         editAuthority:{
             type: Boolean,
+            default:false
         },
         openAuthority:{
             type: Boolean,
+            default:false
         }
 
     },

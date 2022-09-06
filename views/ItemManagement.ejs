@@ -18,8 +18,8 @@
 </head>
 <body>
 <%- include('./nav.ejs')%>
-<h1>물품관리</h1><br/>
 <div class="itemManagementBody">
+    <h1>물품관리</h1>
     <div class="itemSearch">
         <select name="parentCategory" id="parentCategory" onchange="changeParentCategory()">
             <option value="전체">대분류 전체</option>
@@ -35,18 +35,11 @@
             <option value="lenderName">대여자이름</option>
         </select>
         <input type="text" name="input_search" id="input_search">
-        <button type="submit" name="btn_search" id="btn_search" onclick="searchBtnEvent()">검색</button>
-    </div>
-    <div class="listSort">
-    <!--    <select>-->
-    <!--        <option value="name">이름 순</option>-->
-    <!--        <option value="date">등록일 순</option>-->
-    <!--    </select>-->
-        <button id="btn_put_excel" onclick="putExcel()">엑셀 내보내기</button>
+        <button class="btn-search" name="btn_search" id="btn_search" onclick="searchBtnEvent()"><img class="search-icon" src="/img/search.png"></button>
     </div>
     <div class="itemInfoList">
         <table id="itemInfoListTable">
-            <caption>물품 관리 목록</caption>
+            <caption><button class="btn-put-excel" id="btn_put_excel" onclick="putExcel()"><img class="excel-icon" src="/img/excel.png">&nbsp 엑셀로 변환</button></caption>
             <thead>
                 <tr>
                     <th scope="col">물품 번호</th>
@@ -58,7 +51,7 @@
                     <th scope="col">대여 가능 수량</th>
                     <th scope="col">대여 중 수량</th>
                     <th scope="col">총 수량</th>
-                    <th scope="col" style="cursor: pointer;" onclick="tableSort(9)">등록일(최종 수정일)</th>
+                    <th scope="col" style="cursor: pointer;" onclick="tableSort(9)">최종 수정일</th>
                     <th scope="col">관리자 기능</th>
                 </tr>
             </thead>
