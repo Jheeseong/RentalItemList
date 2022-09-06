@@ -2,24 +2,32 @@ const parentCategory = document.querySelector('.parentCategory')
 const childCategory = document.querySelector('.childCategory')
 const CLICKED_CLASS = "show"
 const select_parent = document.querySelector('.select_parent')
+const select_child = document.querySelector('.select_child')
 async function save_parent_category() {
+    optionAdd(select_parent)
+    document.getElementById('input_parent').value = null;
+
+}
+async function save_child_category() {
+    const parentCategory = document.getElementById('select_parentCategory');
+    const parentCategoryVal = parentCategory.options[parentCategory.selectedIndex].text
     let categories = {
-        name: document.getElementById('parent').value
+        name: parentCategory.options[parentCategory.selectedIndex].text,
+        children: document.getElementById('input_child').value
     }
-    await fetch('api/createCategory', {
+    await fetch('createItem/api/createCategory/' + parentCategoryVal, {
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(categories),
-    }).then((res) => {res.json()})
+    }).then((res) => {
+        res.json()
+    })
         .then(() => {
-            document.getElementById('parent').value = null;
-            optionParentCategory();
-            optionAdd(select_parent);
+            optionAdd(select_child)
+            document.getElementById('input_child').value = null;
         })
-}
-function save_child_category() {
 
 }
 function btn_toggle(categoryClass) {
@@ -31,11 +39,11 @@ function btn_toggle(categoryClass) {
 function createInput(categoryClass) {
     if (categoryClass === parentCategory) {
         categoryClass.innerHTML =
-            "            <input type=\"text\" id=\"parent\">\n" +
+            "            <input type=\"text\" name=\"input_parent\" id=\"input_parent\">\n" +
             "            <button id=\"btn_insertCategory\" name=\"btn_insertCategory\" onclick=save_parent_category()>추가</button>"
     } else {
         categoryClass.innerHTML =
-            "            <input type=\"text\" id=\"child\">\n" +
+            "            <input type=\"text\" name=\"input_child\" id=\"input_child\">\n" +
             "            <button id=\"btn_insertCategory\" name=\"btn_insertCategory\" onclick=save_child_category()>추가</button>"
 
     }
@@ -59,16 +67,41 @@ async function optionParentCategory() {
             method: 'get'
         })
             .then((res) => res.json())
-            .then(() => {
+            .then((categories) => {
+                console.log(categories);
+                categories.children.children.map(res => {
+                    rows += "<option value=" + res + ">" + res + "</option>";
+                });
                 childCategory.innerHTML = rows;
             }).catch((err) => {
-                window.alert(err);
-                console.log(err);
+                if (err.message.includes('type')) {
+                    return;
+                } else {
+                    window.alert(err);
+                    console.log(err);
+                }
             });
     }
 }
 
+async function optionChildCategory() {
+    const childCategory = document.getElementById('select_childCategory');
+    const childCategoryVal = childCategory.options[childCategory.selectedIndex].text;
+
+    if (childCategoryVal === "소분류 선택") {
+        await optionParentCategory();
+        return;
+    }
+}
+
 function optionAdd(className) {
-    console.log("test")
-    className.innerHTML += "<option value='100'>테스트</option>"
+    let input_value;
+    if (className === select_parent) {
+        input_value = document.getElementById('input_parent').value;
+        console.log(input_value);
+    } else {
+        input_value = document.getElementById('input_child').value;
+        console.log(input_value);
+    }
+    className.innerHTML += "<option value=" + input_value + ">" + input_value + "</option>"
 }

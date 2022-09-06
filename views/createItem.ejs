@@ -3,7 +3,8 @@
     <div class="modal_body">
         <h2>물품 등록</h2>
         <label>대분류 : </label>
-        <select type="text" name="parentCategory" id="select_parentCategory" class="select_parent">
+        <select type="text" name="parentCategory" id="select_parentCategory" class="select_parent"
+        onchange="optionParentCategory()">
             <option value="" disabled selected>대분류 선택</option>
         </select>
         <button onclick="btn_toggle(parentCategory)">항목추가</button>
@@ -11,7 +12,8 @@
         </div>
         <br/>
         <label>소분류 : </label>
-        <select type="text" name="childCategory" id="select_childCategory">
+        <select type="text" name="childCategory" id="select_childCategory" class="select_child"
+        onchange="optionChildCategory()">
             <option value='' disabled selected>소분류 선택</option>
         </select>
         <button onclick="btn_toggle(childCategory)">항목추가</button>
@@ -30,6 +32,6 @@
         <label>물품 갯수 : </label>
         <input type="Number" name="all" id="all">
         <br/>
-        <button class="btn-createItem">회원가입</button>
+        <button class="btn-createItem">물품 등록</button>
     </div>
 </div>

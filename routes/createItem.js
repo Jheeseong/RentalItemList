@@ -7,12 +7,12 @@ const itemManagementController = require("../controller/ItemManagement");
 const authUtil = require('../config/jwt/auth').checkToken;
 
 //POST 물품 등록
-router.post('/api/createItem', createItemController.saveItem);
+router.post('/api/createItem',authUtil, createItemController.saveItem);
 
-router.post('/api/createCategory', createCategoryController.saveCategory);
+router.post('/api/createCategory/:keyword',authUtil, createCategoryController.saveCategory);
 
-router.get('/api/find/prentCategory', createCategoryController.findParentCategory);
+router.get('/api/find/prentCategory',authUtil, createCategoryController.findParentCategory);
 
-router.get('/api/find/childcategory/:keyword', createCategoryController.findChildCategoryByParent);
+router.get('/api/find/childcategory/:keyword',authUtil, createCategoryController.findChildCategoryByParent);
 
 module.exports = router;
