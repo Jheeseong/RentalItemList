@@ -54,6 +54,9 @@ const authUtil = {
             req.message = "workNumber is undefined"
             // return res.json({code : "Token authorized fail", message : "workNumber is undefined"});
         }
+        req.workNumber = user.workNumber;
+        req.name = user.name;
+        req.authority = user.authority;
         next();
     },
 }

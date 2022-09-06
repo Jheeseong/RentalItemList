@@ -4,18 +4,9 @@
     <meta charset="UTF-8">
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel='stylesheet' href='/stylesheets/nav.css' />
-    <link rel='stylesheet' href='/stylesheets/itemCreate.css'>
-    <script src="/javaScripts/itemManagement.js"></script>
   </head>
   <body>
   <%- include('./nav.ejs')%>
   <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
-    <button id="btn_logout" name="btn_logout" onclick="location.href='/login/api/logout'">로그아웃</button>
-    <button id="btn_itemManagement" name="btn_itemManagement" onclick="location.href='/itemmanagement'">물품 관리 페이지</button>
-    <button class="btn-open-popup">Modal 띄우기</button>
-    <script src="/javaScripts/itemIndex.js"></script>
-    <script src="/javaScripts/categoryIndex.js"></script>
-    <script src="/javaScripts/nav.js"></script>
   </body>

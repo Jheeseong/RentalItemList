@@ -5,18 +5,21 @@ function itemsRender(items){
     console.log(items);
 
     items.map(res => {
-        rows += "<tr><td>" +res.number + "</td>";
-        rows += "<td>" + res.category.parentCategory + "</td>";
-        rows += "<td>" +res.category.childCategory + "</td>";
-        rows += "<td>" +res.name + "</td>";
-        rows += "<td>" +res.available.rental + "</td>";
-        rows += "<td>" +res.available.return + "</td>";
-        rows += "<td>" +res.count.remaining + "</td>";
-        rows += "<td>" +(res.count.all - res.count.remaining) + "</td>";
-        rows += "<td>" +res.count.all + "</td>";
-        rows += "<td>" +res.createDate + "</td>";
-        rows += "<td><button>편집</button><button>삭제</button><button>대여자명단</button></td></tr>"
-    })
+        rows += "<tr><td>" +res.number + "</td>" +
+        "<td>" + res.category.parentCategory + "</td>" +
+        "<td>" +res.category.childCategory + "</td>" +
+        "<td>" +res.name + "</td>" +
+        "<td>" +res.available.rental + "</td>" +
+        "<td>" +res.available.return + "</td>" +
+        "<td>" +res.count.remaining + "</td>" +
+        "<td>" +(res.count.all - res.count.remaining) + "</td>" +
+        "<td>" +res.count.all + "</td>" +
+        "<td>" +res.createDate + "</td>" +
+        "<td><button onclick='editItem(\"" + res._id + "\")'>편집</button>" +
+        "<button onclick='deleteItem(\"" + res._id +"\")'>삭제</button> " +
+        "<button class='btn-open-lender' onclick='lenderList(\"" + res.name + "\"," + JSON.stringify(res.lender) +")'>대여자명단</button>" +
+        "</td></tr>"
+    });
     itemInfoListTable.innerHTML=rows;
 }
 
@@ -120,27 +123,6 @@ async function changeChildCategory(){
             window.alert(err);
         });
 }
-/* 물품 편집 */
-function editItem(id){
-    console.log(id);
-}
-
-/* 물품 삭제 */
-async function deleteItem(id){
-    await fetch('itemmanagement/delete/' + id, {
-        method: 'delete'
-    })
-        .then((res) => res.json())
-        .then((result) => {
-            window.alert(result.message);
-        }).catch((err) => {
-            window.alert(err);
-        });
-}
-
-function lenderList(id, lender){
-    console.log(lender);
-}
 
 /* 테이블 데이터 정렬 */
 let sortType = 'asc';
@@ -173,3 +155,54 @@ function tableSort(index) {
     }
 }
 
+/* 물품 편집 */
+function editItem(id){
+    console.log(id);
+}
+
+/* 물품 삭제 */
+async function deleteItem(id){
+    if(window.confirm("정말 삭제하시겠습니까?") === true){
+        await fetch('itemmanagement/delete/' + id, {
+            method: 'delete'
+        })
+            .then((res) => res.json())
+            .then((result) => {
+                window.alert(result.message);
+            }).catch((err) => {
+                window.alert(err);
+            });
+    }
+    else{
+        return;
+    }
+
+
+}
+
+let lendersModal = document.querySelector('.lenders_modal');
+function lenderList(name, lender){
+    lendersModal.classList.toggle('show');
+    const modalbody = document.getElementById('lenders_modal_body');
+
+    let rows = "<h3>" + name + " 대여자 목록</h3><br/><ul>"
+    lender.map((lenders) => {
+        rows += "<li>사번 : " + lenders.workNumber + " / 이름 : " + lenders.name + "</li>";
+    })
+    rows += "</ul>";
+    modalbody.innerHTML = rows;
+
+    if(modal.classList.contains('show')){
+        body.style.overflow = 'hidden';
+    }
+}
+
+lendersModal.addEventListener('click', (e) => {
+    if(e.target === lendersModal){
+        lendersModal.classList.toggle('show');
+
+        if(!modal.classList.contains('show')){
+            body.style.overflow = 'auto';
+        }
+    }
+})

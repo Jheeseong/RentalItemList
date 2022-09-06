@@ -5,8 +5,8 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/stylesheets/nav.css' />
     <link rel='stylesheet' href='/stylesheets/itemCreate.css' />
-    <link rel='stylesheet' href='/stylesheets/datasheet.css' />
-    <script src="/javaScripts/itemManagement.js"></script>
+    <link rel='stylesheet' href='/stylesheets/itemManagement.css' />
+    <script defer src="/javaScripts/itemManagement.js"></script>
     <!--SheetJS 라이브러리 사용-->
     <script src="/javaScripts/xlsx.full.min.js"></script>
     <script>
@@ -18,79 +18,77 @@
 </head>
 <body>
 <%- include('./nav.ejs')%>
-<h1>물품관리</h1><br>
-<div class="itemSearch">
-    <select name="parentCategory" id="parentCategory" onchange="changeParentCategory()">
-        <option value="전체">대분류 전체</option>
-        <% categories.map((res) => {%>
-        <option value=<%res.name%>><%=res.name%></option>
-        <%})%>
-    </select>
-    <select name="childCategory" id="childCategory" onchange="changeChildCategory()">
-        <option value="">소분류 전체</option>
-    </select>
-    <select name="searchCategory" id="searchCategory">
-        <option value="itemName">물품이름</option>
-        <option value="lenderName">대여자이름</option>
-    </select>
-    <input type="text" name="input_search" id="input_search">
-    <button type="submit" name="btn_search" id="btn_search" onclick="searchBtnEvent()">검색</button>
-</div>
-<div class="listSort">
-<!--    <select>-->
-<!--        <option value="name">이름 순</option>-->
-<!--        <option value="date">등록일 순</option>-->
-<!--    </select>-->
-    <button id="btn_put_excel" onclick="putExcel()">엑셀 내보내기</button>
-</div>
-<div class="itemInfoList">
-    <table id="itemInfoListTable">
-        <caption>물품 관리 목록</caption>
-        <thead>
+<h1>물품관리</h1><br/>
+<div class="itemManagementBody">
+    <div class="itemSearch">
+        <select name="parentCategory" id="parentCategory" onchange="changeParentCategory()">
+            <option value="전체">대분류 전체</option>
+            <% categories.map((res) => {%>
+            <option value=<%res.name%>><%=res.name%></option>
+            <%})%>
+        </select>
+        <select name="childCategory" id="childCategory" onchange="changeChildCategory()">
+            <option value="">소분류 전체</option>
+        </select>
+        <select name="searchCategory" id="searchCategory">
+            <option value="itemName">물품이름</option>
+            <option value="lenderName">대여자이름</option>
+        </select>
+        <input type="text" name="input_search" id="input_search">
+        <button type="submit" name="btn_search" id="btn_search" onclick="searchBtnEvent()">검색</button>
+    </div>
+    <div class="listSort">
+    <!--    <select>-->
+    <!--        <option value="name">이름 순</option>-->
+    <!--        <option value="date">등록일 순</option>-->
+    <!--    </select>-->
+        <button id="btn_put_excel" onclick="putExcel()">엑셀 내보내기</button>
+    </div>
+    <div class="itemInfoList">
+        <table id="itemInfoListTable">
+            <caption>물품 관리 목록</caption>
+            <thead>
+                <tr>
+                    <th scope="col">물품 번호</th>
+                    <th scope="col">물품 대분류</th>
+                    <th scope="col">물품 소분류</th>
+                    <th scope="col" style="cursor: pointer;" onclick="tableSort(2)">물품 이름</th>
+                    <th scope="col">대여 가능 여부</th>
+                    <th scope="col">반납 필요 여부</th>
+                    <th scope="col">대여 가능 수량</th>
+                    <th scope="col">대여 중 수량</th>
+                    <th scope="col">총 수량</th>
+                    <th scope="col" style="cursor: pointer;" onclick="tableSort(9)">등록일(최종 수정일)</th>
+                    <th scope="col">관리자 기능</th>
+                </tr>
+            </thead>
+            <tbody id="tr_itemInfoList">
+            <%items.map(res => { %>
             <tr>
-                <th scope="col">물품 번호</th>
-                <th scope="col">물품 대분류</th>
-                <th scope="col">물품 소분류</th>
-                <th scope="col" style="cursor: pointer;" onclick="tableSort(2)">물품 이름</th>
-                <th scope="col">대여 가능 여부</th>
-                <th scope="col">반납 필요 여부</th>
-                <th scope="col">대여 가능 수량</th>
-                <th scope="col">대여 중 수량</th>
-                <th scope="col">총 수량</th>
-                <th scope="col" style="cursor: pointer;" onclick="tableSort(9)">등록일(최종 수정일)</th>
-                <th scope="col">관리자 기능</th>
+                <td><%=res.number%></td>
+                <td><%=res.category.parentCategory%></td>
+                <td><%=res.category.childCategory%></td>
+                <td><%=res.name%></td>
+                <td><%=res.available.rental%></td>
+                <td><%=res.available.return%></td>
+                <td><%=res.count.remaining%></td>
+                <td><%=res.count.all - res.count.remaining%></td>
+                <td><%=res.count.all%></td>
+                <td><%=res.createDate%></td>
+                <td>
+                    <button class="btn-manager" onclick="editItem('<%=res._id%>')"><img class="manage-icon" src="/img/edit.png"></button>
+                    <button class="btn-manager" onclick="deleteItem('<%=res._id%>')"><img class="manage-icon" src="/img/trash.png"></button>
+                    <button class="btn-open-lender btn-manager" onclick="lenderList('<%=res.name%>', <%= JSON.stringify(res.lender) %>)"><img class="manage-icon" src="/img/customer.png"></button>
+                </td>
             </tr>
-        </thead>
-        <tbody id="tr_itemInfoList">
-        <%items.map(res => { %>
-        <tr>
-            <td><%=res.number%></td>
-            <td><%=res.category.parentCategory%></td>
-            <td><%=res.category.childCategory%></td>
-            <td><%=res.name%></td>
-            <td><%=res.available.rental%></td>
-            <td><%=res.available.return%></td>
-            <td><%=res.count.remaining%></td>
-            <td><%=res.count.all - res.count.remaining%></td>
-            <td><%=res.count.all%></td>
-            <td><%=res.createDate%></td>
-            <td>
-                <button onclick="editItem('<%=res._id%>')">편집</button>
-                <button onclick="deleteItem('<%=res._id%>')">삭제</button>
-                <button onclick="lenderList('<%=res.name%>', <%= JSON.stringify(res.lender) %>)">대여자명단</button>
-            </td>
-        </tr>
-        <% }); %>
-        </tbody>
-    </table>
-
-    <div class="lenders_modal">
-        <div class="lenders_modal_body">
+            <% }); %>
+            </tbody>
+        </table>
+        <div class="lenders_modal" id="lenders_modal">
+            <div class="lenders_modal_body" id="lenders_modal_body">
+            </div>
         </div>
     </div>
 </div>
-<script src="/javaScripts/itemIndex.js"></script>
-<script src="/javaScripts/categoryIndex.js"></script>
-<script src="/javaScripts/nav.js"></script>
 </body>
 </html>

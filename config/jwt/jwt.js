@@ -9,6 +9,7 @@ module.exports = {
     sign: async (user) => {
         const payload = {
                 workNumber: user.workNumber,
+                name: user.name,
                 authority : user.authority
         };
         const result = {

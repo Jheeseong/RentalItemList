@@ -79,8 +79,74 @@ table th {
     }
 }
 
+itemManagementBody {
+    width: 100%;
+    display: flex;
+}
+
 /* general styling */
 body {
     font-family: "Open Sans", sans-serif;
     line-height: 1.25;
+}
+
+.lenders_modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: none;
+
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.lenders_modal.show {
+    display: block;
+}
+
+.lenders_modal_body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 400px;
+    height: 600px;
+
+    padding: 40px;
+
+    text-align: center;
+
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+    transform: translateX(-50%) translateY(-50%);
+}
+
+select {
+    width: 200px; /* 원하는 너비설정 */
+    padding: .8em .5em; /* 여백으로 높이 설정 */
+    font-family: inherit;  /* 폰트 상속 */
+    background: url('/public/img/arrow-down.png') no-repeat 95% 50%; /* 네이티브 화살표를 커스텀 화살표로 대체 */
+    border: 1px solid #999;
+    border-radius: 0px; /* iOS 둥근모서리 제거 */
+    -webkit-appearance: none; /* 네이티브 외형 감추기 */
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.btn-manager {
+    background: no-repeat;
+    border: none;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin:5px;
+}
+
+.manage-icon{
+    width: 24px;
+    height: 24px;
 }

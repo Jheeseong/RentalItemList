@@ -34,7 +34,6 @@ const userSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 �
         },
         editAuthority:{
             type: Boolean,
-
         },
         openAuthority:{
             type: Boolean,
