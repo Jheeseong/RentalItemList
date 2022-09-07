@@ -4,19 +4,19 @@ const port = 3000;
 const path = require('path');
 const cookieParser = require('cookie-parser')
 
-const { User } = require('./models/User');
+const { User } = require('./Backend/models/User');
 
-const config = require('./config/MongoDB/key');
+const config = require('./Backend/config/MongoDB/key');
 const bodyParser = require("body-parser"); //body-parser 사용
 app.use(bodyParser.urlencoded({ extended: true })); //application/x-www-form-urlencoded 로 된 데이터를 분석해서 가져올 수 있게 한다
 app.use(bodyParser.json()); //application/json 타입으로 된 데이터를 분석해서 가져올 수 있게 한다 -> json형식으로 파싱
-app.use('/', express.static("./public"))
+app.use('/', express.static("./Frontend/public"))
 app.use(cookieParser())
 
 app.listen(port, () => console.log(`${port}포트입니다.`));
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join('Frontend', 'views'));
 app.set('view engine', 'ejs');
 
 // 몽구스 연결
@@ -37,12 +37,14 @@ mongoose.connect(config.mongoURI, {
 // });
 
 // router 연결
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const loginRouter = require('./routes/Login');
-const signUpRouter = require('./routes/signUp');
-const itemManagement = require('./routes/ItemManagement');
-const createItem = require('./routes/createItem')
+const indexRouter = require('./Backend/routes/index');
+const usersRouter = require('./Backend/routes/users');
+const loginRouter = require('./Backend/routes/Login');
+const signUpRouter = require('./Backend/routes/signUp');
+const itemManagement = require('./Backend/routes/ItemManagement');
+const createItem = require('./Backend/routes/createItem');
+
+
 app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/login", loginRouter);
