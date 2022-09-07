@@ -22,12 +22,14 @@ app.set('view engine', 'ejs');
 // 몽구스 연결
 const mongoose = require('mongoose');
 mongoose.connect(config.mongoURI, {
+        dbName:'test',
+        authMechanism:'DEFAULT',
         // useNewUrlPaser: true,
         // useUnifiedTofology: true,
         // useCreateIndex: true,
         // useFindAndModify: false,
     })
-    .then(() => console.log('MongoDB conected'))
+    .then(() => console.log('MongoDB connected'))
     .catch((err) => {
         console.log(err);
     });

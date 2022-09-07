@@ -4,7 +4,7 @@ const jwt = require("../config/jwt/jwt");
 const index = {
     index: async (req, res) => {
         res.render('index', {
-            title: 'Heaven Tree Item Lend System',
+            title: 'Heaventree Item Rental System',
             name: req.name,
             workNumber: req.workNumber
         });
