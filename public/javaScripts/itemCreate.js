@@ -48,8 +48,8 @@ btnCreateItem.addEventListener('click', async () => {
     // 모달 창 내 입력 값들을 items에 담아둠
     let items = {
         category: {
-            parentCategory: document.getElementById('parentCategory').value,
-            childCategory: document.getElementById('childCategory').value
+            parentCategory: document.getElementById('select_parentCategory').value,
+            childCategory: document.getElementById('select_childCategory').value
         },
         name: document.getElementById('name').value,
         number: document.getElementById('number').value,
@@ -61,26 +61,21 @@ btnCreateItem.addEventListener('click', async () => {
         available: {
             rental: true,
             return: true
-        },
-        lender:[{
-          name: (await jwt.sign()).token.name,
-            workNumber: (await jwt.sign()).token.workNumber
-        }]
-
+        }
     }
 
     // post를 통해 input 값을 DB에 저장하는 API 요청
-    await fetch('api/createItem', {
+    await fetch('createItem/api/createItem', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(items),
     }).then((res) => {res.json()})
-        .then((item) => {
+        .then(() => {
             // input 값 초기화
-            document.getElementById('parentCategory').value = null
-            document.getElementById('childCategory').value = null
+            document.getElementById('select_parentCategory').value = null
+            document.getElementById('select_childCategory').value = null
             document.getElementById('name').value = null
             document.getElementById('number').value = null
             document.getElementById('code').value = null

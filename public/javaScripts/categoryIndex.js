@@ -69,6 +69,7 @@ async function optionParentCategory() {
             .then((res) => res.json())
             .then((categories) => {
                 console.log(categories);
+                if (categories.children === null) return;
                 categories.children.children.map(res => {
                     rows += "<option value=" + res + ">" + res + "</option>";
                 });
