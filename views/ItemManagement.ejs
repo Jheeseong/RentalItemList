@@ -20,7 +20,7 @@
 <%- include('./nav.ejs')%>
 <div class="itemManagementBody">
     <h1>물품관리</h1>
-    <div class="itemSearch">
+    <div class="itemSearch" id="itemSearch">
         <select name="parentCategory" id="parentCategory" onchange="changeParentCategory()">
             <option value="전체">대분류 전체</option>
             <% categories.map((res) => {%>

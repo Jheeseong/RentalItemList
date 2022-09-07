@@ -52,7 +52,9 @@ const login = {
     /* 로그아웃 */
     logout: async (req, res) => {
         res.clearCookie('x_auth')
-            .redirect('/login');
+            .write("<script>window.alert('Logout Success!')</script>"
+            + "<script>location.replace('/login')</script>")
+
     }
 }
 

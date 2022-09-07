@@ -28,3 +28,15 @@ async function login() {
             console.log(err);
         });
 }
+
+async function enterKeyUp(event){
+    let key = event.key || event.keyCode;
+
+    if(key === 'Enter' || key === 13 ){
+        await login();
+    }
+}
+
+let enterKey = document.getElementById('login-container');
+enterKey.addEventListener('keyup', event => enterKeyUp(event));
+

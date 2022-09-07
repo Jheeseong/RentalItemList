@@ -4,10 +4,10 @@
     <title>사내 물품 관리</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/stylesheets/login.css' />
-    <script src="/javaScripts/login.js"></script>
+    <script defer src="/javaScripts/login.js"></script>
 </head>
 <body>
-    <div class="login-container">
+    <div class="login-container" id="login-container">
         <div class="form-login">
             <ul class="login-nav">
                 <li class="login-nav__item active">
@@ -26,11 +26,9 @@
             </label>
             <input id="password" name="password" class="login__input" type="password" />
 
-            <button type="submit" onclick="login()" class="login__submit">LOG IN</button>
+            <button id="btn-login" onclick="login()" class="login__submit">LOG IN</button>
         </div>
         <a href="#" class="login__forgot">비밀번호를 잊어버리셨나요?</a>
     </div>
-
-
 </body>
 </html>

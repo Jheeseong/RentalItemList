@@ -5,7 +5,7 @@ const itemManagement = {
     index: async (req, res) => {
         Item.find({}, async(err, items) => {
             Category.find({}, async(err, categories) => {
-                res.render('ItemManagement', { items : items, categories : categories });
+                res.render('ItemManagement', { items : items, categories : categories, name : req.name });
             });
         });
 

@@ -207,3 +207,14 @@ lendersModal.addEventListener('click', (e) => {
         }
     }
 })
+
+async function enterKeyUp(event){
+    let key = event.key || event.keyCode;
+
+    if(key === 'Enter' || key === 13 ){
+        await searchBtnEvent();
+    }
+}
+
+let enterKey = document.getElementById('itemSearch');
+enterKey.addEventListener('keyup', event => enterKeyUp(event));
