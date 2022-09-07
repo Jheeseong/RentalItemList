@@ -13,10 +13,10 @@ const itemSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 �
         type: String,
     },
     number: {
-        type: String,
+        type: Number,
     },
     code: {
-        type: Number,
+        type: String,
     },
     count: {
         all : {
