@@ -44,6 +44,10 @@ const userSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 �
         openAuthority:{
             type: Boolean,
             default:false
+        },
+        administrator:{
+            type: Boolean,
+            default:false
         }
 
     },

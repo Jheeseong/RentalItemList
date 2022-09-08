@@ -34,7 +34,7 @@ function btn_toggle(categoryClass) {
     categoryClass.classList.toggle(CLICKED_CLASS, this.createInput(categoryClass));
     if (!categoryClass.classList.contains('show')) {
         this.deleteInput(categoryClass)
-    }
+    } 
 }
 function createInput(categoryClass) {
     if (categoryClass === parentCategory) {
