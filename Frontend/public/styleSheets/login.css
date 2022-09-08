@@ -6,6 +6,7 @@ body {
     letter-spacing: 1px;
 }
 
+
 * {
     box-sizing: border-box;
     transition: .25s all ease;
@@ -20,7 +21,7 @@ body {
     width: 100%;
     max-width: 525px;
     min-height: 680px;
-    background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/283591/login-background.jpg);
+    /*background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/283591/login-background.jpg);*/
     box-shadow: 0 50px 70px -20px rgba(0, 0, 0, 0.85);
 }
 
@@ -99,7 +100,8 @@ body {
     transition: .20s all ease;
 }
 .login__label {
-    display: block;
+    display: flex;
+    justify-content: space-between;
     padding-left: 1rem;
 }
 

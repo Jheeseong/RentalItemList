@@ -43,13 +43,17 @@
 
         <label for="login-input-password" class="login__label">
             비밀번호
+            <span id="password_message"></span>
         </label>
-        <input id="password" name="password" class="login__input" type="password" />
+        <input id="password" name="password" class="login__input" type="password" onkeyup="passwordTest()"
+        style="ime-mode:disabled"/>
 
         <label for="login-input-password" class="login__label">
             비밀번호 확인
+            <span id="passwordConfirm_message"></span>
         </label>
-        <input id="passwordConfirm" name="passwordConfirm" class="login__input" type="password" />
+        <input id="passwordConfirm" name="passwordConfirm" class="login__input" type="password" onkeyup="passwordTest()"
+        style="ime-mode:disabled"/>
 
         <button type="submit" class="login__submit" onclick="btn_signup()">회원가입</button>
     </div>
