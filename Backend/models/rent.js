@@ -23,7 +23,7 @@ const rentSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 �
     },
     /*대여일*/
     rentDate: {
-        type: Date
+        type: Date,
         require: true,
         default: Date.now()
     },
