@@ -193,7 +193,7 @@ function lenderList(name, lender){
     rows += "</ul>";
     modalbody.innerHTML = rows;
 
-    if(modal.classList.contains('show')){
+    if(lendersModal.classList.contains('show')){
         body.style.overflow = 'hidden';
     }
 }
@@ -202,7 +202,7 @@ lendersModal.addEventListener('click', (e) => {
     if(e.target === lendersModal){
         lendersModal.classList.toggle('show');
 
-        if(!modal.classList.contains('show')){
+        if(!lendersModal.classList.contains('show')){
             body.style.overflow = 'auto';
         }
     }

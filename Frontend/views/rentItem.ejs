@@ -1,0 +1,21 @@
+<link rel='stylesheet' href='/stylesheets/rentItem.css' />
+<script defer src="/javaScripts/rentItem.js"></script>
+<div class="rent_modal" id="rent_modal">
+    <div class="rent_modal_body" id="rent_modal_body">
+        <h3>물품 대여</h3>
+        <div class="itemInformation" id="itemInformation">
+            <ul class="itemInfoList" name="itemInfoList" id="itemInfoList"></ul>
+        </div>
+        <label for="purpose">대여 목적</label>
+        <textarea rows=3 name="purpose" id="purpose" class="input-purpose"></textarea><br/>
+
+        <label for="rentDate">대여일</label>
+        <input type="datetime-local" id="rentDate" class="rentDate"><br/>
+
+        <label for="returnDate">반납일</label>
+        <input type="date" id="returnDate" class="returnDate"><br/>
+
+        <button>확인</button>
+        <button>취소</button>
+    </div>
+</div>

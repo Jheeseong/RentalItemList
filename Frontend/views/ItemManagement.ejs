@@ -34,7 +34,7 @@
             <option value="itemName">물품이름</option>
             <option value="lenderName">대여자이름</option>
         </select>
-        <input type="text" name="input_search" id="input_search">
+        <input class="input_search" type="text" name="input_search" id="input_search">
         <button class="btn-search" name="btn_search" id="btn_search" onclick="searchBtnEvent()"><img class="search-icon" src="/img/search.png"></button>
     </div>
     <div class="itemInfoList">
@@ -61,7 +61,7 @@
                 <td><%=res.number%></td>
                 <td><%=res.category.parentCategory%></td>
                 <td><%=res.category.childCategory%></td>
-                <td><%=res.name%></td>
+                <td class="btn-rent" onclick="rentModalView('<%=res.name%>', '<%=res.code%>')"><%=res.name%></td>
                 <td><%=res.available.rental%></td>
                 <td><%=res.available.return%></td>
                 <td><%=res.count.remaining%></td>
@@ -81,6 +81,7 @@
             <div class="lenders_modal_body" id="lenders_modal_body">
             </div>
         </div>
+        <%- include('./rentItem.ejs')%>
     </div>
 </div>
 </body>
