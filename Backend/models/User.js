@@ -54,11 +54,32 @@ const userSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 �
         type: Number
     }
 });
-
+/*monggose pre 메소드를 사용해서 save 실행 전에 실행되도록 설계*/
 userSchema.pre('save', function (next) {
 
     const user = this;
 
+    /*암호화 종류
+    * 1. SHA-2(secure Hash Algorithm2)
+    * - GPU를 이용하여 연산속도가 빨라 password 암호화에는 비권장
+    * - GPU 연산속도가 빠를수록 공격자의 하드웨어를 통한 오프라인에 더 취약
+    * 2. PBKDF2(pbkdf2_hmac(해시함수(sha256..), password, salt, iteration, DLen))
+    * - 해쉬함수의 컨테이너 역할
+    * - 검증된 해시함수를 사용
+    * - 해시함수와 salt 적용 후 해쉬 함수의 반복횟수를 지정하여 암호화
+    * 3. Bcrypt(bcrypt.hashpw(password, bcrypt.gensalt()))
+    * - Blowfish암호를 기반으로 설계된 암호화 함수
+    * - salting과 key stretching을 구현한 함수로 단방향 암호화
+    * - 반복횟수를 늘려 연삭속도 조절이 가능하여 brute-force 공격에 대비 가능
+    * - 기존의 hashing은 동일한 입력 값에 동일한 출력 값을 가지는 문제가 있어 salt를 활용
+    * - 실제 비밀번호(plain Text)에 salt라는 랜덤 값을 추가 후 hashing
+    * - plain Text + salt -> hashing -> hashed Text
+    * - ex) $[algorithm]$[cost]$[salt][hash]
+    * - algorithm : bcrypt의 버전 정보
+    * - cost : round 수를 의미, 클수록 연산 cost가 증가
+    * - 나머지 salt와 hash 값
+    * - compare 원리 : plain Text와 저장된 salt 정보를 가지고 bcrypt에 넣으면 hash 값 확인 가능
+    *                 hash 값을 적절하게 조합하여 암호화되어 저장된 문자열과 비교하여 체크*/
     if (user.isModified('password')) {
         bcrypt.genSalt(saltRounds, function (err, salt) {
             if (err) return next(err);
