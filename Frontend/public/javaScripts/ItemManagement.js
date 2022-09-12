@@ -155,11 +155,6 @@ function tableSort(index) {
     }
 }
 
-/* 물품 편집 */
-function editItem(id){
-    console.log(id);
-}
-
 /* 물품 삭제 */
 async function deleteItem(id){
     if(window.confirm("정말 삭제하시겠습니까?") === true){

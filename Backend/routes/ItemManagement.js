@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const itemManagementController = require('../controller/ItemManagement');
 const categoryController = require('../controller/category');
+const itemEditController = require('../controller/editItem');
 const authUtil = require('../config/jwt/auth').checkToken;
 
 /* GET home page. */
@@ -18,6 +19,8 @@ router.get('/find/childcategory/:keyword', categoryController.findChildCategoryB
 router.get('/find/item/parentCategory/:keyword', itemManagementController.findByParentCategory);
 
 router.get('/find/item/childCategory/:keyword', itemManagementController.findByChildCategory);
+
+router.get('/edit/:id', itemEditController.index);
 
 router.delete('/delete/:id', itemManagementController.deleteById);
 
