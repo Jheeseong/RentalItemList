@@ -5,11 +5,10 @@ function itemsRender(items){
     console.log(items);
 
     items.map(res => {
-
         rows += "<tr><td>" +res.number + "</td>" +
         "<td>" + res.category.parentCategory + "</td>" +
         "<td>" +res.category.childCategory + "</td>" +
-        "<td>" +res.name + "</td>" +
+        "<td class='btn-rent' onclick='rentModalView(" + JSON.stringify(res) + ")'>" +res.name + "</td>" +
         "<td>" +res.available.rental + "</td>" +
         "<td>" +res.available.return + "</td>" +
         "<td>" +res.count.remaining + "</td>" +

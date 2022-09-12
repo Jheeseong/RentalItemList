@@ -36,6 +36,8 @@ const authUtil = {
             res.cookie("x_auth", jwtToken)
                 .status(200);
 
+            console.log(user.name + "님 토큰 만료, 토큰 재발급");
+
             // return req.body.json({code : "Token authorized fail", message : "TOKEN EXPIRED"});
         }
         // 유효하지 않는 토큰

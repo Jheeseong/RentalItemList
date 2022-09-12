@@ -61,7 +61,7 @@
                 <td><%=res.number%></td>
                 <td><%=res.category.parentCategory%></td>
                 <td><%=res.category.childCategory%></td>
-                <td class="btn-rent" onclick="rentModalView('<%=res.name%>', '<%=res.code%>')"><%=res.name%></td>
+                <td class="btn-rent" onclick="rentModalView(<%=JSON.stringify(res)%>)"><%=res.name%></td>
                 <td><%=res.available.rental%></td>
                 <td><%=res.available.return%></td>
                 <td><%=res.count.remaining%></td>
