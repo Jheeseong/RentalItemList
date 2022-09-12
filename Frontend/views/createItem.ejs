@@ -1,6 +1,6 @@
 <link rel='stylesheet' href='/stylesheets/itemCreate.css'>
-<div class="modal">
-    <div class="modal_body">
+<div class="modal_create">
+    <div class="modal_create_body">
         <h2>물품 등록</h2>
         <label>대분류 : </label>
         <select type="text" name="parentCategory" id="select_parentCategory" class="select_parent"
@@ -26,6 +26,20 @@
         <label>물품 번호 : </label>
         <input type="Number" name="number" id="number">
         <br/>
+        <label>대여 가능 여부 : </label>
+        <select id="rental" name="rental" type="text">
+            <option value='' disabled selected>선택</option>
+            <option value="ture">가능</option>
+            <option value="false">불가능</option>
+        </select>
+        <br/>
+        <label>반환 필요 여부 : </label>
+        <select id="return" name="return" type="text">
+            <option value='' disabled selected>선택</option>
+            <option value="ture">필요</option>
+            <option value="false">불필요</option>
+        </select>
+        <br/>
         <label>물품 코드 : </label>
         <input type="text" name="code" id="code">
         <br/>
@@ -33,5 +47,7 @@
         <input type="Number" name="all" id="all">
         <br/>
         <button class="btn-createItem">물품 등록</button>
+        <button class="btn-initItem">초기화</button>
+        <button class="btn-cancel">취소</button>
     </div>
 </div>

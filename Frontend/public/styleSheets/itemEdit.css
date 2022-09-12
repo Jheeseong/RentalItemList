@@ -1,4 +1,4 @@
-.modal_create {
+.modal_edit {
     position: absolute;
     top: 0;
     left: 0;
@@ -10,11 +10,11 @@
 
     background-color: rgba(0, 0, 0, 0.4);
 }
-.modal_create.show {
+.modal_edit.show {
     display: block;
 }
 
-.modal_create_body {
+.modal_edit_body {
     position: absolute;
     top: 50%;
     left: 50%;

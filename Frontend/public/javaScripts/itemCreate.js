@@ -1,22 +1,26 @@
 const body = document.querySelector('body');
-const modal = document.querySelector('.modal');
+const modal = document.querySelector('.modal_create');
 const btnOpenPopup = document.querySelector('.btn-open-popup');
 const btnCreateItem = document.querySelector('.btn-createItem');
+const btnInitItem = document.querySelector('.btn-initItem');
+const btnCancel = document.querySelector('.btn-cancel');
 
-//nav의 물품버튼 클릭 시 modal 실행
+//nav의 물품등록 버튼 클릭 시 modal 실행
 btnOpenPopup.addEventListener('click', async () => {
     //toggle을 통해 물품버튼 클릭 수에 맞게 modal 창 오픈
     modal.classList.toggle('show');
-    const parentCategory = document.getElementById('select_parentCategory');
-
-    let rows = "<option value=\'\' disabled selected>대분류 선택</option>";
-
     // DB의 대분류 카테고리를 물러오는 API 요청
     await fetch('createItem/api/find/prentCategory', {
         method: 'get'
     })
         .then((res) => res.json())
         .then((categories) => {
+            const parentCategory = document.getElementById('select_parentCategory');
+
+            //option 초기화
+            for(i=1; i<parentCategory.options.length; i++) parentCategory.options[i] = null;
+            parentCategory.options.length = 1;
+
             //받아온 대분류 카테고리를 map에 담아 그 수만큼 innerHTML을 통해 option 추가
             categories.categories.map(res => {
                 parentCategory.innerHTML += "<option value=" + res.name + ">" + res.name + "</option>"
@@ -59,8 +63,8 @@ btnCreateItem.addEventListener('click', async () => {
             remaining: document.getElementById('all').value
         },
         available: {
-            rental: true,
-            return: true
+            rental: document.getElementById('rental').value,
+            return: document.getElementById('return').value
         }
     }
 
@@ -74,15 +78,35 @@ btnCreateItem.addEventListener('click', async () => {
     }).then((res) => {res.json()})
         .then(() => {
             // input 값 초기화
-            document.getElementById('select_parentCategory').value = null
-            document.getElementById('select_childCategory').value = null
-            document.getElementById('name').value = null
-            document.getElementById('number').value = null
-            document.getElementById('code').value = null
-            document.getElementById('all').value = null
+            initItem();
             modal.classList.toggle('show');
         })
         .catch((err) => {
             console.log(err);
         })
 });
+
+//초기화 버튼
+btnInitItem.addEventListener('click', () => {
+    let result = window.confirm("초기화를 하시겠습니까?");
+    if (result) {
+        initItem();
+    }
+});
+
+btnCancel.addEventListener('click', () => {
+    initItem();
+    modal.classList.toggle('show');
+})
+
+
+function initItem() {
+    // input 값 초기화
+    document.getElementById('select_parentCategory').value = null
+    document.getElementById('select_childCategory').value = null
+    document.getElementById('name').value = null
+    document.getElementById('number').value = null
+    document.getElementById('code').value = null
+    document.getElementById('all').value = null
+
+}

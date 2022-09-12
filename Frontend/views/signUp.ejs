@@ -29,7 +29,13 @@
         <label for="login-input-user" class="login__label">
             직책
         </label>
-        <input id="role" name="role" class="login__input" type="text" />
+        <select id="role" name="role" class="login__input" type="text">
+            <option value="대표"> 대표</option>
+            <option value="부장"> 부장</option>
+            <option value="팀장"> 팀장</option>
+            <option value="대리"> 대리</option>
+            <option value="사원"> 사원</option>
+        </select>
 
         <label for="login-input-user" class="login__label">
             사번
@@ -38,15 +44,17 @@
 
         <label for="login-input-user" class="login__label">
             이메일
+            <span id="email_message"></span>
         </label>
-        <input id="email" name="email" class="login__input" type="text" />
+        <input id="email" name="email" class="login__input" type="text" onkeyup="emailTest()"
+               style="ime-mode:disabled"/>
 
         <label for="login-input-password" class="login__label">
             비밀번호
             <span id="password_message"></span>
         </label>
         <input id="password" name="password" class="login__input" type="password" onkeyup="passwordTest()"
-        style="ime-mode:disabled"/>
+               style="ime-mode:disabled"/>
 
         <label for="login-input-password" class="login__label">
             비밀번호 확인
