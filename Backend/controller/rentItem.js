@@ -27,7 +27,7 @@ const rentItem = {
                 if(err){
                     console.log(err);
                 }
-                if(!result.count.remaining - 1){
+                if(result.count.remaining - 1 <= 0){
                     Item.findOneAndUpdate({_id:result._id}, {$set : {"available.rental" : false}}, function (err, result){
                         if(err) console.log(err);
                         else console.log("대여불가 상태로 변경");
