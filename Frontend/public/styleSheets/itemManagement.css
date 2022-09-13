@@ -100,7 +100,7 @@ body {
 
 /*대여자 목록 모달*/
 .lenders_modal {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
 
@@ -115,7 +115,7 @@ body {
     display: block;
 }
 .lenders_modal_body {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
 

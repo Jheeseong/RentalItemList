@@ -1,5 +1,4 @@
 const modal_edit = document.querySelector('.modal_edit');
-
 //모달 창 바깥 클릭 시 모달 창 꺼지는 기능 구현
 modal_edit.addEventListener('click', (event) => {
     if (event.target === modal_edit) {
@@ -16,22 +15,30 @@ modal_edit.addEventListener('click', (event) => {
 async function editItem(id){
     const parentCategory_edit = document.getElementById('select_parentCategory_edit');
     const childCategory_edit = document.getElementById('select_childCategory_edit');
+    const rental_edit = document.getElementById('rental_edit');
+    const return_edit = document.getElementById('return_edit')
+
+    const btnUpdateItem = document.querySelector('.btn-updateItem');
 
     modal_edit.classList.toggle('show');
+    if (modal_edit.classList.contains('show')) {
+        body.style.overflow = 'hidden';
+    }
     console.log(id);
     $.ajax({
         type: "GET",
         url: 'itemmanagement/edit/' + id,
         dataType:"json",
-        success: function (result) {
+        success: async function (result) {
             console.log(result)
-            for(i = 1; i<parentCategory_edit.options.length; i++) parentCategory_edit.options[i] = null;
+            for (i = 1; i < parentCategory_edit.options.length; i++) parentCategory_edit.options[i] = null;
             parentCategory_edit.options.length = 1;
 
             //받아온 대분류 카테고리를 map에 담아 그 수만큼 innerHTML을 통해 option 추가
             result.categories.map(res => {
                 parentCategory_edit.innerHTML += "<option value=" + res.name + ">" + res.name + "</option>"
             })
+
             //select에 Item의 저장된 value 값 불러오기
             for (let i = 0; i < parentCategory_edit.options.length; i++) {
                 console.log(parentCategory_edit.options[i].value);
@@ -40,7 +47,8 @@ async function editItem(id){
                 }
             }
 
-            optionParentCategory_edit()
+            await optionParentCategory_edit()
+
 
             for (let i = 0; i < childCategory_edit.options.length; i++) {
                 console.log(childCategory_edit.options[i].value);
@@ -52,16 +60,95 @@ async function editItem(id){
             //document.getElementById('select_childCategory_edit').value = item.item.category.childCategory;
             document.getElementById('name_edit').value = result.item.name;
             document.getElementById('number_edit').value = result.item.number;
-            //document.getElementById('rental_edit').value = item.item.available.rental;
-            //document.getElementById('return_edit').value = item.item.available.return;
+
+            if (result.item.available.rental === true) {
+                rental_edit.options[1].selected = true;
+            } else {
+                rental_edit.options[2].selected = true;
+            }
+
+            if (result.item.available.return === true) {
+                return_edit.options[1].selected = true;
+            } else {
+                return_edit.options[2].selected = true;
+            }
+
             document.getElementById('code_edit').value = result.item.code;
             document.getElementById('all_edit').value = result.item.count.all;
-        },
+
+            btnUpdateItem.addEventListener('click', async () => {
+                await itemSave(id);
+            })
+            },
         error: function (err) {
             console.log(err);
             window.alert(err);
         }
     })
+}
+
+async function itemSave(id) {
+    window.alert("수정 완료")
+    // 모달 창 내 입력 값들을 items에 담아둠
+    let items = {
+        category: {
+            parentCategory: document.getElementById('select_parentCategory_edit').value,
+            childCategory: document.getElementById('select_childCategory_edit').value
+        },
+        name: document.getElementById('name_edit').value,
+        number: document.getElementById('number_edit').value,
+        code: document.getElementById('code_edit').value,
+        count: {
+            all: document.getElementById('all_edit').value,
+        },
+        available: {
+            rental: document.getElementById('rental_edit').value,
+            return: document.getElementById('return_edit').value
+        }
+    }
+
+    // post를 통해 input 값을 DB에 저장하는 API 요청
+    await fetch('itemmanagement/update/' + id, {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(items),
+    }).then((res) => {res.json()})
+        .then(() => {
+            modal_edit.classList.toggle('show');
+            window.location.reload(true);
+        })
+        .catch((err) => {
+            console.log(err);
+            window.alert(err);
+        })
+}
+
+function initItem_btn() {
+    let result = window.confirm("초기화를 하시겠습니까?");
+    if (result) {
+        // input 값 초기화
+        initItem_edit()
+    }
+};
+
+function cancel_btn() {
+    initItem();
+    modal_edit.classList.toggle('show');
+}
+
+function initItem_edit() {
+    // input 값 초기화
+    document.getElementById('select_parentCategory_edit').value = null
+    document.getElementById('select_childCategory_edit').value = null
+    document.getElementById('name_edit').value = null
+    document.getElementById('number_edit').value = null
+    document.getElementById('rental_edit').value = null
+    document.getElementById('return_edit').value = null
+    document.getElementById('code_edit').value = null
+    document.getElementById('all_edit').value = null
+
 }
 
 async function optionParentCategory_edit() {

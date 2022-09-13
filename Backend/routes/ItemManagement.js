@@ -22,6 +22,8 @@ router.get('/find/item/childCategory/:keyword', itemManagementController.findByC
 
 router.get('/edit/:id', itemEditController.index);
 
+router.post('/update/:id', itemEditController.updateItem);
+
 router.delete('/delete/:id', itemManagementController.deleteById);
 
 module.exports = router;

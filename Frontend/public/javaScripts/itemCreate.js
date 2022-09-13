@@ -94,6 +94,7 @@ btnInitItem.addEventListener('click', () => {
     }
 });
 
+//취소 버튼
 btnCancel.addEventListener('click', () => {
     initItem();
     modal.classList.toggle('show');
@@ -106,6 +107,8 @@ function initItem() {
     document.getElementById('select_childCategory').value = null
     document.getElementById('name').value = null
     document.getElementById('number').value = null
+    document.getElementById('rental').value = null
+    document.getElementById('return').value = null
     document.getElementById('code').value = null
     document.getElementById('all').value = null
 
