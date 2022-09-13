@@ -42,36 +42,39 @@
         <button class="btn-search" name="btn_search" id="btn_search" onclick="searchBtnEvent()"><img class="search-icon" src="/img/search.png"></button>
     </div>
     <div class="itemInfoList">
+        <button class="btn-put-excel" id="btn_put_excel" onclick="putExcel()"><img class="excel-icon" src="/img/excel.png">&nbsp 엑셀로 변환</button>
         <table id="itemInfoListTable">
-            <caption><button class="btn-put-excel" id="btn_put_excel" onclick="putExcel()"><img class="excel-icon" src="/img/excel.png">&nbsp 엑셀로 변환</button></caption>
             <thead>
                 <tr>
                     <th scope="col">물품 번호</th>
                     <th scope="col">물품 대분류</th>
                     <th scope="col">물품 소분류</th>
-                    <th scope="col" style="cursor: pointer;" onclick="tableSort(2)">물품 이름</th>
-                    <th scope="col">대여 가능 여부</th>
-                    <th scope="col">반납 필요 여부</th>
-                    <th scope="col">대여 가능 수량</th>
-                    <th scope="col">대여 중 수량</th>
+                    <th scope="col" style="cursor: pointer;" onclick="tableSort(2)">물품 이름▼</th>
+                    <th scope="col">대여 가능</th>
+                    <th scope="col">반납 필요</th>
+                    <th scope="col">남은 수량</th>
+                    <th scope="col">대여중 수량</th>
                     <th scope="col">총 수량</th>
-                    <th scope="col" style="cursor: pointer;" onclick="tableSort(9)">최종 수정일</th>
+                    <th scope="col" style="cursor: pointer;" onclick="tableSort(9)">최종 수정일▼</th>
                     <th scope="col">관리자 기능</th>
                 </tr>
             </thead>
             <tbody id="tr_itemInfoList">
             <%items.map(res => { %>
+            <% let date = res.createDate.getFullYear()
+                    + "." + (res.createDate.getMonth() + 1)
+                    + "." + res.createDate.getDate()%>
             <tr>
                 <td><%=res.number%></td>
                 <td><%=res.category.parentCategory%></td>
                 <td><%=res.category.childCategory%></td>
                 <td class="btn-rent" onclick="rentModalView(<%=JSON.stringify(res)%>)"><%=res.name%></td>
-                <td><%=res.available.rental%></td>
-                <td><%=res.available.return%></td>
+                <td><%=res.available.rental ? "O" : "X"%></td>
+                <td><%=res.available.return ? "O" : "X"%></td>
                 <td><%=res.count.remaining%></td>
                 <td><%=res.count.all - res.count.remaining%></td>
                 <td><%=res.count.all%></td>
-                <td><%=res.createDate%></td>
+                <td><%=date%></td>
                 <td>
                     <button class="btn-manager" onclick="editItem('<%=res._id%>')"><img class="manage-icon" src="/img/edit.png"></button>
                     <button class="btn-manager" onclick="deleteItem('<%=res._id%>')"><img class="manage-icon" src="/img/trash.png"></button>

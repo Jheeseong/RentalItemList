@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>나의 대여 현황</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+<%- include('./nav.ejs')%>
+<h1><%=name%>님의 대여 현황</h1>
+<div class="itemInfoList">
+    <table id="itemInfoListTable">
+        <thead>
+        <tr>
+            <th scope="col">물품 번호</th>
+            <th scope="col">물품 대분류</th>
+            <th scope="col">물품 소분류</th>
+            <th scope="col">물품명</th>
+            <th scope="col">물품 코드</th>
+            <th scope="col">대여일</th>
+            <th scope="col">반납 예정일</th>
+            <th scope="col">대여 사유</th>
+            <th scope="col">반납</th>
+        </tr>
+        </thead>
+        <tbody id="tr_itemInfoList">
+        <%rentInfo.map(res => {%>
+        <% let rentDate = res.rentDate.getFullYear()
+                + "." + (res.rentDate.getMonth() + 1)
+                + "." + res.rentDate.getDate()%>
+        <% let returnPlanDate = res.returnPlanDate.getFullYear()
+                + "." + (res.returnPlanDate.getMonth() + 1)
+                + "." + res.returnPlanDate.getDate()%>
+            <tr>
+                <td><%=res.itemNumber%></td>
+                <td><%=res.category.parentCategory%></td>
+                <td><%=res.category.childCategory%></td>
+                <td><%=res.itemName%></td>
+                <td><%=res.itemCode%></td>
+                <td><%=rentDate%></td>
+                <td><%=returnPlanDate%></td>
+                <td><%=res.purpose%></td>
+                <td><button>반납</button></td>
+            </tr>
+        <%});%>
+
+
+        </tbody>
+    </table>
+</body>

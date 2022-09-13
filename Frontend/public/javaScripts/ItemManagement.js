@@ -2,19 +2,18 @@
 function itemsRender(items){
     const itemInfoListTable = document.getElementById('tr_itemInfoList');
     let rows = "<div></div>";
-    console.log(items);
 
     items.map(res => {
         rows += "<tr><td>" +res.number + "</td>" +
         "<td>" + res.category.parentCategory + "</td>" +
         "<td>" +res.category.childCategory + "</td>" +
         "<td class='btn-rent' onclick='rentModalView(" + JSON.stringify(res) + ")'>" +res.name + "</td>" +
-        "<td>" +res.available.rental + "</td>" +
-        "<td>" +res.available.return + "</td>" +
+        "<td>" + (res.available.rental ? 'O' : 'X') + "</td>" +
+        "<td>" + (res.available.return ? 'O' : 'X') + "</td>" +
         "<td>" +res.count.remaining + "</td>" +
         "<td>" +(res.count.all - res.count.remaining) + "</td>" +
         "<td>" +res.count.all + "</td>" +
-        "<td>" +res.createDate + "</td>" +
+        "<td>" + dateFormatter(res.createDate) + "</td>" +
         "<td><button class='btn-manager' onclick='editItem(\"" + res._id + "\")'><img class=\"manage-icon\" src=\"/img/edit.png\"></button>" +
         "<button class='btn-manager' onclick='deleteItem(\"" + res._id +"\")'><img class=\"manage-icon\" src=\"/img/trash.png\"></button> " +
         "<button class='btn-open-lender btn-manager' onclick='lenderList(\"" + res.name + "\"," + JSON.stringify(res.lender) +")'><img class=\"manage-icon\" src=\"/img/customer.png\"></button>" +
@@ -212,3 +211,13 @@ async function enterKeyUp(event){
 
 let enterKey = document.getElementById('itemSearch');
 enterKey.addEventListener('keyup', event => enterKeyUp(event));
+
+function dateFormatter(date){
+    date = new Date(date);
+    let y = date.getFullYear().toString();
+    let mon = (date.getMonth() + 1).toString();
+    let d = date.getDate().toString();
+    let fullDate = y+ "." + mon + "." + d;
+    return fullDate;
+
+}

@@ -46,6 +46,7 @@ const signUpRouter = require('./Backend/routes/signUp');
 const itemManagement = require('./Backend/routes/ItemManagement');
 const createItem = require('./Backend/routes/createItem');
 const rentItem = require('./Backend/routes/rentItem');
+const myRental = require('./Backend/routes/myRental');
 
 app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
@@ -54,4 +55,5 @@ app.use("/signUp", signUpRouter);
 app.use("/createItem", createItem);
 app.use("/itemmanagement", itemManagement);
 app.use("/rentItem", rentItem);
+app.use("/myRental", myRental);
 

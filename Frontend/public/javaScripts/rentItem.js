@@ -13,6 +13,11 @@ function rentModalView(itemInfo){
 
         document.getElementById('rentDate').value = new Date().toISOString().slice(0, 16);
         document.getElementById('rentDate').min = new Date().toISOString().slice(0, 16);
+
+        if(itemInfo.available.return === false){
+            document.getElementById('returnDate').disabled = true;
+        }
+
         document.getElementById('returnDate').value = new Date().toISOString().slice(0, 16);
         document.getElementById('returnDate').min = new Date().toISOString().slice(0, 16);
 
@@ -42,28 +47,31 @@ rentModal.addEventListener('click', (e) => {
 })
 
 async function rentSubmit(){
-    const rentItem = {
-        itemCode : document.getElementById('itemCode').value,
-        purpose : document.getElementById('purpose').value,
-        rentDate : document.getElementById('rentDate').value,
-        returnPlanDate : document.getElementById('returnDate').value
+    if(window.confirm("물품을 대여하시겠습니까?") === true){
+        const rentItem = {
+            itemCode : document.getElementById('itemCode').value,
+            purpose : document.getElementById('purpose').value,
+            rentDate : document.getElementById('rentDate').value,
+            returnPlanDate : document.getElementById('returnDate').value
+        }
+
+        await fetch('rentItem/rent', {
+            method : 'post',
+            headers : {
+                'Content-Type' : 'application/json',
+            },
+            body: JSON.stringify(rentItem)
+        }).then((res) => res.json())
+            .then((res) => {
+                if(res.rentSuccess){
+                    window.alert("물품 대여에 성공하였습니다.");
+                    window.location.reload();
+                }
+            }).catch((err) => {
+                console.log(err);
+            })
     }
 
-    await fetch('rentItem/rent', {
-        method : 'post',
-        headers : {
-            'Content-Type' : 'application/json',
-        },
-        body: JSON.stringify(rentItem)
-    }).then((res) => res.json())
-        .then((res) => {
-            if(res.rentSuccess){
-                window.alert("물품 대여에 성공하였습니다.");
-                window.location.reload();
-            }
-        }).catch((err) => {
-            console.log(err);
-        })
 }
 
 function cancel(){

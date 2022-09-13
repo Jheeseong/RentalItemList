@@ -5,8 +5,11 @@ table {
     margin-right: auto;
     margin-top: 30px;
     padding: 0;
-    width: 80%;
+    max-width: 1000px;
     table-layout: fixed;
+    height: 500px;
+    display: block;
+    overflow: auto;
 }
 
 table caption {
@@ -35,6 +38,7 @@ table th {
 @media screen and (max-width: 600px) {
     table {
         border: 0;
+
     }
 
     table caption {
@@ -81,10 +85,12 @@ table th {
     }
 }
 
-itemManagementBody {
+.itemManagementBody {
     width: 100%;
-    display: flex;
+    align-items: center;
+    text-align: center;
 }
+
 
 /* general styling */
 body {
