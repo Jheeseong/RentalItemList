@@ -34,7 +34,8 @@ const rentSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 �
     /*반납 일*/
     returnDate: {
         type: Date
-    }
+    },
+    itemInfo: { type: mongoose.Schema.Types.ObjectId, ref:"items"}
 
 
 });
