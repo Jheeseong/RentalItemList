@@ -23,14 +23,14 @@
         <label>대여 가능 여부 : </label>
         <select id="rental_edit" name="rental_edit" type="text">
             <option value='' disabled selected>선택</option>
-            <option value="ture">가능</option>
+            <option value="true">가능</option>
             <option value="false">불가능</option>
         </select>
         <br/>
         <label>반환 필요 여부 : </label>
         <select id="return_edit" name="return_edit" type="text">
             <option value='' disabled selected>선택</option>
-            <option value="ture">필요</option>
+            <option value="true">필요</option>
             <option value="false">불필요</option>
         </select>
         <br/>
@@ -40,8 +40,8 @@
         <label>물품 갯수 : </label>
         <input type="Number" name="all_edit" id="all_edit">
         <br/>
-        <button class="btn-createItem">물품 편집</button>
-        <button class="btn-initItem" onclick="initItem()">초기화</button>
-        <button class="btn-cancel">취소</button>
+        <button class="btn-updateItem">물품 편집</button>
+        <button class="btn-initItem" onclick="initItem_btn()">초기화</button>
+        <button class="btn-cancel" onclick="cancel_btn()">취소</button>
     </div>
 </div>

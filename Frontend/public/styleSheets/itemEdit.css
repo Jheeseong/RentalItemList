@@ -1,5 +1,5 @@
 .modal_edit {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
 
@@ -15,7 +15,7 @@
 }
 
 .modal_edit_body {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
 

@@ -6,8 +6,23 @@ const itemEdit = {
         Item.findOne({_id: req.params.id}, async(err, items) =>{
             Category.find({}, async (err, categories) => {
                 res.json({item : items, categories : categories})
-                console.log(items, categories)
             });
+        });
+    },
+    updateItem: async (req, res) => {
+        Item.updateOne({_id: req.params.id},
+            {
+                "category.parentCategory": req.body.category.parentCategory,
+                "category.childCategory": req.body.category.childCategory,
+                name: req.body.name,
+                number: req.body.number,
+                code: req.body.code,
+                "count.all": req.body.count.all,
+                "available.rental": req.body.available.rental,
+                "available.return": req.body.available.return
+                },
+            async(err, items) => {
+            res.json({item : items})
         });
     }
 }
