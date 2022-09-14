@@ -7,14 +7,14 @@
             <ul class="itemInfoList" name="itemInfoList" id="itemInfoList"></ul>
         </div>
         <div class="rent_input" id="rent_input">
-        <label for="purpose">대여 목적</label>
-        <textarea rows=3 name="purpose" id="purpose" class="input-purpose"></textarea><br/>
+            <label for="purpose">대여 목적</label>
+            <textarea rows=3 name="purpose" id="purpose" class="input-purpose"></textarea><br/>
 
-        <label for="rentDate">대여일</label>
-        <input type="datetime-local" onchange="changeRentDate()" id="rentDate" class="rentDate"><br/>
+            <label for="rentDate">대여일</label>
+            <input type="datetime-local" onchange="changeRentDate()" id="rentDate" class="rentDate"><br/>
 
-        <label for="returnDate">반납일</label>
-        <input type="datetime-local" id="returnDate" class="returnDate"><br/>
+            <label for="returnDate">반납일</label>
+            <input type="datetime-local" onchange="changeReturnDate()" id="returnDate" class="returnDate"><br/>
         </div>
         <button onclick="rentSubmit()">확인</button>
         <button onclick="cancel()">취소</button>

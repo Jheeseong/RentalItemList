@@ -9,17 +9,20 @@ function rentModalView(itemInfo){
         return window.alert("대여불가 물품입니다.");
     }else{
         const rentModalBody = document.getElementById('rent_modal_body');
-        rentModalBody.innerHTML += "<input type='hidden' id='itemCode' value='" + itemInfo.code + "'>";
+        rentModalBody.innerHTML += "<input type='hidden' id='itemCode' value='" + itemInfo.code + "'>"
+        + "<input type='hidden' id='itemId' value='" + itemInfo._id + "'>";
 
-        document.getElementById('rentDate').value = new Date().toISOString().slice(0, 16);
-        document.getElementById('rentDate').min = new Date().toISOString().slice(0, 16);
+        const currTime = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+
+        document.getElementById('rentDate').value = currTime;
+        document.getElementById('rentDate').min = currTime;
 
         if(itemInfo.available.return === false){
             document.getElementById('returnDate').disabled = true;
         }
 
-        document.getElementById('returnDate').value = new Date().toISOString().slice(0, 16);
-        document.getElementById('returnDate').min = new Date().toISOString().slice(0, 16);
+        document.getElementById('returnDate').value = currTime;
+        document.getElementById('returnDate').min = currTime;
 
         rentModal.classList.toggle('show');
 
@@ -32,8 +35,20 @@ function rentModalView(itemInfo){
 }
 
 function changeRentDate(){
+    const currTime = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+    if(document.getElementById('rentDate').value < currTime){
+        document.getElementById('rentDate').value = currTime;
+        return window.alert("대여시간을 현재시간보다 이전으로 선택할 수 없습니다.");
+    }
     document.getElementById('returnDate').value = document.getElementById('rentDate').value;
     document.getElementById('returnDate').min = document.getElementById('rentDate').value;
+}
+
+function changeReturnDate(){
+    if(document.getElementById('rentDate').value >= document.getElementById('returnDate').value){
+        document.getElementById('returnDate').value = document.getElementById('rentDate').value
+        return window.alert("반납시간을 대여시간과 같거나 대여시간 이전으로 설정할 수 없습니다.");
+    }
 }
 
 rentModal.addEventListener('click', (e) => {
@@ -49,6 +64,7 @@ rentModal.addEventListener('click', (e) => {
 async function rentSubmit(){
     if(window.confirm("물품을 대여하시겠습니까?") === true){
         const rentItem = {
+            itemId: document.getElementById('itemId').value,
             itemCode : document.getElementById('itemCode').value,
             purpose : document.getElementById('purpose').value,
             rentDate : document.getElementById('rentDate').value,

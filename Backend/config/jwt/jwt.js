@@ -10,7 +10,8 @@ module.exports = {
         const payload = {
                 workNumber: user.workNumber,
                 name: user.name,
-                authority : user.authority
+                authority : user.authority,
+                user_id: user._id
         };
         const result = {
             token: jwt.sign(payload, secretKey, options),

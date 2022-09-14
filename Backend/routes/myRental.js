@@ -6,4 +6,6 @@ const myRentalController = require('../controller/myRental');
 /* GET home page. */
 router.get('/', authUtil, myRentalController.index);
 
+router.get('/returnItem/:rentId/:itemId', authUtil, myRentalController.returnItem);
+
 module.exports = router;

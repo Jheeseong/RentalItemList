@@ -61,6 +61,21 @@ const authUtil = {
         req.authority = user.authority;
         next();
     },
+    authAdmin: (req, res) => {
+
+    },
+    authRental: (req, res) => {
+
+    },
+    authEdit: (req, res) => {
+
+    },
+    authOpen: (req, res) => {
+
+    }
+
+
+
 }
 
 module.exports = authUtil;

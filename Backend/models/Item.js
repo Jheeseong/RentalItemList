@@ -1,5 +1,6 @@
 const mongoose = require('mongoose'); // mongoose를 선언해주고,
 
+
 const itemSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 작성해준다.
     category: {
         parentCategory: {
@@ -22,7 +23,7 @@ const itemSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 �
         all : {
             type : Number
         },
-        remaining: {
+        renting: {
             type : Number
         },
     },
@@ -34,14 +35,11 @@ const itemSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 �
             type : Boolean
         }
     },
-    lender:[{
-        name : String,
-        workNumber : Number
-    }],
+    rentInfo:[{ type: mongoose.Schema.Types.ObjectId, ref:"Rent"}],
     createDate:{
         type : Date,
         required : true,
-        default: Date.now
+        default: new Date()
     }
 });
 

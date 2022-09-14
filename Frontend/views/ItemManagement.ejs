@@ -7,6 +7,7 @@
     <link rel='stylesheet' href='/stylesheets/itemCreate.css' />
     <link rel='stylesheet' href='/stylesheets/itemEdit.css' />
     <link rel='stylesheet' href='/stylesheets/itemManagement.css' />
+    <link rel='stylesheet' href='/stylesheets/table.css' />
     <script defer src="/javaScripts/itemManagement.js"></script>
     <script defer src="/javaScripts/itemEdit.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
@@ -70,14 +71,14 @@
                 <td class="btn-rent" onclick="rentModalView(<%=JSON.stringify(res)%>)"><%=res.name%></td>
                 <td><%=res.available.rental ? "O" : "X"%></td>
                 <td><%=res.available.return ? "O" : "X"%></td>
-                <td><%=res.count.remaining%></td>
-                <td><%=res.count.all - res.count.remaining%></td>
+                <td><%=res.count.all-res.count.renting%></td>
+                <td><%=res.count.renting%></td>
                 <td><%=res.count.all%></td>
                 <td><%=date%></td>
                 <td>
                     <button class="btn-manager" onclick="editItem('<%=res._id%>')"><img class="manage-icon" src="/img/edit.png"></button>
                     <button class="btn-manager" onclick="deleteItem('<%=res._id%>')"><img class="manage-icon" src="/img/trash.png"></button>
-                    <button class="btn-open-lender btn-manager" onclick="lenderList('<%=res.name%>', <%= JSON.stringify(res.lender) %>)"><img class="manage-icon" src="/img/customer.png"></button>
+                    <button class="btn-open-lender btn-manager" onclick="lenderList('<%=res.name%>', <%= JSON.stringify(res.rentInfo) %>)"><img class="manage-icon" src="/img/customer.png"></button>
                 </td>
             </tr>
             <% }); %>

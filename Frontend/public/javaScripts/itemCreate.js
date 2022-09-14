@@ -60,7 +60,7 @@ btnCreateItem.addEventListener('click', async () => {
         code: document.getElementById('code').value,
         count: {
             all: document.getElementById('all').value,
-            remaining: document.getElementById('all').value
+            renting: 0
         },
         available: {
             rental: document.getElementById('rental').value,

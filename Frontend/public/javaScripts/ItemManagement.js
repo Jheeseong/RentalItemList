@@ -10,13 +10,13 @@ function itemsRender(items){
         "<td class='btn-rent' onclick='rentModalView(" + JSON.stringify(res) + ")'>" +res.name + "</td>" +
         "<td>" + (res.available.rental ? 'O' : 'X') + "</td>" +
         "<td>" + (res.available.return ? 'O' : 'X') + "</td>" +
-        "<td>" +res.count.remaining + "</td>" +
-        "<td>" +(res.count.all - res.count.remaining) + "</td>" +
-        "<td>" +res.count.all + "</td>" +
+        "<td>" + (res.count.all - res.count.renting) + "</td>" +
+        "<td>" + res.count.renting + "</td>" +
+        "<td>" + res.count.all + "</td>" +
         "<td>" + dateFormatter(res.createDate) + "</td>" +
         "<td><button class='btn-manager' onclick='editItem(\"" + res._id + "\")'><img class=\"manage-icon\" src=\"/img/edit.png\"></button>" +
         "<button class='btn-manager' onclick='deleteItem(\"" + res._id +"\")'><img class=\"manage-icon\" src=\"/img/trash.png\"></button> " +
-        "<button class='btn-open-lender btn-manager' onclick='lenderList(\"" + res.name + "\"," + JSON.stringify(res.lender) +")'><img class=\"manage-icon\" src=\"/img/customer.png\"></button>" +
+        "<button class='btn-open-lender btn-manager' onclick='lenderList(\"" + res.name + "\"," + JSON.stringify(res.rentInfo) +")'><img class=\"manage-icon\" src=\"/img/customer.png\"></button>" +
         "</td></tr>"
     });
     itemInfoListTable.innerHTML=rows;
@@ -175,13 +175,13 @@ async function deleteItem(id){
 }
 
 let lendersModal = document.querySelector('.lenders_modal');
-function lenderList(name, lender){
+function lenderList(name, rentInfo){
     lendersModal.classList.toggle('show');
     const modalbody = document.getElementById('lenders_modal_body');
 
     let rows = "<h3>" + name + " 대여자 목록</h3><br/><ul>"
-    lender.map((lenders) => {
-        rows += "<li>사번 : " + lenders.workNumber + " / 이름 : " + lenders.name + "</li>";
+    rentInfo.map((lenders) => {
+        rows += "<li>사번 : " + lenders.workNumber + " / 이름 : " + lenders.userName + "</li>";
     })
     rows += "</ul>";
     modalbody.innerHTML = rows;

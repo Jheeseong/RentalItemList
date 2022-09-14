@@ -24,8 +24,6 @@ const rentSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 �
     /*대여일*/
     rentDate: {
         type: Date,
-        require: true,
-        default: Date.now()
     },
     /*반납 예정일*/
     returnPlanDate: {
@@ -35,7 +33,8 @@ const rentSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 �
     returnDate: {
         type: Date
     },
-    itemInfo: { type: mongoose.Schema.Types.ObjectId, ref:"items"}
+    itemInfo: { type: mongoose.Schema.Types.ObjectId, ref:"Item"},
+    userInfo: { type: mongoose.Schema.Types.ObjectId, ref:"User"}
 
 
 });
