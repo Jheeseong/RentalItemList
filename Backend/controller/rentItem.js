@@ -16,21 +16,20 @@ const rentItem = {
         });
 
         /* 대여 정보 저장 */
-        rentItem.save((err, result) => {
-
+        rentItem.save((err, saveResult) => {
             if(err){
                 return console.log(err);
             }
 
             /* 물품 정보 수정(잔여 수량 감소, 대여자 명단 추가) */
             Item.findOneAndUpdate({code : req.body.itemCode},
-                {$inc : {"count.renting" : 1}, $push:{ rentInfo : result._id }},
-                function (err, result){
+                {$inc : {"count.renting" : 1}, $push:{ rentInfo : saveResult._id }},
+                function (err, updateResult){
                     if(err){
                         console.log(err);
                     }
-                    if(result.count.renting + 1 === result.count.all){
-                        Item.findOneAndUpdate({_id:result._id}, {$set : {"available.rental" : false}}, function (err, result){
+                    if(updateResult.count.renting + 1 === updateResult.count.all){
+                        Item.findOneAndUpdate({_id:updateResult._id}, {$set : {"available.rental" : false}}, function (err, result){
                             if(err) console.log(err);
                             else console.log("대여불가 상태로 변경");
                         })
