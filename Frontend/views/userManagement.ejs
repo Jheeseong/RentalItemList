@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>이용자 관리</title>
+    <script defer src="/javaScripts/userManagement.js"></script>
+    <script defer src="https://code.jquery.com/jquery-3.6.1.js"></script>
+</head>
+<body>
+<%- include('./nav.ejs')%>
+<div class="userManagementBody">
+    <h1>이용자 관리</h1>
+    <div class="userList">
+        <table id="userInfoListTable">
+            <thead>
+            <tr>
+                <th scope="col">이름</th>
+                <th scope="col">부서</th>
+                <th scope="col">직책</th>
+                <th scope="col">메일</th>
+                <th scope="col">편집 권한</th>
+                <th scope="col">대여 권한</th>
+                <th scope="col">열람 권한</th>
+                <th scope="col">관리자 기능</th>
+            </tr>
+            </thead>
+            <tbody id="tr_userList">
+            <%users.map(res => { %>
+            <tr>
+                <td><%=res.name%></td>
+                <td><%=res.department%></td>
+                <td><%=res.role%></td>
+                <td><%=res.email%></td>
+                <td><%=res.authority.editAuthority ? "가능" : "불가능"%></td>
+                <td><%=res.authority.rentalAuthority ? "가능" : "불가능"%></td>
+                <td><%=res.authority.openAuthority ? "가능" : "불가능"%></td>
+                <td>
+                    <button class="btn_exile" onclick="exile('<%=res._id%>')">추방</button>
+                    <button class="btn_authority_edit" onclick="updateEditAuthority('<%=res._id%>')">편집 권한</button>
+                    <button class="btn_authority_rental" onclick="updateRentalAuthority('<%=res._id%>')">대여 권한</button>
+                    <button class="btn_authority_open" onclick="updateOpenAuthority('<%=res._id%>')">열람 권한</button>
+                    <button class="btn_reset" onclick="resetPassword('<%=res._id%>')">비밀번호 초기화</button>
+                </td>
+            </tr>
+            <%});%>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

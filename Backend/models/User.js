@@ -29,7 +29,7 @@ const userSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 �
     },
     password: {
         type: String,
-        minLength: 4,
+        minLength: 3,
         require:true
     },
     authority: {
@@ -91,6 +91,24 @@ userSchema.pre('save', function (next) {
             bcrypt.hash(user.password, salt, function (err, hash) {
                 if (err) return next(err);
                 user.password = hash;
+                next();
+            });
+        });
+    } else {
+        next()
+    }
+});
+
+userSchema.pre('updateOne', function (next) {
+    const user =this;
+    console.log(user.password)
+    if (user.getUpdate().$set.password) {
+        bcrypt.genSalt(saltRounds, function (err, salt) {
+            if (err) return next(err);
+
+            bcrypt.hash(user.getUpdate().$set.password, salt, function (err, hash) {
+                if (err) return next(err);
+                user.getUpdate().$set.password = hash;
                 next();
             });
         });
