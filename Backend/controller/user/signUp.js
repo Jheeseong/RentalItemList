@@ -6,6 +6,7 @@ const signUp = {
     },
     saveUser: async (req, res) => {
         const user = new User(req.body);
+        console.log(user);
         user.save((err,userinfo) => {
             //MongoDB에서 오는 Method, 정보들이 User model에 저장
             //저장 할 때 err가 있다면 client에 err가 있다고 전달 -> 전달을 할 때 json 형식으로 전달
