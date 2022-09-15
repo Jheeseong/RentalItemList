@@ -5,11 +5,10 @@ table {
     margin-right: auto;
     margin-top: 30px;
     padding: 0;
-    max-width: 1000px;
+    width: 80%;
     table-layout: fixed;
-    height: 500px;
-    display: block;
-    overflow: auto;
+
+
 }
 
 table caption {

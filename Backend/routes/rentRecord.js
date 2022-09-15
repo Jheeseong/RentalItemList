@@ -1,15 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const rentRecordController = require('../controller/rentRecord');
 const authUtil = require('../config/jwt/auth').checkToken;
-const myRentalController = require('../controller/myRental');
 const authAdmin = require('../config/jwt/auth').authAdmin;
 const authRental = require('../config/jwt/auth').authRental;
 const authEdit = require('../config/jwt/auth').authEdit;
 const authOpen = require('../config/jwt/auth').authOpen;
 
 /* GET home page. */
-router.get('/', authUtil, myRentalController.index);
+router.get('/', authUtil, rentRecordController.index);
 
-router.get('/returnItem/:rentId/:itemId', authUtil, myRentalController.returnItem);
 
 module.exports = router;

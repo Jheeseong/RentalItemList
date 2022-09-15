@@ -9,6 +9,12 @@ const index = {
             workNumber: req.workNumber
         });
     },
+    error: (req, res) => {
+        res.render('errorUnauthorized', {
+            code : "UNAUTHORIZED",
+            message : "접근 권한이 없습니다."
+        })
+    }
 }
 
 

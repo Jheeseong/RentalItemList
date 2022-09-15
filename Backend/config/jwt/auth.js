@@ -61,17 +61,34 @@ const authUtil = {
         req.authority = user.authority;
         next();
     },
-    authAdmin: (req, res) => {
+    authAdmin: (req, res, next) => {
+        if(!req.authority.administrator){
+            return res.redirect('/error');
+        }else {
+            next();
+        }
+    },
+    authRental: (req, res, next) => {
+        if(!req.authority.rentalAuthority){
+            return res.redirect('/error');
+        }else {
+            next();
+        }
+    },
+    authEdit: (req, res, next) => {
+        if(!req.authority.editAuthority){
+            return res.redirect('/error');
+        }else {
+            next();
+        }
 
     },
-    authRental: (req, res) => {
-
-    },
-    authEdit: (req, res) => {
-
-    },
-    authOpen: (req, res) => {
-
+    authOpen: (req, res, next) => {
+        if(!req.authority.openAuthority){
+            return res.redirect('/error');
+        }else {
+            next();
+        }
     }
 
 

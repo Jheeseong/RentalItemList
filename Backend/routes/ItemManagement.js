@@ -4,26 +4,31 @@ const itemManagementController = require('../controller/ItemManagement');
 const categoryController = require('../controller/category');
 const itemEditController = require('../controller/editItem');
 const authUtil = require('../config/jwt/auth').checkToken;
+const authAdmin = require('../config/jwt/auth').authAdmin;
+const authRental = require('../config/jwt/auth').authRental;
+const authEdit = require('../config/jwt/auth').authEdit;
+const authOpen = require('../config/jwt/auth').authOpen;
+
 
 /* GET home page. */
-router.get('/', authUtil, itemManagementController.index);
+router.get('/', authUtil, authEdit, itemManagementController.index);
 
-router.get('/findAll', itemManagementController.findAll);
+router.get('/findAll', authUtil ,itemManagementController.findAll);
 
-router.get('/find/item/:parentCategory/:childCategory/:keyword', itemManagementController.findByItem);
+router.get('/find/item/:parentCategory/:childCategory/:keyword', authUtil, itemManagementController.findByItem);
 
-router.get('/find/lender/:parentCategory/:childCategory/:keyword', itemManagementController.findByLender);
+router.get('/find/lender/:parentCategory/:childCategory/:keyword', authUtil, itemManagementController.findByLender);
 
-router.get('/find/childcategory/:keyword', categoryController.findChildCategoryByParent);
+router.get('/find/childcategory/:keyword', authUtil, categoryController.findChildCategoryByParent);
 
-router.get('/find/item/parentCategory/:keyword', itemManagementController.findByParentCategory);
+router.get('/find/item/parentCategory/:keyword', authUtil, itemManagementController.findByParentCategory);
 
-router.get('/find/item/childCategory/:keyword', itemManagementController.findByChildCategory);
+router.get('/find/item/childCategory/:keyword', authUtil, itemManagementController.findByChildCategory);
 
-router.get('/edit/:id', itemEditController.index);
+router.get('/edit/:id', authUtil, itemEditController.index);
 
-router.post('/update/:id', itemEditController.updateItem);
+router.post('/update/:id', authUtil, itemEditController.updateItem);
 
-router.delete('/delete/:id', itemManagementController.deleteById);
+router.delete('/delete/:id', authUtil, itemManagementController.deleteById);
 
 module.exports = router;

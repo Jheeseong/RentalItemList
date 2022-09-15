@@ -44,8 +44,15 @@ const myRental = {
             {$pull : {rentInfo : req.params.rentId}, $inc : {"count.renting" : -1}},
             function(err, result){
                 if(err) console.log(err);
-                console.log(result);
-            })
+                if(result.available.rental === false && result.count.renting === result.count.all){
+                    Item.findOneAndUpdate({_id: req.params.itemId},
+                        {$set: {"available.rental" : true}},
+                        function(err, result){
+                        if(err) console.log(err);
+                        console.log("대여가능여부 true");
+                    });
+                }
+        });
 
     },
 }

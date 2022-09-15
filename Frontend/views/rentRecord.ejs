@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>물품 대여 이력</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/table.css"/>
+</head>
+<body>
+<%- include('./nav.ejs')%>
+<h1>물품 대여 이력</h1>
+<div class="rentRecordList">
+    <table id="rentRecordListTable">
+        <caption>물품 대여 이력</caption>
+        <thead>
+        <tr>
+            <th scope="col">상태</th>
+            <th scope="col">물품 대분류</th>
+            <th scope="col">물품 소분류</th>
+            <th scope="col">물품명</th>
+            <th scope="col">물품 코드</th>
+            <th scope="col">대여자명</th>
+            <th scope="col">대여 사유</th>
+            <th scope="col">대여일</th>
+            <th scope="col">반납예정일</th>
+            <th scope="col">반납일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% rentRecord.map(res => {%>
+            <% let rentDate = res.rentDate.getFullYear()
+                    + "년 " + (res.rentDate.getMonth() + 1)
+                    + "월 " + res.rentDate.getDate()
+                    + "일 " + res.rentDate.getHours()
+                    + "시 " + res.rentDate.getMinutes() + "분"
+            %>
+            <% let returnPlanDate = res.returnPlanDate.getFullYear()
+                    + "년 " + (res.returnPlanDate.getMonth() + 1)
+                    + "월 " + res.returnPlanDate.getDate()
+                    + "일 " + res.returnPlanDate.getHours()
+                    + "시 " + res.returnPlanDate.getMinutes() + "분"
+            %>
+                <% let returnDate = res.returnDate ?
+                        res.returnDate.getFullYear()
+                        + "년 " + (res.returnDate.getMonth() + 1)
+                        + "월 " + res.returnDate.getDate()
+                        + "일  " + res.returnDate.getHours()
+                        + "시  " + res.returnDate.getMinutes() + "분"
+                : "대여중"
+                %>
+            <tr>
+                <td><%=res.rentStatus ? "대여" : "반납"%></td>
+                <td><%=res.itemInfo.category.parentCategory%></td>
+                <td><%=res.itemInfo.category.childCategory%></td>
+                <td><%=res.itemInfo.name%></td>
+                <td><%=res.itemInfo.code%></td>
+                <td><%=res.userName%></td>
+                <td><%=res.purpose%></td>
+                <td><%=rentDate%></td>
+                <td><%=returnPlanDate%></td>
+                <td><%=returnDate%></td>
+            </tr>
+        <%});%>
+        </tbody>
+</div>
+</body>

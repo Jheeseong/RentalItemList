@@ -22,7 +22,7 @@ const rentItem = {
             }
 
             /* 물품 정보 수정(잔여 수량 감소, 대여자 명단 추가) */
-            Item.findOneAndUpdate({code : req.body.itemCode},
+            Item.findOneAndUpdate({_id : req.body.itemId},
                 {$inc : {"count.renting" : 1}, $push:{ rentInfo : saveResult._id }},
                 function (err, updateResult){
                     if(err){
