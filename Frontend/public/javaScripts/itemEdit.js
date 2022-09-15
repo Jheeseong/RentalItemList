@@ -16,15 +16,18 @@ async function editItem(id){
     const parentCategory_edit = document.getElementById('select_parentCategory_edit');
     const childCategory_edit = document.getElementById('select_childCategory_edit');
     const rental_edit = document.getElementById('rental_edit');
-    const return_edit = document.getElementById('return_edit')
-
+    const return_edit = document.getElementById('return_edit');
     const btnUpdateItem = document.querySelector('.btn-updateItem');
+    const btnInitItem = document.getElementById('initItemId');
 
-    modal_edit.classList.toggle('show');
+    // const modalEditBody = document.querySelector('.modal_edit_body');
+
+    modal_edit.classList.add('show');
     if (modal_edit.classList.contains('show')) {
         body.style.overflow = 'hidden';
     }
     console.log(id);
+
     $.ajax({
         type: "GET",
         url: 'itemmanagement/edit/' + id,
@@ -76,10 +79,17 @@ async function editItem(id){
             document.getElementById('code_edit').value = result.item.code;
             document.getElementById('all_edit').value = result.item.count.all;
 
-            btnUpdateItem.addEventListener('click', async () => {
+            btnUpdateItem.onclick = async function () {
                 await itemSave(id);
-            })
-            },
+            }
+            
+            btnInitItem.onclick = async function () {
+                console.log(id)
+                if (window.confirm("초기화를 하시겠습니까?")) {
+                    await editItem(id);
+                }
+            }
+        },
         error: function (err) {
             console.log(err);
             window.alert(err);
@@ -125,12 +135,8 @@ async function itemSave(id) {
         })
 }
 
-function initItem_btn() {
-    let result = window.confirm("초기화를 하시겠습니까?");
-    if (result) {
-        // input 값 초기화
-        initItem_edit()
-    }
+function initItem_btn(id) {
+
 };
 
 function cancel_btn() {
@@ -138,7 +144,7 @@ function cancel_btn() {
     modal_edit.classList.toggle('show');
 }
 
-function initItem_edit() {
+function initItem_edit(id) {
     // input 값 초기화
     document.getElementById('select_parentCategory_edit').value = null
     document.getElementById('select_childCategory_edit').value = null
@@ -158,7 +164,7 @@ async function optionParentCategory_edit() {
 
     let rows_edit = "<option value=\'\' disabled selected>소분류 선택</option>";
 
-    if (parentCategory_edit === "대분류 선택") {
+    if (parentCategoryVal_edit === "대분류 선택") {
         childCategory_edit.innerHTML = rows_edit;
     } else {
         await fetch('createItem/api/find/childcategory/' + parentCategoryVal_edit, {

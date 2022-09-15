@@ -49,6 +49,8 @@ const rentItem = require('./Backend/routes/rentItem');
 const myRental = require('./Backend/routes/myRental');
 const userManagement = require('./Backend/routes/userManagement');
 const rentRecord = require('./Backend/routes/rentRecord');
+const rentalStatus = require('./Backend/routes/rentalStatus')
+
 
 app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
@@ -60,4 +62,6 @@ app.use("/rentItem", rentItem);
 app.use("/myRental", myRental);
 app.use("/usermanagement", userManagement);
 app.use("/rentRecord", rentRecord);
+app.use("/rentalStatus", rentalStatus);
+
 

@@ -77,9 +77,7 @@ btnCreateItem.addEventListener('click', async () => {
         body: JSON.stringify(items),
     }).then((res) => {res.json()})
         .then(() => {
-            // input 값 초기화
-            initItem();
-            modal.classList.toggle('show');
+            window.location.reload(true);
         })
         .catch((err) => {
             console.log(err);
