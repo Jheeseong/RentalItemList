@@ -42,10 +42,18 @@ const itemManagement = {
         if(childCategory === "소분류 전체")
             childCategory = "";
 
-        Item.find({$and : [{lender : {$elemMatch : {name : req.params.keyword}}},{"category.parentCategory" : { $regex : parentCategory}}, {"category.childCategory" : {$regex : childCategory}}]})
-            .populate("rentInfo")
+        Item.find({$and : [{"category.parentCategory" : { $regex : parentCategory}}, {"category.childCategory" : {$regex : childCategory}}]})
+            .populate({ path : "rentInfo",  match : { userName :{ $regex : req.params.keyword }}})
             .exec(async(err, items) =>{
-            res.json({ items });
+                // 대여자가 있는 아이템만 구분
+                let item = new Array();
+                items.map((res) =>{
+                    if(res.rentInfo.length){
+                        item.push(res);
+                    }
+                });
+                console.log(items);
+                res.json({ items : item });
         });
     },
     findByParentCategory : async(req, res) => {
