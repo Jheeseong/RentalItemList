@@ -1,4 +1,5 @@
 const { Item } = require("../models/Item");
+const { Rent } = require("../models/rent");
 const { Category } = require('../models/Category');
 
 const itemManagement = {
@@ -74,6 +75,14 @@ const itemManagement = {
         Item.deleteOne({_id: req.params.id}, async(err, result) => {
             res.json({ deleteSuccess : "Success", message : "물품이 성공적으로 삭제되었습니다.", result : result });
         })
+    },
+    rentHistory: async(req, res) => {
+        Rent.find({ itemInfo : req.params.itemId})
+            .sort({rentStatus : -1})
+            .exec(async (err, histories) => {
+                if(err) console.log(err);
+                res.json({ histories })
+            })
     }
 }
 

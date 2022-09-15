@@ -10,6 +10,7 @@
     <link rel='stylesheet' href='/stylesheets/table.css' />
     <script defer src="/javaScripts/itemManagement.js"></script>
     <script defer src="/javaScripts/itemEdit.js"></script>
+    <script defer src="/javaScripts/managerFunction.js"></script>
     <script defer src="https://code.jquery.com/jquery-3.6.1.js"></script>
     <!--SheetJS 라이브러리 사용-->
     <script src="/javaScripts/xlsx.full.min.js"></script>
@@ -79,6 +80,7 @@
                     <button class="btn-manager" onclick="editItem('<%=res._id%>')"><img class="manage-icon" src="/img/edit.png"></button>
                     <button class="btn-manager" onclick="deleteItem('<%=res._id%>')"><img class="manage-icon" src="/img/trash.png"></button>
                     <button class="btn-open-lender btn-manager" onclick="lenderList('<%=res.name%>', <%= JSON.stringify(res.rentInfo) %>)"><img class="manage-icon" src="/img/customer.png"></button>
+                    <button class="btn-open-rentHistory btn-manager" onclick="rentHistory(<%= JSON.stringify(res) %>)"><img class="manage-icon" src="/img/history.png"></button>
                 </td>
             </tr>
             <% }); %>
@@ -86,6 +88,28 @@
         </table>
         <div class="lenders_modal" id="lenders_modal">
             <div class="lenders_modal_body" id="lenders_modal_body">
+            </div>
+        </div>
+
+        <div class="history_modal" id="history_modal">
+            <div class="history_modal_body" id="history_modal_body">
+                <div class="modal_iteminfo" id="modal_iteminfo">
+
+                </div>
+                <table class="history_table" id="history_table" >
+                    <thead>
+                    <tr>
+                        <th>상태</th>
+                        <th>대여자</th>
+                        <th>대여사유</th>
+                        <th>대여일</th>
+                        <th>반납(예정)일</th>
+                    </tr>
+                    </thead>
+                    <tbody class="history_table_body" id="history_table_body">
+
+                    </tbody>
+                </table>
             </div>
         </div>
         <%- include('./rentItem.ejs')%>

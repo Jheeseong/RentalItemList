@@ -11,7 +11,7 @@ const authOpen = require('../config/jwt/auth').authOpen;
 
 
 /* GET home page. */
-router.get('/', authUtil, authEdit, itemManagementController.index);
+router.get('/', authUtil, itemManagementController.index);
 
 router.get('/findAll', authUtil ,itemManagementController.findAll);
 
@@ -30,5 +30,7 @@ router.get('/edit/:id', authUtil, itemEditController.index);
 router.post('/update/:id', authUtil, itemEditController.updateItem);
 
 router.delete('/delete/:id', authUtil, itemManagementController.deleteById);
+
+router.get('/history/:itemId', authUtil, authAdmin, itemManagementController.rentHistory);
 
 module.exports = router;

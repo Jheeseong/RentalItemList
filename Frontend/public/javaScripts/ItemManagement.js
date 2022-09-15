@@ -14,9 +14,10 @@ function itemsRender(items){
         "<td>" + res.count.renting + "</td>" +
         "<td>" + res.count.all + "</td>" +
         "<td>" + dateFormatter(res.createDate) + "</td>" +
-        "<td><button class='btn-manager' onclick='editItem(\"" + res._id + "\")'><img class=\"manage-icon\" src=\"/img/edit.png\"></button>" +
-        "<button class='btn-manager' onclick='deleteItem(\"" + res._id +"\")'><img class=\"manage-icon\" src=\"/img/trash.png\"></button> " +
+        "<td><button class='btn-manager' onclick='editItem(\"" + res._id + "\")'><img class='manage-icon' src='/img/edit.png'></button>" +
+        "<button class='btn-manager' onclick='deleteItem(\"" + res._id +"\")'><img class='manage-icon' src='/img/trash.png'></button> " +
         "<button class='btn-open-lender btn-manager' onclick='lenderList(\"" + res.name + "\"," + JSON.stringify(res.rentInfo) +")'><img class=\"manage-icon\" src=\"/img/customer.png\"></button>" +
+        "<button class='btn-open-rentHistory btn-manager' onClick='rentHistory(" + JSON.stringify(res) + ")'><img class='manage-icon' src='/img/history.png'></button>" +
         "</td></tr>"
     });
     itemInfoListTable.innerHTML=rows;
@@ -154,52 +155,6 @@ function tableSort(index) {
     }
 }
 
-/* 물품 삭제 */
-async function deleteItem(id){
-    if(window.confirm("정말 삭제하시겠습니까?") === true){
-        await fetch('itemmanagement/delete/' + id, {
-            method: 'delete'
-        })
-            .then((res) => res.json())
-            .then((result) => {
-                window.alert(result.message);
-            }).catch((err) => {
-                window.alert(err);
-            });
-    }
-    else{
-        return;
-    }
-
-
-}
-
-let lendersModal = document.querySelector('.lenders_modal');
-function lenderList(name, rentInfo){
-    lendersModal.classList.toggle('show');
-    const modalbody = document.getElementById('lenders_modal_body');
-
-    let rows = "<h3>" + name + " 대여자 목록</h3><br/><ul>"
-    rentInfo.map((lenders) => {
-        rows += "<li>사번 : " + lenders.workNumber + " / 이름 : " + lenders.userName + "</li>";
-    })
-    rows += "</ul>";
-    modalbody.innerHTML = rows;
-
-    if(lendersModal.classList.contains('show')){
-        body.style.overflow = 'hidden';
-    }
-}
-
-lendersModal.addEventListener('click', (e) => {
-    if(e.target === lendersModal){
-        lendersModal.classList.toggle('show');
-
-        if(!lendersModal.classList.contains('show')){
-            body.style.overflow = 'auto';
-        }
-    }
-})
 
 async function enterKeyUp(event){
     let key = event.key || event.keyCode;
