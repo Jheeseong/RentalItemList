@@ -48,7 +48,6 @@ modal.addEventListener('click', (event) => {
 
 //물품 등록 버튼 구현
 btnCreateItem.addEventListener('click', async () => {
-    window.alert("저장 완료")
     // 모달 창 내 입력 값들을 items에 담아둠
     let items = {
         category: {
@@ -75,8 +74,9 @@ btnCreateItem.addEventListener('click', async () => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(items),
-    }).then((res) => {res.json()})
-        .then(() => {
+    }).then((res) => res.json())
+        .then((res) => {
+            window.alert(res.message)
             window.location.reload(true);
         })
         .catch((err) => {
@@ -120,26 +120,41 @@ function excelExport(event){
         const wb = XLSX.read(fileData, {type : 'binary'});
         wb.SheetNames.forEach(function(sheetName){
             const rowObj = XLSX.utils.sheet_to_json(wb.Sheets[sheetName]);
-            console.log(JSON.stringify(rowObj[0]))
+            console.log(rowObj[0]["제품 이름"])
+            console.log(JSON.stringify(rowObj))
             for (let i = 0; i < rowObj.length; i++) {
                 let items = {
                     category: {
-                        parentCategory: rowObj[i].대분류,
-                        childCategory: rowObj[i].소분류
+                        parentCategory: rowObj[i]["대분류"],
+                        childCategory: rowObj[i]["소분류"]
                     },
-                    name: rowObj[i].제품이름,
+                    name: rowObj[i]["제품 이름"],
                     number: 1,
-                    code: rowObj[i].제품코드,
+                    code: rowObj[i]["제품 코드"],
                     count: {
-                        all: rowObj[i].수량,
+                        all: rowObj[i]["수량"],
                         renting: 0
                     },
                     available: {
-                        rental: rowObj[i].대여가능여부,
-                        return: rowObj[i].반환필요여부
+                        rental: rowObj[i]["대여 가능 여부"],
+                        return: rowObj[i]["반환 필요 여부"]
                     }
                 }
                 console.log(items)
+                fetch('createItem/api/createItem', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(items),
+                }).then((res) => res.json())
+                    .then((res) => {
+                        window.alert(res.message)
+                        window.location.reload(true);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
             }
         })
     }
