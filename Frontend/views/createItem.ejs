@@ -2,6 +2,8 @@
 <div class="modal_create">
     <div class="modal_create_body">
         <h2>물품 등록</h2>
+        <input type="file" id="excelFile" onchange="excelExport(event)"/>
+        <br/>
         <label>대분류 : </label>
         <select type="text" name="parentCategory" id="select_parentCategory" class="select_parent"
         onchange="optionParentCategory()">

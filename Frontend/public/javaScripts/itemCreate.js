@@ -111,3 +111,37 @@ function initItem() {
     document.getElementById('all').value = null
 
 }
+
+function excelExport(event){
+    let input = event.target;
+    let reader = new FileReader();
+    reader.onload = function(){
+        const fileData = reader.result;
+        const wb = XLSX.read(fileData, {type : 'binary'});
+        wb.SheetNames.forEach(function(sheetName){
+            const rowObj = XLSX.utils.sheet_to_json(wb.Sheets[sheetName]);
+            console.log(JSON.stringify(rowObj[0]))
+            for (let i = 0; i < rowObj.length; i++) {
+                let items = {
+                    category: {
+                        parentCategory: rowObj[i].대분류,
+                        childCategory: rowObj[i].소분류
+                    },
+                    name: rowObj[i].제품이름,
+                    number: 1,
+                    code: rowObj[i].제품코드,
+                    count: {
+                        all: rowObj[i].수량,
+                        renting: 0
+                    },
+                    available: {
+                        rental: rowObj[i].대여가능여부,
+                        return: rowObj[i].반환필요여부
+                    }
+                }
+                console.log(items)
+            }
+        })
+    }
+    reader.readAsBinaryString(input.files[0]);
+}

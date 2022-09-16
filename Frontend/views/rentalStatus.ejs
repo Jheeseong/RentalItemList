@@ -7,13 +7,14 @@
 </head>
 <body>
 <%- include('./nav.ejs')%>
+<h1>대여 현황</h1>
 <div class="rentalStatusBody">
     <div class="rentalList">
         <table id="rentalStatusListTable">
             <thead>
             <tr>
-                <th scope="col">대분류</th>
-                <th scope="col">소분류</th>
+                <th scope="col">물품 대분류</th>
+                <th scope="col">물품 소분류</th>
                 <th scope="col">물품 이름</th>
                 <th scope="col">물품 코드</th>
                 <th scope="col">현재 대여자 이름</th>
@@ -23,9 +24,22 @@
             </thead>
             <tbody id="tr_rentalList">
             <% rentingInfo.map(res => {%>
-            <%});%>
+                <% let rentDate = res.rentDate.getFullYear()
+                        + "년 " + (res.rentDate.getMonth() + 1)
+                        + "월 " + res.rentDate.getDate()
+                        + "일 " + res.rentDate.getHours()
+                        + "시 " + res.rentDate.getMinutes() + "분"
+                %>
             <tr>
+                <td><%=res.itemInfo.category.parentCategory%></td>
+                <td><%=res.itemInfo.category.childCategory%></td>
+                <td><%=res.itemInfo.name%></td>
+                <td><%=res.itemInfo.code%></td>
+                <td><%=res.userName%></td>
+                <td><%=res.purpose%></td>
+                <td><%=rentDate%></td>
             </tr>
+            <%});%>
             </tbody>
         </table>
     </div>
