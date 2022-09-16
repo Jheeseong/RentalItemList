@@ -7,7 +7,7 @@ const rentRecord = {
             .populate("itemInfo")
             .sort({rentDate : -1, returnDate: -1})
             .exec((err, result) => {
-            res.render('rentRecord', {name : req.name, rentRecord : result});
+            res.render('./rent/rentRecord', {name : req.name, rentRecord : result});
         })
     }
 }

@@ -3,7 +3,7 @@ const { User } = require('../../models/User');
 const userManagement = {
     index: (req, res) => {
         User.find({}, (err, users) => {
-            res.render('userManagement', {
+            res.render('./user/userManagement', {
                 users: users,
                 name: req.name,
                 workNumber: req.workNumber

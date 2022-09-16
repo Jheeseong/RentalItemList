@@ -9,7 +9,7 @@ const itemManagement = {
             .exec((err, items) => {
                 if(err) return console.log(err);
                 Category.find({}, async(err, categories) => {
-                    res.render('ItemManagement', {items, categories, name: req.name});
+                    res.render('./item/ItemManagement', {items, categories, name: req.name});
                 })
             })
 
