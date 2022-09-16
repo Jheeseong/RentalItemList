@@ -4,7 +4,7 @@ const { Category } = require('../models/Category');
 
 const itemManagement = {
     index: async (req, res) => {
-        Item.find({})
+        Item.find({delete : false})
             .populate("rentInfo")
             .exec((err, items) => {
                 if(err) return console.log(err);
@@ -15,7 +15,7 @@ const itemManagement = {
 
     },
     findAll: async (req, res) => {
-        Item.find({})
+        Item.find({delete : false})
             .populate("rentInfo")
             .exec(async(err, items) => {
             res.json({ items });
@@ -29,7 +29,7 @@ const itemManagement = {
         if(childCategory === "소분류 전체")
             childCategory = "";
 
-        Item.find({$and : [{ name : { $regex: req.params.keyword}}, {"category.parentCategory" : { $regex : parentCategory}}, {"category.childCategory" : {$regex : childCategory}}]})
+        Item.find({$and : [{ name : { $regex: req.params.keyword}}, {"category.parentCategory" : { $regex : parentCategory}}, {"category.childCategory" : {$regex : childCategory}}, {delete : false}]})
             .populate("rentInfo")
             .exec(async(err, items) =>{
             res.json({ items });
@@ -43,7 +43,7 @@ const itemManagement = {
         if(childCategory === "소분류 전체")
             childCategory = "";
 
-        Item.find({$and : [{"category.parentCategory" : { $regex : parentCategory}}, {"category.childCategory" : {$regex : childCategory}}]})
+        Item.find({$and : [{"category.parentCategory" : { $regex : parentCategory}}, {"category.childCategory" : {$regex : childCategory}}, {delete : false}]})
             .populate({ path : "rentInfo",  match : { userName :{ $regex : req.params.keyword }}})
             .exec(async(err, items) =>{
                 // 대여자가 있는 아이템만 구분
@@ -58,21 +58,21 @@ const itemManagement = {
         });
     },
     findByParentCategory : async(req, res) => {
-        Item.find({ "category.parentCategory" : req.params.keyword})
+        Item.find({$and: [{"category.parentCategory": req.params.keyword}, {delete: false}]})
             .populate("rentInfo")
             .exec( async(err, items) => {
             res.json({ items });
         });
     },
     findByChildCategory : async(req, res) => {
-        Item.find({"category.childCategory" : req.params.keyword})
+        Item.find({$and : [{"category.childCategory" : req.params.keyword}, {delete : false}]})
             .populate("rentInfo")
             .exec(async(err, items) => {
             res.json({ items });
         });
     },
     deleteById: async(req, res) => {
-        Item.deleteOne({_id: req.params.id}, async(err, result) => {
+        Item.findOneAndUpdate({_id: req.params.id},{ delete: true } ,async(err, result) => {
             res.json({ deleteSuccess : "Success", message : "물품이 성공적으로 삭제되었습니다.", result : result });
         })
     },

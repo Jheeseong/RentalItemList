@@ -80,11 +80,11 @@
                     + " / " + res.rentDate.getHours()
                     + " : " + res.rentDate.getMinutes()
             %>
-            <% let returnDate = res.returnDate.getFullYear()
+            <% let returnDate = res.returnDate ?  (res.returnDate.getFullYear()
                     + "." + (res.returnDate.getMonth() + 1)
                     + "." + res.returnDate.getDate()
                     + " / " + res.returnDate.getHours()
-                    + " : " + res.returnDate.getMinutes()
+                    + " : " + res.returnDate.getMinutes()) : null
             %>
             <tr>
                 <td><%=res.itemInfo.number%></td>
@@ -95,7 +95,13 @@
                 <td><%=rentDate%></td>
                 <td><%=returnDate%></td>
                 <td><%=res.purpose%></td>
-                <td>반납완료</td>
+                <td>
+                    <% if(res.itemInfo.available.return){ %>
+                    반납완료
+                    <%} else {%>
+                    반납불필요
+                    <%}%>
+                </td>
             </tr>
         <%});%>
         </tbody>

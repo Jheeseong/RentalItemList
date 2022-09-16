@@ -4,13 +4,13 @@ const { Item } = require('../models/Item')
 const rentItem = {
     rentItem: async (req, res) => {
         const rentItem = new Rent({
-            rentStatus : true,
+            rentStatus : req.body.returnAvailable,
             userName : req.name,
             workNumber : req.workNumber,
             itemCode : req.body.itemCode,
             purpose : req.body.purpose,
             rentDate : req.body.rentDate,
-            returnPlanDate : req.body.returnPlanDate,
+            returnPlanDate : req.body.returnAvailable ? req.body.returnPlanDate : null,
             itemInfo: req.body.itemId,
             userInfo: req.user_id
         });

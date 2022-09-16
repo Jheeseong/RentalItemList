@@ -10,7 +10,8 @@ function rentModalView(itemInfo){
     }else{
         const rentModalBody = document.getElementById('rent_modal_body');
         rentModalBody.innerHTML += "<input type='hidden' id='itemCode' value='" + itemInfo.code + "'>"
-        + "<input type='hidden' id='itemId' value='" + itemInfo._id + "'>";
+        + "<input type='hidden' id='itemId' value='" + itemInfo._id + "'>"
+        + "<input type='hidden' id='returnAvailable' value='" + itemInfo.available.return + "'>";
 
         const currTime = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16);
 
@@ -62,13 +63,14 @@ rentModal.addEventListener('click', (e) => {
 })
 
 async function rentSubmit(){
-    if(window.confirm("물품을 대여하시겠습니까?") === true){
+    if(window.confirm("물품을 대여하시겠습니까?") === true) {
         const rentItem = {
             itemId: document.getElementById('itemId').value,
             itemCode : document.getElementById('itemCode').value,
             purpose : document.getElementById('purpose').value,
             rentDate : document.getElementById('rentDate').value,
-            returnPlanDate : document.getElementById('returnDate').value
+            returnPlanDate : document.getElementById('returnDate').value,
+            returnAvailable : document.getElementById('returnAvailable').value
         }
 
         await fetch('rentItem/rent', {
@@ -87,8 +89,11 @@ async function rentSubmit(){
                 console.log(err);
             })
     }
-
 }
+
+
+
+
 
 function cancel(){
     rentModal.classList.toggle('show');

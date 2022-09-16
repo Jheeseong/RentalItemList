@@ -13,3 +13,14 @@ async function returnItem(rentId, itemId){
     }
 
 }
+
+function tabRent(){
+    document.getElementById('dd-return').class = null;
+    document.getElementById('dd-rent').class = "hiddenTab"
+}
+
+function tabReturn(){
+    document.getElementById('dd-rent').class = null;
+    document.getElementById('dd-return').class = "hiddenTab"
+
+}

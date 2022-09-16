@@ -1,8 +1,18 @@
+@font-face {
+  font-family: 'SUIT Variable';
+  font-weight: 100 900;
+  src: url('fonts/SUIT-Variable.woff2') format('woff2-variations');
+}
+
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'SUIT-Variable';
   background-color: #cccccc;
 }
 
 a {
   color: #00B7FF;
+}
+
+* {
+  font-family: 'SUIT Variable';
 }

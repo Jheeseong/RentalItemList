@@ -11,15 +11,11 @@
     <script defer src="/javaScripts/itemManagement.js"></script>
     <script defer src="/javaScripts/itemEdit.js"></script>
     <script defer src="/javaScripts/managerFunction.js"></script>
+    <script defer src="/javaScripts/itemPutExcel.js"></script>
     <script defer src="https://code.jquery.com/jquery-3.6.1.js"></script>
     <!--SheetJS 라이브러리 사용-->
     <script src="/javaScripts/xlsx.full.min.js"></script>
-    <script>
-        function putExcel(){
-            let itemTable = XLSX.utils.table_to_book(document.getElementById('itemInfoListTable'), {sheet:"물품목록", raw:true});
-            XLSX.writeFile(itemTable, ('물품목록.xlsx'));
-        }
-    </script>
+    <script src="/javaScripts/FileSaver.min.js"></script>
 </head>
 <body>
 <%- include('./nav.ejs')%>
@@ -43,7 +39,9 @@
         <button class="btn-search" name="btn_search" id="btn_search" onclick="searchBtnEvent()"><img class="search-icon" src="/img/search.png"></button>
     </div>
     <div class="itemInfoList">
-        <button class="btn-put-excel" id="btn_put_excel" onclick="putExcel()"><img class="excel-icon" src="/img/excel.png">&nbsp 엑셀로 변환</button>
+        <div id="div-put-excel">
+            <button class="btn-put-excel" id="btn_put_excel" onclick="putExcel(<%=JSON.stringify(items)%>)"><img class="excel-icon" src="/img/excel.png">&nbsp 엑셀로 변환</button>
+        </div>
         <table id="itemInfoListTable">
             <thead>
                 <tr>

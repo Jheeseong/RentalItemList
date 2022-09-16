@@ -68,14 +68,12 @@ async function rentHistory(itemInfo){
                     "<td>"+ res.userName + "</td>" +
                     "<td>"+ res.purpose + "</td>" +
                     "<td>"+ dateFormatter(res.rentDate) + "</td>" +
-                    "<td>"+ dateFormatter(res.rentStatus ? res.returnPlanDate : res.returnDate) + "</td></tr>";
+                    "<td>"+ (itemInfo.available.return ? (dateFormatter(res.rentStatus ? res.returnPlanDate : res.returnDate)) : "반납불필요") + "</td></tr>";
             })
             historyTable.innerHTML = rows;
         }).catch((err) => {
             console.log(err);
         })
-
-
 
     if(historyModal.classList.contains('show')){
         body.style.overflow = 'hidden';
@@ -85,6 +83,7 @@ async function rentHistory(itemInfo){
 historyModal.addEventListener('click', (e) => {
     if(e.target === historyModal){
         historyModal.classList.toggle('show');
+        document.getElementById('history_table_body').innerHTML = null;
 
         if(!historyModal.classList.contains('show')){
             body.style.overflow = 'auto';

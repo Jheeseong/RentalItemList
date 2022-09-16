@@ -10,5 +10,4 @@ const authOpen = require('../config/jwt/auth').authOpen;
 /* GET home page. */
 router.post('/rent', authUtil, rentItemController.rentItem);
 
-
 module.exports = router;

@@ -1,7 +1,12 @@
 /* 데이터 바인딩 시 테이블 내 내용 변경 */
 function itemsRender(items){
     const itemInfoListTable = document.getElementById('tr_itemInfoList');
+    const divPutExcel = document.getElementById('div-put-excel');
     let rows = "<div></div>";
+
+    divPutExcel.innerHTML =
+        "<button class='btn-put-excel' id='btn_put_excel' onClick='putExcel(" + JSON.stringify(items) + ")'><img class='excel-icon' src='/img/excel.png'>&nbsp 엑셀로 변환</button>"
+
 
     items.map(res => {
         rows += "<tr><td>" +res.number + "</td>" +
@@ -154,7 +159,6 @@ function tableSort(index) {
         }
     }
 }
-
 
 async function enterKeyUp(event){
     let key = event.key || event.keyCode;

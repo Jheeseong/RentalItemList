@@ -2,7 +2,7 @@ module.exports = {
     secretKey : "BeautyAndTheBeast",
     option : {
         algorithm : "HS256",
-        expiresIn : "30m",
+        expiresIn : "120m",
         issuer : "admin"
     }
 }
