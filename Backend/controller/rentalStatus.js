@@ -3,15 +3,16 @@ const jwt = require("../config/jwt/jwt");
 
 const rentalStatus = {
     index: (req, res) => {
-        const rentingInfo = Rent.find({rentStatus : false})
+        Rent.find({rentStatus : true})
             .populate("itemInfo")
-            .exec();
-
-        res.render('rentalStatus',{
-            rentingInfo,
-            name: req.name,
-            workNumber: req.workNumber
-        })
+            .sort({rentDate: -1})
+            .exec((err, result) => {
+                res.render('rentalStatus',{
+                    rentingInfo: result,
+                    name: req.name,
+                    workNumber: req.workNumber
+                })
+            });
     },
 }
 
