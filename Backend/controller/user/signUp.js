@@ -2,7 +2,7 @@ const { User } = require('../../models/User')
 
 const signUp = {
     signUp: (req, res) => {
-        res.render('signUp')
+        res.render('./user/signUp')
     },
     saveUser: async (req, res) => {
         const user = new User(req.body);

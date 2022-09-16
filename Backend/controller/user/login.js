@@ -18,7 +18,7 @@ const login = {
         // else{
         //     res.render('login');
         // }
-        res.render('login');
+        res.render('./user/login');
 
     },
     /* 로그인(인증) */
