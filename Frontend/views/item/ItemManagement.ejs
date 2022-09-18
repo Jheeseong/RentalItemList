@@ -33,15 +33,20 @@
         </select>
         <select name="searchCategory" id="searchCategory">
             <option value="itemName">물품이름</option>
+            <%if(authority.openAuthority){%>
             <option value="lenderName">대여자이름</option>
+            <%}%>
         </select>
         <input class="input_search" type="text" name="input_search" id="input_search">
         <button class="btn-search" name="btn_search" id="btn_search" onclick="searchBtnEvent()"><img class="search-icon" src="/img/search.png"></button>
     </div>
     <div class="itemInfoList">
         <div id="div-put-excel">
+            <% if(authority.openAuthority){ %>
             <button class="btn-put-excel" id="btn_put_excel" onclick="putExcel(<%=JSON.stringify(items)%>)"><img class="excel-icon" src="/img/excel.png">&nbsp 엑셀로 변환</button>
+            <%}%>
         </div>
+
         <table id="itemInfoListTable">
             <thead>
                 <tr>
@@ -75,19 +80,20 @@
                 <td><%=res.count.all%></td>
                 <td><%=date%></td>
                 <td>
+                    <% if(authority.editAuthority){ %>
                     <button class="btn-manager" onclick="editItem('<%=res._id%>')"><img class="manage-icon" src="/img/edit.png"></button>
                     <button class="btn-manager" onclick="deleteItem('<%=res._id%>')"><img class="manage-icon" src="/img/trash.png"></button>
+                    <%}%>
+                    <% if(authority.openAuthority){%>
                     <button class="btn-open-lender btn-manager" onclick="lenderList('<%=res.name%>', <%= JSON.stringify(res.rentInfo) %>)"><img class="manage-icon" src="/img/customer.png"></button>
                     <button class="btn-open-rentHistory btn-manager" onclick="rentHistory(<%= JSON.stringify(res) %>)"><img class="manage-icon" src="/img/history.png"></button>
+                    <%}%>
                 </td>
             </tr>
             <% }); %>
             </tbody>
         </table>
-        <div class="lenders_modal" id="lenders_modal">
-            <div class="lenders_modal_body" id="lenders_modal_body">
-            </div>
-        </div>
+        <%- include('./lenders.ejs')%>
         <%- include('./rentHistory.ejs')%>
         <%- include('./rentItem.ejs')%>
         <%- include('./editItem.ejs')%>

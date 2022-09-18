@@ -10,12 +10,12 @@ const authOpen = require('../config/jwt/auth').authOpen;
 const authUtil = require('../config/jwt/auth').checkToken;
 
 //POST 물품 등록
-router.post('/api/createItem',authUtil, createItemController.saveItem);
+router.post('/api/createItem',authUtil, authEdit, createItemController.saveItem);
 
-router.post('/api/createCategory/:keyword',authUtil, createCategoryController.saveCategory);
+router.post('/api/createCategory/:keyword',authUtil, authEdit, createCategoryController.saveCategory);
 
-router.get('/api/find/prentCategory',authUtil, createCategoryController.findParentCategory);
+router.get('/api/find/prentCategory',authUtil, authEdit, createCategoryController.findParentCategory);
 
-router.get('/api/find/childcategory/:keyword',authUtil, createCategoryController.findChildCategoryByParent);
+router.get('/api/find/childcategory/:keyword',authUtil, authEdit, createCategoryController.findChildCategoryByParent);
 
 module.exports = router;

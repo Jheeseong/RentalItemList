@@ -9,7 +9,10 @@ const itemManagement = {
             .exec((err, items) => {
                 if(err) return console.log(err);
                 Category.find({}, async(err, categories) => {
-                    res.render('./item/ItemManagement', {items, categories, name: req.name});
+                    res.render('./item/ItemManagement',
+                        {items, categories, name: req.name,
+                        workNumber: req.workNumber,
+                        authority : req.authority});
                 })
             })
 
@@ -18,7 +21,7 @@ const itemManagement = {
         Item.find({delete : false})
             .populate("rentInfo")
             .exec(async(err, items) => {
-            res.json({ items });
+            res.json({ items, authority : req.authority });
         });
     },
     findByItem: async (req, res) => {
@@ -32,7 +35,7 @@ const itemManagement = {
         Item.find({$and : [{ name : { $regex: req.params.keyword}}, {"category.parentCategory" : { $regex : parentCategory}}, {"category.childCategory" : {$regex : childCategory}}, {delete : false}]})
             .populate("rentInfo")
             .exec(async(err, items) =>{
-            res.json({ items });
+            res.json({ items, authority : req.authority });
         });
     },
     findByLender: async (req, res) => {
@@ -54,21 +57,21 @@ const itemManagement = {
                     }
                 });
                 console.log(items);
-                res.json({ items : item });
+                res.json({ items : item , authority : req.authority});
         });
     },
     findByParentCategory : async(req, res) => {
         Item.find({$and: [{"category.parentCategory": req.params.keyword}, {delete: false}]})
             .populate("rentInfo")
             .exec( async(err, items) => {
-            res.json({ items });
+            res.json({ items , authority : req.authority});
         });
     },
     findByChildCategory : async(req, res) => {
         Item.find({$and : [{"category.childCategory" : req.params.keyword}, {delete : false}]})
             .populate("rentInfo")
             .exec(async(err, items) => {
-            res.json({ items });
+            res.json({ items, authority : req.authority });
         });
     },
     deleteById: async(req, res) => {

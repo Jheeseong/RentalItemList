@@ -8,9 +8,9 @@ const authEdit = require('../config/jwt/auth').authEdit;
 const authOpen = require('../config/jwt/auth').authOpen;
 module.exports = router;
 
-router.get('/', authUtil, userManagement.index);
-router.delete('/delete/:id', authUtil, userManagement.deleteById);
-router.post('/update/edit/:id', authUtil, userManagement.AuthorityEdit);
-router.post('/update/rental/:id', authUtil, userManagement.AuthorityRental);
-router.post('/update/open/:id', authUtil, userManagement.AuthorityOpen);
-router.post('/update/password/:id', authUtil, userManagement.resetPassword)
+router.get('/', authUtil, authAdmin, userManagement.index);
+router.delete('/delete/:id', authUtil, authAdmin, userManagement.deleteById);
+router.post('/update/edit/:id', authUtil, authAdmin, userManagement.AuthorityEdit);
+router.post('/update/rental/:id', authUtil, authAdmin, userManagement.AuthorityRental);
+router.post('/update/open/:id', authUtil, authAdmin, userManagement.AuthorityOpen);
+router.post('/update/password/:id', authUtil, authAdmin, userManagement.resetPassword)

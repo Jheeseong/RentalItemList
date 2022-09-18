@@ -10,7 +10,8 @@ const rentalStatus = {
                 res.render('./rent/rentalStatus',{
                     rentingInfo: result,
                     name: req.name,
-                    workNumber: req.workNumber
+                    workNumber: req.workNumber,
+                    authority : req.authority
                 })
             });
     },

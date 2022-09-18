@@ -15,6 +15,15 @@ const rentItem = {
             userInfo: req.user_id
         });
 
+        Item.findOne({_id : req.body.itemId})
+            .select('count available')
+            .exec((err, result) => {
+                if(result.count.all === result.count.renting || result.available.rental === false){
+                    console.log("물품 잔여 갯수 부족");
+                    return res.json({ message : "물품 잔여 갯수 부족"});
+                }
+            });
+
         /* 대여 정보 저장 */
         rentItem.save((err, saveResult) => {
             if(err){

@@ -62,32 +62,35 @@ const authUtil = {
         next();
     },
     authAdmin: (req, res, next) => {
-        if(!req.authority.administrator){
-            return res.redirect('/error');
-        }else {
+        if(req.authority.administrator){
             next();
+
+        }else {
+            return res.redirect('/error');
         }
     },
     authRental: (req, res, next) => {
-        if(!req.authority.rentalAuthority){
-            return res.redirect('/error');
-        }else {
+        if(req.authority.rentalAuthority === true || req.authority.administrator === true){
             next();
+        }else {
+            return res.redirect('/error');
         }
     },
     authEdit: (req, res, next) => {
-        if(!req.authority.editAuthority){
-            return res.redirect('/error');
-        }else {
+        if(req.authority.editAuthority === true || req.authority.administrator === true){
             next();
+        }else {
+            return res.redirect('/error');
+
         }
 
     },
     authOpen: (req, res, next) => {
-        if(!req.authority.openAuthority){
-            return res.redirect('/error');
-        }else {
+        if(req.authority.openAuthority === true || req.authority.administrator === true){
             next();
+        }else {
+            return res.redirect('/error');
+
         }
     }
 

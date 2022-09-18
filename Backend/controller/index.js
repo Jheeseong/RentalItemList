@@ -6,7 +6,8 @@ const index = {
         res.render('index', {
             title: 'Heaventree Item Rental System',
             name: req.name,
-            workNumber: req.workNumber
+            workNumber: req.workNumber,
+            authority : req.authority
         });
     },
     error: (req, res) => {

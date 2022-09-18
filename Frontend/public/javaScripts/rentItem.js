@@ -84,6 +84,8 @@ async function rentSubmit(){
                 if(res.rentSuccess){
                     window.alert("물품 대여에 성공하였습니다.");
                     window.location.reload();
+                } else{
+                    window.alert(res.message);
                 }
             }).catch((err) => {
                 console.log(err);

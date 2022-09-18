@@ -21,7 +21,7 @@ async function login() {
                 location.replace("/");
                 console.log(result.message);
             } else{
-                window.alert(result.message);
+                window.alert("아이디가 존재하지 않거나 틀린 비밀번호입니다.");
             }
         }).catch((err) => {
             window.alert(err);

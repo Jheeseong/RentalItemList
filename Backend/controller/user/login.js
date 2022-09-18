@@ -30,13 +30,12 @@ const login = {
             if (!result) {
                 return res.json({
                     loginSuccess: false,
-                    message: "존재하지 않는 아이디입니다."
                 });
             }
             /* 아이디 정보가 있을 경우 비밀번호 대조 */
             result.comparePassword(req.body.password, async (err, isMatch) => {
                 if (!isMatch)
-                    return res.json({loginSuccess: false, message: "비밀번호가 틀렸습니다."});
+                    return res.json({loginSuccess: false});
 
                 /* 비밀번호가 일치할 경우 액세스 토큰 발급 */
                 const jwtToken = await jwt.sign(result);

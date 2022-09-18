@@ -1,14 +1,15 @@
 let lendersModal = document.querySelector('.lenders_modal');
 function lenderList(name, rentInfo){
     lendersModal.classList.toggle('show');
-    const modalbody = document.getElementById('lenders_modal_body');
+    document.getElementById('title').innerHTML = "<h3>" + name + " 대여자 목록</h3><br/>";
 
-    let rows = "<h3>" + name + " 대여자 목록</h3><br/><ul>"
+    let rows= "";
     rentInfo.map((lenders) => {
-        rows += "<li>사번 : " + lenders.workNumber + " / 이름 : " + lenders.userName + "</li>";
+        rows += "<tr><td>" + lenders.workNumber + "</td>" +
+            "<td>" + lenders.userName + "</td></tr>";
     })
-    rows += "</ul>";
-    modalbody.innerHTML = rows;
+
+    document.getElementById('lenders_table_body').innerHTML = rows;
 
     if(lendersModal.classList.contains('show')){
         body.style.overflow = 'hidden';

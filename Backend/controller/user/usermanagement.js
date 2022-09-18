@@ -6,7 +6,8 @@ const userManagement = {
             res.render('./user/userManagement', {
                 users: users,
                 name: req.name,
-                workNumber: req.workNumber
+                workNumber: req.workNumber,
+                authority : req.authority
             });
         });
     },

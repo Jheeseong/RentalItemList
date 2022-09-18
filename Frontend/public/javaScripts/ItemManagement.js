@@ -1,12 +1,13 @@
 /* 데이터 바인딩 시 테이블 내 내용 변경 */
-function itemsRender(items){
+function itemsRender(items, auth){
     const itemInfoListTable = document.getElementById('tr_itemInfoList');
     const divPutExcel = document.getElementById('div-put-excel');
     let rows = "<div></div>";
 
-    divPutExcel.innerHTML =
-        "<button class='btn-put-excel' id='btn_put_excel' onClick='putExcel(" + JSON.stringify(items) + ")'><img class='excel-icon' src='/img/excel.png'>&nbsp 엑셀로 변환</button>"
-
+    if(auth.openAuthority){
+        divPutExcel.innerHTML =
+            "<button class='btn-put-excel' id='btn_put_excel' onClick='putExcel(" + JSON.stringify(items) + ")'><img class='excel-icon' src='/img/excel.png'>&nbsp 엑셀로 변환</button>"
+    }
 
     items.map(res => {
         rows += "<tr><td>" +res.number + "</td>" +
@@ -18,12 +19,16 @@ function itemsRender(items){
         "<td>" + (res.count.all - res.count.renting) + "</td>" +
         "<td>" + res.count.renting + "</td>" +
         "<td>" + res.count.all + "</td>" +
-        "<td>" + dateFormatter(res.createDate) + "</td>" +
-        "<td><button class='btn-manager' onclick='editItem(\"" + res._id + "\")'><img class='manage-icon' src='/img/edit.png'></button>" +
-        "<button class='btn-manager' onclick='deleteItem(\"" + res._id +"\")'><img class='manage-icon' src='/img/trash.png'></button> " +
-        "<button class='btn-open-lender btn-manager' onclick='lenderList(\"" + res.name + "\"," + JSON.stringify(res.rentInfo) +")'><img class=\"manage-icon\" src=\"/img/customer.png\"></button>" +
-        "<button class='btn-open-rentHistory btn-manager' onClick='rentHistory(" + JSON.stringify(res) + ")'><img class='manage-icon' src='/img/history.png'></button>" +
-        "</td></tr>"
+        "<td>" + dateFormatter(res.createDate) + "</td><td>";
+        if(auth.editAuthority){
+            rows += "<button class='btn-manager' onclick='editItem(\"" + res._id + "\")'><img class='manage-icon' src='/img/edit.png'></button>" +
+                    "<button class='btn-manager' onclick='deleteItem(\"" + res._id +"\")'><img class='manage-icon' src='/img/trash.png'></button> ";
+        }
+        if(auth.openAuthority){
+            rows += "<button class='btn-open-lender btn-manager' onclick='lenderList(\"" + res.name + "\"," + JSON.stringify(res.rentInfo) +")'><img class=\"manage-icon\" src=\"/img/customer.png\"></button>" +
+                    "<button class='btn-open-rentHistory btn-manager' onClick='rentHistory(" + JSON.stringify(res) + ")'><img class='manage-icon' src='/img/history.png'></button>";
+        }
+        rows += "</td></tr>";
     });
     itemInfoListTable.innerHTML=rows;
 }
@@ -54,7 +59,7 @@ async function searchBtnEvent(){
     })
         .then((res) => res.json())
         .then((item) => {
-            itemsRender(item.items);
+            itemsRender(item.items, item.authority);
         }).catch((err) => {
             window.alert(err);
             console.log(err);
@@ -100,7 +105,8 @@ async function changeParentCategory(){
     })
         .then((res) => res.json())
         .then((item) => {
-            itemsRender(item.items);
+            console.log(item);
+            itemsRender(item.items, item.authority);
         }).catch((err) => {
             window.alert(err);
     });
@@ -123,7 +129,7 @@ async function changeChildCategory(){
     })
         .then((res) => res.json())
         .then((item) => {
-            itemsRender(item.items);
+            itemsRender(item.items, item.authority);
         }).catch((err) => {
             window.alert(err);
         });

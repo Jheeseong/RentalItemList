@@ -10,6 +10,6 @@ const authOpen = require('../config/jwt/auth').authOpen;
 /* GET home page. */
 router.get('/', authUtil, myRentalController.index);
 
-router.get('/returnItem/:rentId/:itemId', authUtil, myRentalController.returnItem);
+router.get('/returnItem/:rentId/:itemId', authUtil, authRental, myRentalController.returnItem);
 
 module.exports = router;

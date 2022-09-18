@@ -29,7 +29,7 @@ const myRental = {
             .populate("itemInfo")
             .exec();
 
-        res.render('./rent/myRental', {rentInfo, returnInfo, name: req.name, workNumber: req.workNumber});
+        res.render('./rent/myRental', {rentInfo, returnInfo, name: req.name, workNumber: req.workNumber, authority : req.authority});
 
     },
     returnItem: (req, res) => {

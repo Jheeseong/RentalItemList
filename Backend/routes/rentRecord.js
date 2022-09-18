@@ -8,7 +8,7 @@ const authEdit = require('../config/jwt/auth').authEdit;
 const authOpen = require('../config/jwt/auth').authOpen;
 
 /* GET home page. */
-router.get('/', authUtil, rentRecordController.index);
+router.get('/', authUtil, authOpen, rentRecordController.index);
 
 
 module.exports = router;

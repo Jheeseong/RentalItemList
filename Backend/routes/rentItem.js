@@ -8,6 +8,6 @@ const authEdit = require('../config/jwt/auth').authEdit;
 const authOpen = require('../config/jwt/auth').authOpen;
 
 /* GET home page. */
-router.post('/rent', authUtil, rentItemController.rentItem);
+router.post('/rent', authUtil, authRental, rentItemController.rentItem);
 
 module.exports = router;
