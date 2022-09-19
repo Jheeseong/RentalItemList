@@ -98,10 +98,9 @@ userSchema.pre('save', function (next) {
         next()
     }
 });
-
+//유저 비밀번호 업데이트 시 암호화해주는 과정
 userSchema.pre('updateOne', function (next) {
     const user =this;
-    console.log(user.password)
     if (user.getUpdate().$set.password) {
         bcrypt.genSalt(saltRounds, function (err, salt) {
             if (err) return next(err);

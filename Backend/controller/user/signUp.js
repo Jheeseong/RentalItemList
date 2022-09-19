@@ -4,22 +4,37 @@ const signUp = {
     signUp: (req, res) => {
         res.render('./user/signUp')
     },
-    saveUser: async (req, res) => {
+    saveUser: (req, res) => {
         const user = new User(req.body);
-        console.log(user);
-        user.save((err,userinfo) => {
-            //MongoDB에서 오는 Method, 정보들이 User model에 저장
-            //저장 할 때 err가 있다면 client에 err가 있다고 전달 -> 전달을 할 때 json 형식으로 전달
-            if (err) {
-                console.log(err)
-                return res.status(400)
-                    .json({ success: false, err })
+        User.findOne({workNumber: req.body.workNumber}, (err, findUser) => {
+            if (findUser === null) {
+                user.save((err,userinfo) => {
+                    //MongoDB에서 오는 Method, 정보들이 User model에 저장
+                    //저장 할 때 err가 있다면 client에 err가 있다고 전달 -> 전달을 할 때 json 형식으로 전달
+                    if (err) {
+                        console.log(err)
+                        return res.status(400)
+                            .json({ success: false, err,
+                            message: "회원가입정보를 다시 한 번 확인해주세요."})
+                    }
+                    // 성공했을시에는 status 200
+                    console.log("DB 저장 완료!")
+                    return res.json({signup: true, message: "회원가입이 되였습니다."})
+                });
+            } else {
+                res.json({signup: false, message: "사번이 이미 등록되어 있습니다."})
             }
-            // 성공했을시에는 status 200
-            console.log("DB 저장 완료!")
-            return res.json({signup: true, message: "회원가입이 되였습니다."})
-        });
+        })
+
     },
+    findUser: (req, res) => {
+        User.findOne({workNumber: req.workNumber}, (err, result) => {
+            console.log(result);
+            if (result != null) {
+                res.json({message: "이미 존재하는 사번입니다."})
+            }
+        })
+    }
     // loginUser: async (req, res) => {
     //     User.findOne({workNumber: req.body.workNumber }, (err, user) => {
     //         if (!user) {

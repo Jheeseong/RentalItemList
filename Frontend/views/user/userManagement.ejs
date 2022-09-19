@@ -6,6 +6,7 @@
     <script defer src="https://code.jquery.com/jquery-3.6.1.js"></script>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/stylesheets/table.css' />
+    <link rel='stylesheet' href='/stylesheets/userManagement.css'>
 </head>
 <body>
 <%- include('../layouts/nav.ejs')%>
@@ -32,14 +33,11 @@
                 <td><%=res.department%></td>
                 <td><%=res.role%></td>
                 <td><%=res.email%></td>
-                <td><%=res.authority.editAuthority ? "가능" : "불가능"%></td>
-                <td><%=res.authority.rentalAuthority ? "가능" : "불가능"%></td>
-                <td><%=res.authority.openAuthority ? "가능" : "불가능"%></td>
+                <td class="btn_authority" onclick="updateEditAuthority('<%=res._id%>')"><%=res.authority.editAuthority ? "가능" : "불가능"%></td>
+                <td class="btn_authority" onclick="updateRentalAuthority('<%=res._id%>')"><%=res.authority.rentalAuthority ? "가능" : "불가능"%></td>
+                <td class="btn_authority" onclick="updateOpenAuthority('<%=res._id%>')"><%=res.authority.openAuthority ? "가능" : "불가능"%></td>
                 <td>
                     <button class="btn_exile" onclick="exile('<%=res._id%>')">추방</button>
-                    <button class="btn_authority_edit" onclick="updateEditAuthority('<%=res._id%>')">편집 권한</button>
-                    <button class="btn_authority_rental" onclick="updateRentalAuthority('<%=res._id%>')">대여 권한</button>
-                    <button class="btn_authority_open" onclick="updateOpenAuthority('<%=res._id%>')">열람 권한</button>
                     <button class="btn_reset" onclick="resetPassword('<%=res._id%>')">비밀번호 초기화</button>
                 </td>
             </tr>

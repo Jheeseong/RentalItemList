@@ -141,6 +141,13 @@ function excelExport(event){
                     }
                 }
                 console.log(items)
+                fetch('createItem/api/createCategory/' + items.category.parentCategory, {
+                    method: 'post',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({name: items.category.parentCategory,
+                                                children: items.category.childCategory})
+                }).then((res) => res.json())
+
                 fetch('createItem/api/createItem', {
                     method: 'post',
                     headers: {

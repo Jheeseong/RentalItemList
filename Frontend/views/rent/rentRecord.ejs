@@ -1,14 +1,3 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>물품 대여 이력</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="stylesheet" href="/stylesheets/table.css"/>
-</head>
-<body>
-<%- include('../layouts/nav.ejs')%>
-<h1>물품 대여 이력</h1>
 <div class="rentRecordList">
     <table id="rentRecordListTable">
         <caption>물품 대여 이력</caption>
@@ -40,14 +29,14 @@
                     + "일 " + res.returnPlanDate.getHours()
                     + "시 " + res.returnPlanDate.getMinutes() + "분"
             %>
-                <% let returnDate = res.returnDate ?
-                        res.returnDate.getFullYear()
-                        + "년 " + (res.returnDate.getMonth() + 1)
-                        + "월 " + res.returnDate.getDate()
-                        + "일  " + res.returnDate.getHours()
-                        + "시  " + res.returnDate.getMinutes() + "분"
-                : "대여중"
-                %>
+            <% let returnDate = res.returnDate ?
+                    res.returnDate.getFullYear()
+                    + "년 " + (res.returnDate.getMonth() + 1)
+                    + "월 " + res.returnDate.getDate()
+                    + "일  " + res.returnDate.getHours()
+                    + "시  " + res.returnDate.getMinutes() + "분"
+                    : "대여중"
+            %>
             <tr>
                 <td><%=res.rentStatus ? "대여" : "반납"%></td>
                 <td><%=res.itemInfo.category.parentCategory%></td>
@@ -62,6 +51,5 @@
             </tr>
         <%});%>
         </tbody>
+    </table>
 </div>
-</body>
-</html>

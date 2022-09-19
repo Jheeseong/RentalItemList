@@ -1,11 +1,11 @@
 const { Item } = require('../models/Item')
-
+const { Category } = require('../models/Category')
+const category = require('../controller/category')
 const createItem = {
     saveItem: async (req, res) => {
         const item = new Item(req.body);
         // const loginUser = {username: req.name, workNumber: req.workNumber};
         Item.findOne({code: req.body.code}, (err, findItem) => {
-            console.log(findItem);
             if (findItem === null) {
                 item.save((err) => {
                     //MongoDB에서 오는 Method, 정보들이 Item model에 저장
