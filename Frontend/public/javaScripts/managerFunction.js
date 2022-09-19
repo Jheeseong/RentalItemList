@@ -4,10 +4,15 @@ function lenderList(name, rentInfo){
     document.getElementById('title').innerHTML = "<h3>" + name + " 대여자 목록</h3><br/>";
 
     let rows= "";
-    rentInfo.map((lenders) => {
-        rows += "<tr><td>" + lenders.workNumber + "</td>" +
-            "<td>" + lenders.userName + "</td></tr>";
-    })
+    if(rentInfo.length){
+        rentInfo.map((lenders) => {
+            rows += "<tr><td>" + lenders.workNumber + "</td>" +
+                "<td>" + lenders.userName + "</td></tr>";
+        })
+    } else{
+        rows += "<p style='color: red'> 대여자가 없습니다. </p>"
+    }
+
 
     document.getElementById('lenders_table_body').innerHTML = rows;
 
@@ -62,15 +67,18 @@ async function rentHistory(itemInfo){
         method: 'get'
     }).then((res) => res.json())
         .then((history) => {
-            console.log(history.histories);
-            history.histories.map((res) => {
-                console.log(res);
-                rows += "<tr><td>"+ (res.rentStatus ? "대여중" : "반납") + "</td>" +
-                    "<td>"+ res.userName + "</td>" +
-                    "<td>"+ res.purpose + "</td>" +
-                    "<td>"+ dateFormatter(res.rentDate) + "</td>" +
-                    "<td>"+ (itemInfo.available.return ? (dateFormatter(res.rentStatus ? res.returnPlanDate : res.returnDate)) : "반납불필요") + "</td></tr>";
-            })
+            if(history.histories.length){
+                history.histories.map((res) => {
+                    rows += "<tr><td>"+ (res.rentStatus ? "대여중" : "반납") + "</td>" +
+                        "<td>"+ res.userName + "</td>" +
+                        "<td>"+ res.purpose + "</td>" +
+                        "<td>"+ dateFormatter(res.rentDate) + "</td>" +
+                        "<td>"+ (itemInfo.available.return ? (dateFormatter(res.rentStatus ? res.returnPlanDate : res.returnDate)) : "반납불필요") + "</td></tr>";
+                })
+            } else{
+                rows += "<p style='color: red'>대여 이력이 존재하지 않습니다.</p>"
+            }
+
             historyTable.innerHTML = rows;
         }).catch((err) => {
             console.log(err);

@@ -10,10 +10,10 @@ function itemsRender(items, auth){
     }
 
     items.map(res => {
-        rows += "<tr><td>" +res.number + "</td>" +
-        "<td>" + res.category.parentCategory + "</td>" +
+        rows += "<tr><td>" + res.category.parentCategory + "</td>" +
         "<td>" +res.category.childCategory + "</td>" +
         "<td class='btn-rent' onclick='rentModalView(" + JSON.stringify(res) + ")'>" +res.name + "</td>" +
+        "<td>" +res.code + "</td>" +
         "<td>" + (res.available.rental ? 'O' : 'X') + "</td>" +
         "<td>" + (res.available.return ? 'O' : 'X') + "</td>" +
         "<td>" + (res.count.all - res.count.renting) + "</td>" +
@@ -105,7 +105,6 @@ async function changeParentCategory(){
     })
         .then((res) => res.json())
         .then((item) => {
-            console.log(item);
             itemsRender(item.items, item.authority);
         }).catch((err) => {
             window.alert(err);

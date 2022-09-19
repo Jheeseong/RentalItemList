@@ -22,16 +22,16 @@
 <div class="itemManagementBody">
     <h1>물품관리</h1>
     <div class="itemSearch" id="itemSearch">
-        <select name="parentCategory" id="parentCategory" onchange="changeParentCategory()">
+        <select class="select-itemManagement" name="parentCategory" id="parentCategory" onchange="changeParentCategory()">
             <option value="전체">대분류 전체</option>
             <% categories.map((res) => {%>
             <option value=<%res.name%>><%=res.name%></option>
             <%})%>
         </select>
-        <select name="childCategory" id="childCategory" onchange="changeChildCategory()">
+        <select class="select-itemManagement" name="childCategory" id="childCategory" onchange="changeChildCategory()">
             <option value="">소분류 전체</option>
         </select>
-        <select name="searchCategory" id="searchCategory">
+        <select class="select-itemManagement" name="searchCategory" id="searchCategory">
             <option value="itemName">물품이름</option>
             <%if(authority.openAuthority){%>
             <option value="lenderName">대여자이름</option>
@@ -40,20 +40,20 @@
         <input class="input_search" type="text" name="input_search" id="input_search">
         <button class="btn-search" name="btn_search" id="btn_search" onclick="searchBtnEvent()"><img class="search-icon" src="/img/search.png"></button>
     </div>
-    <div class="itemInfoList">
-        <div id="div-put-excel">
-            <% if(authority.openAuthority){ %>
-            <button class="btn-put-excel" id="btn_put_excel" onclick="putExcel(<%=JSON.stringify(items)%>)"><img class="excel-icon" src="/img/excel.png">&nbsp 엑셀로 변환</button>
-            <%}%>
-        </div>
-
+    <div class="div-put-excel" id="div-put-excel">
+        <% if(authority.openAuthority){ %>
+        <button class="btn-put-excel" id="btn_put_excel" onclick="putExcel(<%=JSON.stringify(items)%>)"><img class="excel-icon" src="/img/excel.png">&nbsp 엑셀로 변환</button>
+        <%}%>
+        <button class="btn-primary">물품 등록</button>
+    </div>
+    <div class="tableWrapper itemInfoList">
         <table id="itemInfoListTable">
             <thead>
                 <tr>
-                    <th scope="col">번호</th>
                     <th scope="col">대분류</th>
                     <th scope="col">소분류</th>
                     <th scope="col" style="cursor: pointer;" onclick="tableSort(2)">물품 이름▼</th>
+                    <th scope="col">코드</th>
                     <th scope="col">대여 가능</th>
                     <th scope="col">반납 필요</th>
                     <th scope="col">남은 수량</th>
@@ -69,10 +69,10 @@
                     + "." + (res.createDate.getMonth() + 1)
                     + "." + res.createDate.getDate()%>
             <tr>
-                <td><%=res.number%></td>
                 <td><%=res.category.parentCategory%></td>
                 <td><%=res.category.childCategory%></td>
                 <td class="btn-rent" onclick="rentModalView(<%=JSON.stringify(res)%>)"><%=res.name%></td>
+                <td><%=res.code%></td>
                 <td><%=res.available.rental ? "O" : "X"%></td>
                 <td><%=res.available.return ? "O" : "X"%></td>
                 <td><%=res.count.all-res.count.renting%></td>

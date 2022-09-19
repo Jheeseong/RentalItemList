@@ -6,7 +6,7 @@
 
 body {
   font-family: 'SUIT-Variable';
-  background-color: #cccccc;
+  background-color: #EAEAEA;
 }
 
 a {
@@ -15,4 +15,24 @@ a {
 
 * {
   font-family: 'SUIT Variable';
+}
+
+.btn-primary {
+  box-shadow:inset 0px 1px 0px 0px #0098FE;
+  background: #0098FE;
+  border-radius:6px;
+  border:1px solid #dcdcdc;
+  display:inline-block;
+  cursor:pointer;
+  color:#ffffff;
+  font-size:12px;
+  padding:6px 12px;
+  text-decoration:none;
+}
+.btn-primary:hover {
+  background: #0073E6;
+}
+.btn-primary:active {
+  position:relative;
+  top:1px;
 }

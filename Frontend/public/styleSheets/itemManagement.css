@@ -4,6 +4,13 @@
     text-align: center;
 }
 
+.div-put-excel{
+    text-align: right;
+    width: 80%;
+    display: inline-block;
+    margin-top: 30px;
+}
+
 
 /* general styling */
 body {
@@ -81,7 +88,7 @@ body {
     transform: translateX(-50%) translateY(-50%);
 }
 
-select {
+.select-itemManagement {
     width: 200px; padding: .8em .5em;
     border: 1px solid #999;
     font-family: inherit;

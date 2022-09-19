@@ -10,8 +10,7 @@
 </head>
 <body>
 <%- include('../layouts/nav.ejs')%>
-<h1><%=name%>님의 대여 현황</h1>
-<div class="rentInfoList">
+<div class="tableWrapper rentInfoList">
     <table id="rentInfoListTable">
         <caption>대여 중인 물품</caption>
         <thead>
@@ -50,13 +49,13 @@
                 <td><%=rentDate%></td>
                 <td><%=returnPlanDate%></td>
                 <td><%=res.purpose%></td>
-                <td><button onclick="returnItem('<%=res._id%>', '<%=res.itemInfo._id%>')">반납</button></td>
+                <td><button class="btn-return" onclick="returnItem('<%=res._id%>', '<%=res.itemInfo._id%>')">반납하기</button></td>
             </tr>
         <%});%>
         </tbody>
     </table>
 </div>
-<div class="returnInfoList">
+<div class="tableWrapper returnInfoList">
     <table id="returnInfoListTable">
         <caption>대여 이력</caption>
         <thead>
