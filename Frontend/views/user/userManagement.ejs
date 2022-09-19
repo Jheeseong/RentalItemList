@@ -37,6 +37,7 @@
                 <td class="btn_authority" onclick="updateRentalAuthority('<%=res._id%>')"><%=res.authority.rentalAuthority ? "가능" : "불가능"%></td>
                 <td class="btn_authority" onclick="updateOpenAuthority('<%=res._id%>')"><%=res.authority.openAuthority ? "가능" : "불가능"%></td>
                 <td>
+                    <button class="btn_admin" onclick="updateAdminAuthority('<%=res._id%>')">관리자 권한</button>
                     <button class="btn_exile" onclick="exile('<%=res._id%>')">추방</button>
                     <button class="btn_reset" onclick="resetPassword('<%=res._id%>')">비밀번호 초기화</button>
                 </td>

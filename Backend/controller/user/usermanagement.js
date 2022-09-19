@@ -21,19 +21,16 @@ const userManagement = {
                 Rent.find({$and : [{workNumber : user.workNumber}, {rentStatus : true} ]})
                     .populate("itemInfo")
                     .exec((err,findRent) => {
-                        console.log(findRent)
                         findRent.map(rent => {
-                            console.log(rent)
                             Item.findOneAndUpdate({_id: rent.itemInfo},
                                 {$pull : {rentInfo : rent._id}, $inc : {"count.renting" : -1}},
                                 function(err, findItem){
-                                    if(err) console.log(err);
+                                    if(err) res.json({message: "유저를 삭제할 수 없습니다."})
                                     if(findItem.available.rental === false && findItem.count.renting === findItem.count.all){
                                         Item.findOneAndUpdate({_id: rent.itemInfo},
                                             {$set: {"available.rental" : true}},
                                             function(err, result){
-                                                if(err) console.log(err);
-                                                console.log("대여가능여부 true");
+                                                if(err) res.json({message: "유저를 삭제할 수 없습니다."});
                                             });
                                     }
                                 });
@@ -42,7 +39,7 @@ const userManagement = {
 
                 Rent.updateMany({$and : [{workNumber : user.workNumber}, {rentStatus : true} ]},
                     {$set : {returnDate : new Date(), rentStatus : false}},
-                    function (err){if (err) console.log(err)})
+                    function (err){if (err) res.json({message: "유저를 삭제할 수 없습니다."})})
 
                 User.deleteOne({_id: req.params.id}, (err, result) => {
                     res.json({
@@ -60,7 +57,7 @@ const userManagement = {
                 User.updateOne({_id: req.params.id},
                     {$set: {"authority.editAuthority": false}},
                     (err) => {
-                        if (err){console.log(err);}
+                        if (err){res.json({message: "에러가 발생하였습니다."})}
                         else {
                             res.json({message: "편집 권한 불가능!"})
                         }
@@ -70,7 +67,7 @@ const userManagement = {
                 User.updateOne({_id: req.params.id},
                     {$set: {"authority.editAuthority": true}},
                     (err) => {
-                        if (err) console.log(err);
+                        if (err) res.json({message: "에러가 발생하였습니다."})
                         else res.json({message: "편집 권한 가능!"})
                     });
             }
@@ -83,14 +80,14 @@ const userManagement = {
                 User.updateOne({_id: req.params.id},
                     {$set: {"authority.rentalAuthority": false}},
                     (err, result) => {
-                        if (err) console.log(err);
+                        if (err) res.json({message: "에러가 발생하였습니다."});
                         else res.json({message: "대여 권한 불가능!"})
                     });
             } else {
                 User.updateOne({_id: req.params.id},
                     {$set: {"authority.rentalAuthority": true}},
                     (err, result) => {
-                        if (err) console.log(err);
+                        if (err) res.json({message: "에러가 발생하였습니다."});
                         else res.json({message: "대여 권한 가능!"})
                     });
             }
@@ -103,15 +100,35 @@ const userManagement = {
                 User.updateOne({_id: req.params.id},
                     {$set: {"authority.openAuthority": false}},
                     (err, result) => {
-                        if (err) console.log(err);
+                        if (err) res.json({message: "에러가 발생하였습니다."});
                         else res.json({message: "열람 권한 불가능!"})
                     });
             } else {
                 User.updateOne({_id: req.params.id},
                     {$set: {"authority.openAuthority": true}},
                     (err, result) => {
-                        if (err) console.log(err);
+                        if (err) res.json({message: "에러가 발생하였습니다."});
                         else res.json({message: "열람 권한 가능!"})
+                    });
+            }
+        })
+
+    },
+    AuthorityAdmin: (req, res) => {
+        User.findOne({_id: req.params.id}, (err, user) => {
+            if (user.authority.administrator) {
+                User.updateOne({_id: req.params.id},
+                    {$set: {"authority.administrator": false}},
+                    (err, result) => {
+                        if (err) res.json({message: "에러가 발생하였습니다."});
+                        else res.json({message: "관리자 권한 불가능!"})
+                    });
+            } else {
+                User.updateOne({_id: req.params.id},
+                    {$set: {"authority.administrator": true}},
+                    (err, result) => {
+                        if (err) res.json({message: "에러가 발생하였습니다."});
+                        else res.json({message: "관리자 권한 가능!"})
                     });
             }
         })
@@ -121,7 +138,7 @@ const userManagement = {
             User.updateOne({_id: req.params.id},
                 {$set: {password: "0405"}},
                 (err, result) => {
-                    if (err) console.log(err);
+                    if (err) res.json({message: "에러가 발생하였습니다."});
                     else res.json({message: "비밀번호 초기화 완료!"})
                 });
     }

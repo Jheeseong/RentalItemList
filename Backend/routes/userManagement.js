@@ -13,4 +13,5 @@ router.delete('/delete/:id', authUtil, authAdmin, userManagement.deleteById);
 router.post('/update/edit/:id', authUtil, authAdmin, userManagement.AuthorityEdit);
 router.post('/update/rental/:id', authUtil, authAdmin, userManagement.AuthorityRental);
 router.post('/update/open/:id', authUtil, authAdmin, userManagement.AuthorityOpen);
-router.post('/update/password/:id', authUtil, authAdmin, userManagement.resetPassword)
+router.post('/update/admin/:id', authUtil, authAdmin, userManagement.AuthorityAdmin);
+router.post('/update/password/:id', authUtil, authAdmin, userManagement.resetPassword);

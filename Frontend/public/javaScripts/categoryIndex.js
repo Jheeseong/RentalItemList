@@ -5,6 +5,7 @@ const select_parent = document.querySelector('.select_parent')
 const select_child = document.querySelector('.select_child')
 async function save_parent_category() {
     optionAdd(select_parent)
+    select_child.innerHTML = "<option value='' disabled selected>소분류 선택</option>";
     document.getElementById('input_parent').value = null;
 
 }
@@ -39,11 +40,11 @@ function btn_toggle(categoryClass) {
 function createInput(categoryClass) {
     if (categoryClass === parentCategory) {
         categoryClass.innerHTML =
-            "            <input type=\"text\" name=\"input_parent\" id=\"input_parent\">\n" +
+            "            <input type=\"text\" name=\"input_parent\" id=\"input_parent\" class=\"input_category\">\n" +
             "            <button id=\"btn_insertCategory\" name=\"btn_insertCategory\" onclick=save_parent_category()>추가</button>"
     } else {
         categoryClass.innerHTML =
-            "            <input type=\"text\" name=\"input_child\" id=\"input_child\">\n" +
+            "            <input type=\"text\" name=\"input_child\" id=\"input_child\" class=\"input_category\">\n" +
             "            <button id=\"btn_insertCategory\" name=\"btn_insertCategory\" onclick=save_child_category()>추가</button>"
 
     }
@@ -68,7 +69,6 @@ async function optionParentCategory() {
         })
             .then((res) => res.json())
             .then((categories) => {
-                console.log(categories);
                 if (categories.children === null) return;
                 categories.children.children.map(res => {
                     rows += "<option value=" + res + ">" + res + "</option>";
@@ -99,10 +99,8 @@ function optionAdd(className) {
     let input_value;
     if (className === select_parent) {
         input_value = document.getElementById('input_parent').value;
-        console.log(input_value);
     } else {
         input_value = document.getElementById('input_child').value;
-        console.log(input_value);
     }
     className.innerHTML += "<option value=" + input_value + ">" + input_value + "</option>"
 }

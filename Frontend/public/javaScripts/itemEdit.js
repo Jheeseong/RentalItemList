@@ -26,14 +26,12 @@ async function editItem(id){
     if (modal_edit.classList.contains('show')) {
         body.style.overflow = 'hidden';
     }
-    console.log(id);
 
     $.ajax({
         type: "GET",
         url: 'itemmanagement/edit/' + id,
         dataType:"json",
         success: async function (result) {
-            console.log(result)
             for (i = 1; i < parentCategory_edit.options.length; i++) parentCategory_edit.options[i] = null;
             parentCategory_edit.options.length = 1;
 
@@ -44,7 +42,6 @@ async function editItem(id){
 
             //select에 Item의 저장된 value 값 불러오기
             for (let i = 0; i < parentCategory_edit.options.length; i++) {
-                console.log(parentCategory_edit.options[i].value);
                 if (parentCategory_edit.options[i].value === result.item.category.parentCategory) {
                     parentCategory_edit.options[i].selected = true;
                 }
@@ -54,7 +51,6 @@ async function editItem(id){
 
 
             for (let i = 0; i < childCategory_edit.options.length; i++) {
-                console.log(childCategory_edit.options[i].value);
                 if (childCategory_edit.options[i].value === result.item.category.childCategory) {
                     childCategory_edit.options[i].selected = true;
                 }
@@ -62,7 +58,6 @@ async function editItem(id){
 
             //document.getElementById('select_childCategory_edit').value = item.item.category.childCategory;
             document.getElementById('name_edit').value = result.item.name;
-            document.getElementById('number_edit').value = result.item.number;
 
             if (result.item.available.rental === true) {
                 rental_edit.options[1].selected = true;
@@ -82,9 +77,8 @@ async function editItem(id){
             btnUpdateItem.onclick = async function () {
                 await itemSave(id);
             }
-            
+
             btnInitItem.onclick = async function () {
-                console.log(id)
                 if (window.confirm("초기화를 하시겠습니까?")) {
                     await editItem(id);
                 }
@@ -106,7 +100,6 @@ async function itemSave(id) {
             childCategory: document.getElementById('select_childCategory_edit').value
         },
         name: document.getElementById('name_edit').value,
-        number: document.getElementById('number_edit').value,
         code: document.getElementById('code_edit').value,
         count: {
             all: document.getElementById('all_edit').value,
@@ -144,18 +137,6 @@ function cancel_btn() {
     modal_edit.classList.toggle('show');
 }
 
-function initItem_edit(id) {
-    // input 값 초기화
-    document.getElementById('select_parentCategory_edit').value = null
-    document.getElementById('select_childCategory_edit').value = null
-    document.getElementById('name_edit').value = null
-    document.getElementById('number_edit').value = null
-    document.getElementById('rental_edit').value = null
-    document.getElementById('return_edit').value = null
-    document.getElementById('code_edit').value = null
-    document.getElementById('all_edit').value = null
-
-}
 
 async function optionParentCategory_edit() {
     const parentCategory_edit = document.getElementById('select_parentCategory_edit');
@@ -172,7 +153,6 @@ async function optionParentCategory_edit() {
         })
             .then((res) => res.json())
             .then((categories) => {
-                console.log(categories);
                 if (categories.children === null) return;
                 categories.children.children.map(res => {
                     rows_edit += "<option value=" + res + ">" + res + "</option>";

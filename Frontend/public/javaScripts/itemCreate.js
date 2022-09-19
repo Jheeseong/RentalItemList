@@ -55,7 +55,6 @@ btnCreateItem.addEventListener('click', async () => {
             childCategory: document.getElementById('select_childCategory').value
         },
         name: document.getElementById('name').value,
-        number: document.getElementById('number').value,
         code: document.getElementById('code').value,
         count: {
             all: document.getElementById('all').value,
@@ -104,7 +103,6 @@ function initItem() {
     document.getElementById('select_parentCategory').value = null
     document.getElementById('select_childCategory').value = null
     document.getElementById('name').value = null
-    document.getElementById('number').value = null
     document.getElementById('rental').value = null
     document.getElementById('return').value = null
     document.getElementById('code').value = null
@@ -120,8 +118,6 @@ function excelExport(event){
         const wb = XLSX.read(fileData, {type : 'binary'});
         wb.SheetNames.forEach(function(sheetName){
             const rowObj = XLSX.utils.sheet_to_json(wb.Sheets[sheetName]);
-            console.log(rowObj[0]["제품 이름"])
-            console.log(JSON.stringify(rowObj))
             for (let i = 0; i < rowObj.length; i++) {
                 let items = {
                     category: {
@@ -140,7 +136,6 @@ function excelExport(event){
                         return: rowObj[i]["반환 필요 여부"]
                     }
                 }
-                console.log(items)
                 fetch('createItem/api/createCategory/' + items.category.parentCategory, {
                     method: 'post',
                     headers: {'Content-Type': 'application/json'},

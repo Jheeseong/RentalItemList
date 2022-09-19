@@ -15,14 +15,14 @@ const itemEdit = {
                 "category.parentCategory": req.body.category.parentCategory,
                 "category.childCategory": req.body.category.childCategory,
                 name: req.body.name,
-                number: req.body.number,
                 code: req.body.code,
                 "count.all": req.body.count.all,
                 "available.rental": req.body.available.rental,
                 "available.return": req.body.available.return
                 },
             async(err, items) => {
-            res.json({item : items})
+            if (err) console.log(err);
+            else res.json({item : items})
         });
     }
 }
