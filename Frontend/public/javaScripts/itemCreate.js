@@ -76,7 +76,9 @@ btnCreateItem.addEventListener('click', async () => {
     }).then((res) => res.json())
         .then((res) => {
             window.alert(res.message)
-            window.location.reload(true);
+            if (res.message != "물품 내용을 작성해주세요!") {
+                window.location.reload(true);
+            }
         })
         .catch((err) => {
             console.log(err);

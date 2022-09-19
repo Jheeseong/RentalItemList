@@ -44,6 +44,13 @@
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
 }
+.create__rentalLabel, .create__returnLabel {
+    justify-content: space-between;
+    padding-left: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
 
 .create__input {
     color: rgba(105, 102, 105);
@@ -83,6 +90,7 @@
 .select_rental, .select_return {
     color: rgba(105, 102, 105);
     font-size: 0.8rem;
+    width: 100%;
     margin-bottom: 0.5rem;
     padding: .3rem .5rem;
     border: 2px solid transparent;
@@ -94,6 +102,32 @@
 .rental_return {
     display: flex;
     justify-content: space-between;
+    text-align: left;
+
+}
+
+.button_create {
+    box-shadow:inset 0px 1px 0px 0px #0098FE;
+    background: #0098FE;
+    border-radius:6px;
+    border:1px solid #dcdcdc;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-size:12px;
+    padding:6px 12px;
+    text-decoration:none;
+}
+.button_create:hover {
+    background: #0073E6;
+}
+.button_create:active {
+    position:relative;
+    top:1px;
+}
+.btn_class {
+    text-align: center;
+    margin-top: 20px;
 }
 
 select option[value=""][disabled] {
