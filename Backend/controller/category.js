@@ -15,19 +15,25 @@ const category = {
                         .status(200)
                 });
             } else {
-                console.log(req.body.children)
-                Category.update(
-                    {name: result.name},
-                    {$push: {children: req.body.children}},
-                    (err) => {
-                        if (err) {
-                            window.alert("저장 실패");
-                            console.log(err)
-                        }
-                        console.log(("category DB 중복 저장 완료"))
+                for (let child of result.children) {
+                    if (child === req.body.children) {
                         return res.json(result)
-                            .status(200)
-                    });
+                            .status(200);
+                    } else {
+                        Category.update(
+                            {name: result.name},
+                            {$push: {children: req.body.children}},
+                            (err) => {
+                                if (err) {
+                                    window.alert("저장 실패");
+                                    console.log(err)
+                                }
+                                console.log(("category DB 중복 저장 완료"))
+                                return res.json(result)
+                                    .status(200)
+                            });
+                    }
+                }
             };
         });
 

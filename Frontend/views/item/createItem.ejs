@@ -1,55 +1,60 @@
 <link rel='stylesheet' href='/stylesheets/itemCreate.css'>
 <div class="modal_create">
     <div class="modal_create_body">
-        <h2>물품 등록</h2>
-        <input type="file" id="excelFile" onchange="excelExport(event)"/>
-        <br/>
-        <label>대분류 : </label>
+        <h2 class="create_h2">물품 등록</h2>
+        <label class="create__label">대분류 :
+            <button onclick="btn_toggle(parentCategory)">항목추가</button>
+        </label>
         <select type="text" name="parentCategory" id="select_parentCategory" class="select_parent"
         onchange="optionParentCategory()">
             <option value="" disabled selected>대분류 선택</option>
         </select>
-        <button onclick="btn_toggle(parentCategory)">항목추가</button>
         <div class="parentCategory">
         </div>
-        <br/>
-        <label>소분류 : </label>
+        <label class="create__label">소분류 :
+            <button onclick="btn_toggle(childCategory)">항목추가</button>
+        </label>
         <select type="text" name="childCategory" id="select_childCategory" class="select_child"
         onchange="optionChildCategory()">
             <option value='' disabled selected>소분류 선택</option>
         </select>
-        <button onclick="btn_toggle(childCategory)">항목추가</button>
+
         <div class="childCategory">
         </div>
+        <label class="create__label">물품 이름 : </label>
+        <input type="text" name="name" id="name" class="create__input">
         <br/>
-        <label>물품 이름 : </label>
-        <input type="text" name="name" id="name">
+        <div class="rental_return">
+            <div>
+                <label class="create__label">대여 가능 여부 : </label>
+                <select id="rental" name="rental" type="text" class="select_rental">
+                    <option value='' disabled selected>선택</option>
+                    <option value="true">가능</option>
+                    <option value="false">불가능</option>
+                </select>
+            </div>
+            <div>
+                <label class="create__label">반환 필요 여부 : </label>
+                <select id="return" name="return" type="text" class="select_return">
+                    <option value='' disabled selected>선택</option>
+                    <option value="true">필요</option>
+                    <option value="false">불필요</option>
+                </select>
+            </div>
+        </div>
+        <label class="create__label">물품 코드 : </label>
+        <input type="text" name="code" id="code" class="create__input">
         <br/>
-        <label>물품 번호 : </label>
-        <input type="Number" name="number" id="number">
+        <label class="create__label">물품 갯수 : </label>
+        <input type="Number" name="all" id="all" class="create__input">
         <br/>
-        <label>대여 가능 여부 : </label>
-        <select id="rental" name="rental" type="text">
-            <option value='' disabled selected>선택</option>
-            <option value="true">가능</option>
-            <option value="false">불가능</option>
-        </select>
-        <br/>
-        <label>반환 필요 여부 : </label>
-        <select id="return" name="return" type="text">
-            <option value='' disabled selected>선택</option>
-            <option value="true">필요</option>
-            <option value="false">불필요</option>
-        </select>
-        <br/>
-        <label>물품 코드 : </label>
-        <input type="text" name="code" id="code">
-        <br/>
-        <label>물품 갯수 : </label>
-        <input type="Number" name="all" id="all">
-        <br/>
+        <label class="create__label">액셀로 등록 :
+            <input type="file" id="excelFile" onchange="excelExport(event)"/>
+        </label>
+
         <button class="btn-createItem">물품 등록</button>
         <button class="btn-initItem">초기화</button>
         <button class="btn-cancel">취소</button>
+
     </div>
 </div>
