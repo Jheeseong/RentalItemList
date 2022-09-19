@@ -3,7 +3,7 @@
     <div class="modal_create_body">
         <h2 class="create_h2">물품 등록</h2>
         <label class="create__label">대분류 :
-            <button onclick="btn_toggle(parentCategory)">항목추가</button>
+            <button class="button_create" onclick="btn_toggle(parentCategory)">항목추가</button>
         </label>
         <select type="text" name="parentCategory" id="select_parentCategory" class="select_parent"
         onchange="optionParentCategory()">
@@ -12,7 +12,7 @@
         <div class="parentCategory">
         </div>
         <label class="create__label">소분류 :
-            <button onclick="btn_toggle(childCategory)">항목추가</button>
+            <button class="button_create" onclick="btn_toggle(childCategory)">항목추가</button>
         </label>
         <select type="text" name="childCategory" id="select_childCategory" class="select_child"
         onchange="optionChildCategory()">
@@ -26,7 +26,7 @@
         <br/>
         <div class="rental_return">
             <div>
-                <label class="create__label">대여 가능 여부 : </label>
+                <label class="create__rentalLabel">대여 가능 여부 : </label>
                 <select id="rental" name="rental" type="text" class="select_rental">
                     <option value='' disabled selected>선택</option>
                     <option value="true">가능</option>
@@ -34,7 +34,7 @@
                 </select>
             </div>
             <div>
-                <label class="create__label">반환 필요 여부 : </label>
+                <label class="create__returnLabel">반환 필요 여부 : </label>
                 <select id="return" name="return" type="text" class="select_return">
                     <option value='' disabled selected>선택</option>
                     <option value="true">필요</option>
@@ -52,9 +52,12 @@
             <input type="file" id="excelFile" onchange="excelExport(event)"/>
         </label>
 
-        <button class="btn-createItem">물품 등록</button>
-        <button class="btn-initItem">초기화</button>
-        <button class="btn-cancel">취소</button>
+        <div class="btn_class">
+            <button class="btn-createItem, button_create">물품 등록</button>
+            <button class="btn-initItem, button_create">초기화</button>
+            <button class="btn-cancel, button_create">취소</button>
+        </div>
+
 
     </div>
 </div>

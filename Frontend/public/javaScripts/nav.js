@@ -1,16 +1,8 @@
-// Other important pens.
-// Map: https://codepen.io/themustafaomar/pen/ZEGJeZq
-// Dashboard: https://codepen.io/themustafaomar/pen/jLMPKm
-
 let dropdowns = document.querySelectorAll('.navbar .dropdown-toggler')
 let dropdownIsOpen = false
 
-// Handle dropdown menues
+
 if (dropdowns.length) {
-    // Usually I don't recommend doing this (adding many event listeners to elements have the same handler)
-    // Instead use event delegation: https://javascript.info/event-delegation
-    // Why: https://gomakethings.com/why-event-delegation-is-a-better-way-to-listen-for-events-in-vanilla-js
-    // But since we only have two dropdowns, no problem with that.
     dropdowns.forEach((dropdown) => {
         dropdown.addEventListener('click', (event) => {
             let target = document.querySelector(`#${event.target.dataset.dropdown}`)
@@ -28,7 +20,6 @@ if (dropdowns.length) {
     })
 }
 
-// Handle closing dropdowns if a user clicked the body
 window.addEventListener('mouseup', (event) => {
     if (dropdownIsOpen) {
         dropdowns.forEach((dropdownButton) => {
@@ -46,7 +37,6 @@ window.addEventListener('mouseup', (event) => {
     }
 })
 
-// Open links in mobiles
 function handleSmallScreens() {
     document.querySelector('.navbar-toggler')
         .addEventListener('click', () => {

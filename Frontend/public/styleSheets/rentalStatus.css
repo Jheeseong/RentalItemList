@@ -11,6 +11,7 @@ li {
 }
 .tab-container {
     display: flex;
+    justify-content: center;
 }
 .tab-container__item {
     cursor: pointer;

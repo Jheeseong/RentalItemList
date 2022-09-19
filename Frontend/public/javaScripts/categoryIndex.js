@@ -16,20 +16,23 @@ async function save_child_category() {
         name: parentCategory.options[parentCategory.selectedIndex].text,
         children: document.getElementById('input_child').value
     }
-    await fetch('createItem/api/createCategory/' + parentCategoryVal, {
-        method: 'post',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(categories),
-    }).then((res) => {
-        res.json()
-    })
-        .then(() => {
-            optionAdd(select_child)
-            document.getElementById('input_child').value = null;
+    if (parentCategoryVal === "대분류 선택") {
+        window.alert("대분류를 선택해주세요!");
+    } else {
+        await fetch('createItem/api/createCategory/' + parentCategoryVal, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(categories),
+        }).then((res) => {
+            res.json()
         })
-
+            .then(() => {
+                optionAdd(select_child)
+                document.getElementById('input_child').value = null;
+            });
+    }
 }
 function btn_toggle(categoryClass) {
     categoryClass.classList.toggle(CLICKED_CLASS, this.createInput(categoryClass));
@@ -41,11 +44,11 @@ function createInput(categoryClass) {
     if (categoryClass === parentCategory) {
         categoryClass.innerHTML =
             "            <input type=\"text\" name=\"input_parent\" id=\"input_parent\" class=\"input_category\">\n" +
-            "            <button id=\"btn_insertCategory\" name=\"btn_insertCategory\" onclick=save_parent_category()>추가</button>"
+            "            <button id=\"btn_insertCategory\" name=\"btn_insertCategory\" class=\"button_create\" onclick=save_parent_category()>추가</button>"
     } else {
         categoryClass.innerHTML =
             "            <input type=\"text\" name=\"input_child\" id=\"input_child\" class=\"input_category\">\n" +
-            "            <button id=\"btn_insertCategory\" name=\"btn_insertCategory\" onclick=save_child_category()>추가</button>"
+            "            <button id=\"btn_insertCategory\" name=\"btn_insertCategory\" class=\"button_create\" onclick=save_child_category()>추가</button>"
 
     }
 
