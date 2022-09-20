@@ -2,8 +2,10 @@ let rentModal = document.querySelector('.rent_modal');
 function rentModalView(itemInfo){
 
     const itemInformation = document.getElementById('itemInfoList');
-    itemInformation.innerHTML = "<li>물품명 : " + itemInfo.name + "</li>" +
-        "<li> 물품코드 : " + itemInfo.code +"</li>"
+    itemInformation.innerHTML = "<label class='rentItem_label'>물품 명 : " +
+        "<input class='input_name' id='ItemNameValue' value=''></label>" +
+        "<label class='rentItem_label'> 물품 코드 : " +
+        "<input class='input_code' id='itemCodeValue' value=''></label>"
 
     if(itemInfo.available.rental === false){
         return window.alert("대여불가 물품입니다.");
@@ -12,6 +14,9 @@ function rentModalView(itemInfo){
         rentModalBody.innerHTML += "<input type='hidden' id='itemCode' value='" + itemInfo.code + "'>"
         + "<input type='hidden' id='itemId' value='" + itemInfo._id + "'>"
         + "<input type='hidden' id='returnAvailable' value='" + itemInfo.available.return + "'>";
+
+        document.getElementById('ItemNameValue').value = itemInfo.name;
+        document.getElementById('itemCodeValue').value = itemInfo.code;
 
         const currTime = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16);
 

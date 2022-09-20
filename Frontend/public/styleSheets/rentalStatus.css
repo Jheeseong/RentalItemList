@@ -3,6 +3,9 @@ body {
     box-sizing: border-box;
     text-align: center;
 }
+h1 {
+    padding: 20px;
+}
 ul,
 li {
     margin: 0;

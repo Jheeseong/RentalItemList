@@ -103,7 +103,7 @@
     display: flex;
     justify-content: space-between;
     text-align: left;
-
+    margin-top: 0.5rem;
 }
 
 .button_create {

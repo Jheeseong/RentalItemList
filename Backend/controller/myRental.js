@@ -1,5 +1,6 @@
 const { Rent } = require('../models/rent')
 const { Item } = require('../models/Item')
+const { User } = require('../models/User')
 const jwt = require("../config/jwt/jwt");
 
 const myRental = {
@@ -29,7 +30,10 @@ const myRental = {
             .populate("itemInfo")
             .exec();
 
-        res.render('./rent/myRental', {rentInfo, returnInfo, name: req.name, workNumber: req.workNumber, authority : req.authority});
+        const userInfo = await User.findOne({workNumber: req.workNumber})
+            .exec();
+
+        res.render('./rent/myRental', {userInfo, rentInfo, returnInfo, name: req.name, workNumber: req.workNumber, authority : req.authority});
 
     },
     returnItem: (req, res) => {

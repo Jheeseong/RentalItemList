@@ -1,47 +1,51 @@
 <link rel='stylesheet' href='/stylesheets/itemEdit.css'>
 <div class="modal_edit">
     <div class="modal_edit_body">
-        <h2>물품 편집</h2>
-        <label>대분류 : </label>
+        <h2 class="edit_h2">물품 편집</h2>
+        <label class="edit__label">대분류 : </label>
         <select type="text" name="parentCategory_edit" id="select_parentCategory_edit" class="select_parent_edit"
                 onchange="optionParentCategory_edit()">
             <option value="" disabled selected>대분류 선택</option>
         </select>
         <br/>
-        <label>소분류 : </label>
+        <label class="edit__label">소분류 : </label>
         <select type="text" name="childCategory_edit" id="select_childCategory_edit" class="select_child_edit"
                 onchange="optionChildCategory_edit()">
             <option value='' disabled selected>소분류 선택</option>
         </select>
         <br/>
-        <label>물품 이름 : </label>
-        <input type="text" name="name_edit" id="name_edit">
+        <label class="edit__label">물품 이름 : </label>
+        <input type="text" name="name_edit" id="name_edit" class="edit__input">
         <br/>
-        <label>물품 번호 : </label>
-        <input type="Number" name="number_edit" id="number_edit">
+        <div class="rental_return">
+            <div>
+                <label class="edit__rentalLabel">대여 가능 여부 : </label>
+                <select id="rental_edit" name="rental_edit" type="text" class="select_rental_edit">
+                    <option value='' disabled selected>선택</option>
+                    <option value="true">가능</option>
+                    <option value="false">불가능</option>
+                </select>
+            </div>
+            <div>
+                <label class="edit__returnLabel">반환 필요 여부 : </label>
+                <select id="return_edit" name="return_edit" type="text" class="select_return_edit">
+                    <option value='' disabled selected>선택</option>
+                    <option value="true">필요</option>
+                    <option value="false">불필요</option>
+                </select>
+            </div>
+        </div>
+
+        <label class="edit__label">물품 코드 : </label>
+        <input type="text" name="code_edit" id="code_edit" class="edit__input">
         <br/>
-        <label>대여 가능 여부 : </label>
-        <select id="rental_edit" name="rental_edit" type="text">
-            <option value='' disabled selected>선택</option>
-            <option value="true">가능</option>
-            <option value="false">불가능</option>
-        </select>
+        <label class="edit__label">물품 갯수 : </label>
+        <input type="Number" name="all_edit" id="all_edit" class="edit__input">
         <br/>
-        <label>반환 필요 여부 : </label>
-        <select id="return_edit" name="return_edit" type="text">
-            <option value='' disabled selected>선택</option>
-            <option value="true">필요</option>
-            <option value="false">불필요</option>
-        </select>
-        <br/>
-        <label>물품 코드 : </label>
-        <input type="text" name="code_edit" id="code_edit">
-        <br/>
-        <label>물품 갯수 : </label>
-        <input type="Number" name="all_edit" id="all_edit">
-        <br/>
-        <button class="btn-updateItem">물품 편집</button>
-        <button class="btn-initItem" id="initItemId">초기화</button>
-        <button class="btn-cancel" onclick="cancel_btn()">취소</button>
-    </div>
+        <div class="btn_class">
+            <button class="btn-updateItem button_edit">물품 편집</button>
+            <button class="btn-initItem button_edit" id="initItemId">초기화</button>
+            <button class="btn-cancel button_edit" onclick="cancel_btn()">취소</button>
+        </div>
+            </div>
 </div>

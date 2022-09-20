@@ -4,19 +4,25 @@
     <div class="rent_modal_body" id="rent_modal_body">
         <h3>물품 대여</h3>
         <div class="itemInformation" id="itemInformation">
-            <ul class="itemInfoList" name="itemInfoList" id="itemInfoList"></ul>
+            <label class="itemInfoList" name="itemInfoList" id="itemInfoList"></label>
         </div>
         <div class="rent_input" id="rent_input">
-            <label for="purpose">대여 목적</label>
-            <textarea rows=3 name="purpose" id="purpose" class="input-purpose"></textarea><br/>
+            <label class="rentItem_label" for="purpose">대여 목적 :
+                <textarea rows=3 name="purpose" id="purpose" class="input-purpose"></textarea>
+            </label>
 
-            <label for="rentDate">대여일</label>
-            <input type="datetime-local" onchange="changeRentDate()" id="rentDate" class="rentDate"><br/>
+            <label class="rentItem_label" for="rentDate">대여일 :
+                <input type="datetime-local" onchange="changeRentDate()" id="rentDate" class="rentDate">
+            </label>
 
-            <label for="returnDate">반납일</label>
-            <input type="datetime-local" onchange="changeReturnDate()" id="returnDate" class="returnDate"><br/>
+            <label class="rentItem_label" for="returnDate">반납일 :
+                <input type="datetime-local" onchange="changeReturnDate()" id="returnDate" class="returnDate">
+            </label>
         </div>
-        <button onclick="rentSubmit()">확인</button>
-        <button onclick="cancel()">취소</button>
+        <div class="btn_class">
+            <button class="button_rent" onclick="rentSubmit()">대여하기</button>
+            <button class="button_rent" onclick="cancel()">취소</button>
+        </div>
+
     </div>
 </div>

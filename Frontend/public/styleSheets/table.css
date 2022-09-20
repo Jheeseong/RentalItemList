@@ -4,6 +4,11 @@
     overflow: auto;
     display: inline-block;
 }
+.tableWrapper_default{
+    width:80%;
+    overflow: auto;
+    display: inline-block;
+}
 table {
     border: 1px solid #ccc;
     border-collapse: collapse;
