@@ -41,6 +41,11 @@ const itemSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 �
         required : true,
         default: new Date()
     },
+    updateDate:{
+        type : Date,
+        required : true,
+        default: new Date()
+    },
     delete :{
         type : Boolean,
         default : false

@@ -19,20 +19,106 @@
     top: 50%;
     left: 50%;
 
-    width: 400px;
-    height: 600px;
+    width: 500px;
+    height: 680px;
 
-    padding: 40px;
+    padding-top: 30px;
+    padding-left: 40px;
+    padding-right: 40px;
 
-    text-align: center;
 
-    background-color: rgb(255, 255, 255);
+    background-color: #F4F7F8;
     border-radius: 10px;
     box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
-
     transform: translateX(-50%) translateY(-50%);
 }
+.edit_h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+.edit__label {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.edit__rentalLabel, .edit__returnLabel {
+    justify-content: space-between;
+    padding-left: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
 
+
+.edit__input {
+    color: rgba(105, 102, 105);
+    font-size: 0.8rem;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    padding: .3rem .5rem;
+    border: 2px solid transparent;
+    outline: none;
+    border-radius: 1.5rem;
+    background-color: #E8EEEF;
+    letter-spacing: 1px;
+}
+
+.select_parent_edit, .select_child_edit {
+    color: rgba(105, 102, 105);
+    font-size: 0.8rem;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    padding: .3rem .5rem;
+    border: 2px solid transparent;
+    outline: none;
+    border-radius: 1.5rem;
+    background-color: #E8EEEF;
+    letter-spacing: 1px;
+}
+.select_rental_edit, .select_return_edit {
+    color: rgba(105, 102, 105);
+    font-size: 0.8rem;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    padding: .3rem .5rem;
+    border: 2px solid transparent;
+    outline: none;
+    border-radius: 1.5rem;
+    background-color: #E8EEEF;
+    letter-spacing: 1px;
+}
+.rental_return {
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+    margin-top: 0.5rem;
+
+}
+
+.button_edit {
+    box-shadow:inset 0px 1px 0px 0px #0098FE;
+    background: #0098FE;
+    border-radius:6px;
+    border:1px solid #dcdcdc;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-size:12px;
+    padding:6px 12px;
+    text-decoration:none;
+}
+.button_edit:hover {
+    background: #0073E6;
+}
+.button_edit:active {
+    position:relative;
+    top:1px;
+}
+.btn_class {
+    text-align: center;
+    margin-top: 40px;
+}
 select option[value=""][disabled] {
     display: none;
 }

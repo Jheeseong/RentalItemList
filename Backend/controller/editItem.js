@@ -18,7 +18,8 @@ const itemEdit = {
                 code: req.body.code,
                 "count.all": req.body.count.all,
                 "available.rental": req.body.available.rental,
-                "available.return": req.body.available.return
+                "available.return": req.body.available.return,
+                updateDate: new Date()
                 },
             async(err, items) => {
             if (err) console.log(err);

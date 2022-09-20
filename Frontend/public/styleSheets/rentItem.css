@@ -20,7 +20,7 @@
     left: 50%;
 
     width: 50%;
-    height: 600px;
+    height: 450px;
 
     padding: 40px;
 
@@ -31,4 +31,78 @@
     box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 
     transform: translateX(-50%) translateY(-50%);
+}
+.input-purpose {
+    color: rgba(105, 102, 105);
+    font-size: 1rem;
+    width: 70%;
+    margin-left: 1rem;
+    padding: .3rem .5rem;
+    border: 2px solid transparent;
+    outline: none;
+    border-radius: 1.5rem;
+    background-color: #E8EEEF;
+    letter-spacing: 1px;
+    display: flex;
+    justify-content: space-between;
+}
+.rentItem_label {
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 0.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    align-items: center;
+}
+.rentDate, .returnDate, .input_name {
+    color: rgba(105, 102, 105);
+    font-size: 1rem;
+    width: 70%;
+    margin-left: 2rem;
+    padding: .3rem .5rem;
+    border: 2px solid transparent;
+    outline: none;
+    border-radius: 1.5rem;
+    background-color: #E8EEEF;
+    letter-spacing: 1px;
+    display: flex;
+    justify-content: space-between;
+}
+.input_code {
+    color: rgba(105, 102, 105);
+    font-size: 1rem;
+    width: 70%;
+    margin-left: 1.2rem;
+    padding: .3rem .5rem;
+    border: 2px solid transparent;
+    outline: none;
+    border-radius: 1.5rem;
+    background-color: #E8EEEF;
+    letter-spacing: 1px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.button_rent {
+    box-shadow:inset 0px 1px 0px 0px #0098FE;
+    background: #0098FE;
+    border-radius:6px;
+    border:1px solid #dcdcdc;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-size:12px;
+    padding:6px 12px;
+    text-decoration:none;
+}
+.button_rent:hover {
+    background: #0073E6;
+}
+.button_rent:active {
+    position:relative;
+    top:1px;
+}
+.btn_class {
+    text-align: center;
+    margin-top: 20px;
 }
