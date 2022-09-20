@@ -6,104 +6,145 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/stylesheets/myRental.css' />
     <link rel="stylesheet" href="/stylesheets/table.css"/>
+    <script defer src="https://code.jquery.com/jquery-3.6.1.js"></script>
     <script defer src="/javaScripts/myRental.js"></script>
 </head>
 <body>
 <%- include('../layouts/nav.ejs')%>
-<div class="tableWrapper rentInfoList">
-    <table id="rentInfoListTable">
-        <caption>대여 중인 물품</caption>
-        <thead>
-        <tr>
-            <th scope="col">물품 번호</th>
-            <th scope="col">물품 대분류</th>
-            <th scope="col">물품 소분류</th>
-            <th scope="col">물품명</th>
-            <th scope="col">물품 코드</th>
-            <th scope="col">대여일</th>
-            <th scope="col">반납 예정일</th>
-            <th scope="col">대여 사유</th>
-            <th scope="col">반납</th>
-        </tr>
-        </thead>
-        <tbody id="tr_rentInfoList">
-        <% rentInfo.map(res => {%>
-        <% let rentDate = res.rentDate.getFullYear()
-                + "." + (res.rentDate.getMonth() + 1)
-                + "." + res.rentDate.getDate()
-                + " / " + res.rentDate.getHours()
-                + " : " + res.rentDate.getMinutes()
-        %>
-        <% let returnPlanDate = res.returnPlanDate.getFullYear()
-                + "." + (res.returnPlanDate.getMonth() + 1)
-                + "." + res.returnPlanDate.getDate()
-                + " / " + res.returnPlanDate.getHours()
-                + " : " + res.returnPlanDate.getMinutes()
-        %>
-            <tr>
-                <td><%=res.itemInfo.number%></td>
-                <td><%=res.itemInfo.category.parentCategory%></td>
-                <td><%=res.itemInfo.category.childCategory%></td>
-                <td><%=res.itemInfo.name%></td>
-                <td><%=res.itemInfo.code%></td>
-                <td><%=rentDate%></td>
-                <td><%=returnPlanDate%></td>
-                <td><%=res.purpose%></td>
-                <td><button class="btn-return" onclick="returnItem('<%=res._id%>', '<%=res.itemInfo._id%>')">반납하기</button></td>
-            </tr>
-        <%});%>
-        </tbody>
-    </table>
+<h1>나의 대여 현황</h1>
+<div class="myRentalInfoList">
+    <ul class="tab-container">
+        <li class="tab-container__item active" data-tab="tab1">
+            <a class="tab-container__item--title" href="#">대여 중인 물품</a>
+        </li>
+        <li class="tab-container__item" data-tab="tab2">
+            <a class="tab-container__item--title" href="#">대여 이력</a>
+        </li>
+    </ul>
+    <section class="content-container">
+        <article id="tab1" class="content-container__content target">
+            <p>
+            <div class="tableWrapper_default rentInfoList">
+                <table id="rentInfoListTable">
+                    <thead>
+                    <tr>
+                        <th scope="col">물품 번호</th>
+                        <th scope="col">물품 대분류</th>
+                        <th scope="col">물품 소분류</th>
+                        <th scope="col">물품명</th>
+                        <th scope="col">물품 코드</th>
+                        <th scope="col">대여일</th>
+                        <th scope="col">반납 예정일</th>
+                        <th scope="col">대여 사유</th>
+                        <th scope="col">반납</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tr_rentInfoList">
+                    <% rentInfo.map(res => {%>
+                        <% let rentDate = res.rentDate.getFullYear()
+                                + "." + (res.rentDate.getMonth() + 1)
+                                + "." + res.rentDate.getDate()
+                                + " / " + res.rentDate.getHours()
+                                + " : " + res.rentDate.getMinutes()
+                        %>
+                        <% let returnPlanDate = res.returnPlanDate.getFullYear()
+                                + "." + (res.returnPlanDate.getMonth() + 1)
+                                + "." + res.returnPlanDate.getDate()
+                                + " / " + res.returnPlanDate.getHours()
+                                + " : " + res.returnPlanDate.getMinutes()
+                        %>
+                        <tr>
+                            <td><%=res.itemInfo.number%></td>
+                            <td><%=res.itemInfo.category.parentCategory%></td>
+                            <td><%=res.itemInfo.category.childCategory%></td>
+                            <td><%=res.itemInfo.name%></td>
+                            <td><%=res.itemInfo.code%></td>
+                            <td><%=rentDate%></td>
+                            <td><%=returnPlanDate%></td>
+                            <td><%=res.purpose%></td>
+                            <td><button class="btn-return" onclick="returnItem('<%=res._id%>', '<%=res.itemInfo._id%>')">반납하기</button></td>
+                        </tr>
+                    <%});%>
+                    </tbody>
+                </table>
+            </div>
+            </p>
+        </article>
+        <article id="tab2" class="content-container__content">
+            <p>
+            <div class="tableWrapper_default returnInfoList">
+                <table id="returnInfoListTable">
+                    <thead>
+                    <tr>
+                        <th scope="col">물품 번호</th>
+                        <th scope="col">물품 대분류</th>
+                        <th scope="col">물품 소분류</th>
+                        <th scope="col">물품명</th>
+                        <th scope="col">물품 코드</th>
+                        <th scope="col">대여일</th>
+                        <th scope="col">반납일</th>
+                        <th scope="col">대여 사유</th>
+                        <th scope="col">반납</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tr_returnInfoList">
+                    <% returnInfo.map(res => {%>
+                        <% let rentDate = res.rentDate.getFullYear()
+                                + "." + (res.rentDate.getMonth() + 1)
+                                + "." + res.rentDate.getDate()
+                                + " / " + res.rentDate.getHours()
+                                + " : " + res.rentDate.getMinutes()
+                        %>
+                        <% let returnDate = res.returnDate ?  (res.returnDate.getFullYear()
+                                + "." + (res.returnDate.getMonth() + 1)
+                                + "." + res.returnDate.getDate()
+                                + " / " + res.returnDate.getHours()
+                                + " : " + res.returnDate.getMinutes()) : null
+                        %>
+                        <tr>
+                            <td><%=res.itemInfo.number%></td>
+                            <td><%=res.itemInfo.category.parentCategory%></td>
+                            <td><%=res.itemInfo.category.childCategory%></td>
+                            <td><%=res.itemInfo.name%></td>
+                            <td><%=res.itemInfo.code%></td>
+                            <td><%=rentDate%></td>
+                            <td><%=returnDate%></td>
+                            <td><%=res.purpose%></td>
+                            <td>
+                                <% if(res.itemInfo.available.return){ %>
+                                    반납완료
+                                <%} else {%>
+                                    반납불필요
+                                <%}%>
+                            </td>
+                        </tr>
+                    <%});%>
+                    </tbody>
+                </table>
+            </div>
+            </p>
+        </article>
+    </section>
 </div>
-<div class="tableWrapper returnInfoList">
-    <table id="returnInfoListTable">
-        <caption>대여 이력</caption>
-        <thead>
-        <tr>
-            <th scope="col">물품 번호</th>
-            <th scope="col">물품 대분류</th>
-            <th scope="col">물품 소분류</th>
-            <th scope="col">물품명</th>
-            <th scope="col">물품 코드</th>
-            <th scope="col">대여일</th>
-            <th scope="col">반납일</th>
-            <th scope="col">대여 사유</th>
-            <th scope="col">반납</th>
-        </tr>
-        </thead>
-        <tbody id="tr_returnInfoList">
-        <% returnInfo.map(res => {%>
-            <% let rentDate = res.rentDate.getFullYear()
-                    + "." + (res.rentDate.getMonth() + 1)
-                    + "." + res.rentDate.getDate()
-                    + " / " + res.rentDate.getHours()
-                    + " : " + res.rentDate.getMinutes()
-            %>
-            <% let returnDate = res.returnDate ?  (res.returnDate.getFullYear()
-                    + "." + (res.returnDate.getMonth() + 1)
-                    + "." + res.returnDate.getDate()
-                    + " / " + res.returnDate.getHours()
-                    + " : " + res.returnDate.getMinutes()) : null
-            %>
-            <tr>
-                <td><%=res.itemInfo.number%></td>
-                <td><%=res.itemInfo.category.parentCategory%></td>
-                <td><%=res.itemInfo.category.childCategory%></td>
-                <td><%=res.itemInfo.name%></td>
-                <td><%=res.itemInfo.code%></td>
-                <td><%=rentDate%></td>
-                <td><%=returnDate%></td>
-                <td><%=res.purpose%></td>
-                <td>
-                    <% if(res.itemInfo.available.return){ %>
-                    반납완료
-                    <%} else {%>
-                    반납불필요
-                    <%}%>
-                </td>
-            </tr>
-        <%});%>
-        </tbody>
-    </table>
+<h1>마이페이지</h1>
+<div class="userInfoList">
+    <label class="myPage_label"> 이름 :
+        <input type="text" id="myPage_name" class="myPage_input" value='<%= userInfo.name%>' readonly>
+    </label>
+    <label class="myPage_label">부서 :
+        <input type="text" id="myPage_department" class="myPage_input" value='<%= userInfo.department%>' readonly>
+    </label>
+    <label class="myPage_label">직책 :
+        <input type="text" id="myPage_role" class="myPage_input" value='<%= userInfo.role%>' readonly>
+    </label>
+    <label class="myPage_label">사번 :
+        <input type="text" id="myPage_workNumber" class="myPage_input" value='<%= userInfo.workNumber%>' readonly>
+    </label>
+    <label class="myPage_label">메일 :
+        <input type="text" id="myPage_email" class="myPage_input" value='<%= userInfo.email%>' readonly>
+    </label>
+
+    <label class="myPage_label">비밀번호 :
+    </label>
 </div>
 </body>

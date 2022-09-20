@@ -17,7 +17,103 @@
     position:relative;
     top:1px;
 }
+body {
+    font-family: "Open Sans", sans-serif;
+    box-sizing: border-box;
+    text-align: center;
+}
+h1 {
+    padding: 20px;
+}
+ul,
+li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.tab-container {
+    display: flex;
+    justify-content: center;
+}
+.tab-container__item {
+    cursor: pointer;
+}
+.tab-container__item:hover {
+    background-color: #369fff;
+    transition: background-color 0.4s ease-in-out;
+}
+.tab-container__item:hover .tab-container__item--title {
+    color: #fff;
+    transition: color 0.4s ease-in-out;
+}
+.tab-container__item.active {
+    border-bottom: 2px solid #369fff;
+}
+.tab-container__item.active .tab-container__item--title {
+    color: #369fff;
+}
+.tab-container__item.active:hover {
+    background-color: #369fff;
+    transition: background-color 0.4s ease-in-out;
+}
+.tab-container__item.active:hover .tab-container__item--title {
+    color: #fff;
+    transition: color 0.4s ease-in-out;
+}
+.tab-container__item--title {
+    display: inline-block;
+    color: #999;
+    font-weight: 700;
+    text-decoration: none;
+    margin: 15px;
+}
+.content-container {
+    padding: 10px;
+}
+.content-container__content {
+    display: none;
+}
+.content-container__content.target {
+    display: block;
+}
+.myPage_label {
+    display: flex;
+    padding-left: 0.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+.myPage_input {
+    color: rgba(105, 102, 105);
+    font-size: 1rem;
+    width: 70%;
+    margin-left: 2rem;
+    padding: .3rem .5rem;
+    border: 2px solid transparent;
+    outline: none;
+    border-radius: 1.5rem;
+    background-color: #E8EEEF;
+    letter-spacing: 1px;
+    display: flex;
+    justify-content: space-between;
+}
+.userInfoList {
 
-body{
+    width:60%;
+    overflow: auto;
+    display: inline-block;
+    height: 400px;
+
+    margin-bottom: 50px;
+
+    padding-top: 30px;
+    padding-left: 40px;
+    padding-right: 40px;
+
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+
     text-align: center;
 }
