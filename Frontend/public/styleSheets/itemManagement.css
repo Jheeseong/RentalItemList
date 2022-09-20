@@ -98,6 +98,11 @@ body {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    box-shadow: 3px 3px 9px 0 rgb(96 96 96 / 24%);
+    margin-right: 5px;
+    margin-left: 5px;
+
+
 }
 
 /*관리자기능 버튼*/
@@ -126,6 +131,8 @@ body {
     outline: none;
     padding-left: 10px;
     background-color: white;
+    box-shadow: 3px 3px 9px 0 rgb(96 96 96 / 24%);
+    margin-left: 5px;
 }
 
 /*검색버튼*/

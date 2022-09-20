@@ -1,0 +1,23 @@
+<div class="div-indexItem">
+    <div class="indexitems">
+        <div class="containerTop">
+            <h2>신규 아이템 </h2>
+        </div>
+        <% newItems.map((res) => {%>
+        <div class="containerBottom">
+            <p><%=res.category.parentCategory%> > <%=res.category.childCategory%> &nbsp <%=res.name%></p>
+        </div>
+        <%});%>
+    </div>
+
+    <div class="indexitems">
+        <div class="containerTop">
+            <h2>인기 아이템 </h2>
+        </div>
+        <% hotItems.map((res) => {%>
+        <div class="containerBottom">
+            <p class="containerRow"><%=res.category.parentCategory%> > <%=res.category.childCategory%> &nbsp <%=res.name%></p>
+        </div>
+        <%});%>
+    </div>
+</div>

@@ -30,13 +30,10 @@ const authUtil = {
         if (user === TOKEN_EXPIRED) {
             req.code = "Token authorized fail"
             req.message = "TOKEN_EXPIRED"
-
-            // 유효기간 만료 시 토큰 재발급
-            const jwtToken = await jwt.sign(user).token;
-            res.cookie("x_auth", jwtToken)
-                .status(200);
-
-            console.log(user.name + "님 토큰 만료, 토큰 재발급");
+            return res.clearCookie('x_auth')
+                .writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'})
+                .write("<script>window.alert('토큰 유효기간이 만료되었습니다.')</script>"
+                    + "<script>location.replace('/login')</script>");
 
             // return req.body.json({code : "Token authorized fail", message : "TOKEN EXPIRED"});
         }
@@ -45,7 +42,8 @@ const authUtil = {
             req.code = "Token authorized fail"
             req.message = "TOKEN_INVALID"
             return res.clearCookie('x_auth')
-                .write("<script>window.alert('INVALID TOKEN')</script>"
+                .writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'})
+                .write("<script>window.alert('유효하지않은 토큰입니다.')</script>"
                     + "<script>location.replace('/login')</script>")
 
             // return req.body.json({code : "Token authorized fail", message : "TOKEN INVALID"});
@@ -54,6 +52,10 @@ const authUtil = {
         else if (user.workNumber === undefined){
             req.code = "Token authorized fail"
             req.message = "workNumber is undefined"
+            return res.clearCookie('x_auth')
+                .writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'})
+                .write("<script>window.alert('유호하지 않은 토큰입니다.')</script>"
+                    + "<script>location.replace('/login')</script>")
             // return res.json({code : "Token authorized fail", message : "workNumber is undefined"});
         }
         req.workNumber = user.workNumber;
@@ -66,21 +68,27 @@ const authUtil = {
             next();
 
         }else {
-            return res.redirect('/error');
+            return res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'})
+                .write("<script>window.alert('접근권한이 없습니다.')</script>"
+                + "<script>location.replace('/error')</script>")
         }
     },
     authRental: (req, res, next) => {
         if(req.authority.rentalAuthority === true || req.authority.administrator === true){
             next();
         }else {
-            return res.redirect('/error');
+            return res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'})
+                .write("<script>window.alert('접근권한이 없습니다.')</script>"
+                + "<script>location.replace('/error')</script>")
         }
     },
     authEdit: (req, res, next) => {
         if(req.authority.editAuthority === true || req.authority.administrator === true){
             next();
         }else {
-            return res.redirect('/error');
+            return res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'})
+                .write("<script>window.alert('접근권한이 없습니다.')</script>"
+                + "<script>location.replace('/error')</script>")
 
         }
 
@@ -89,7 +97,8 @@ const authUtil = {
         if(req.authority.openAuthority === true || req.authority.administrator === true){
             next();
         }else {
-            return res.redirect('/error');
+            return res.write("<script>window.alert('접근권한이 없습니다.')</script>"
+                + "<script>location.replace('/error')</script>")
 
         }
     }

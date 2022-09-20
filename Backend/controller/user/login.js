@@ -41,6 +41,7 @@ const login = {
                 const jwtToken = await jwt.sign(result);
                 // res.json({loginSuccess: true, user: result.name, Token: jwtToken});
                 /* 쿠키에 토큰 저장 */
+
                 return res.cookie("x_auth", jwtToken.token)
                     .json({loginSuccess: true, message: result.name + "님 환영합니다."})
 

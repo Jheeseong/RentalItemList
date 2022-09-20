@@ -1,0 +1,48 @@
+<link rel='stylesheet' href='/stylesheets/myRental.css' />
+<script defer src="/javaScripts/myRental.js"></script>
+<div class="indexitems rentInfoList" style="width: 77%">
+    <div class="containerTop"><h2>내가 대여한 물품</h2></div>
+    <div class="containerBottom" style="background-color:white;">
+        <table id="rentInfoListTable" style="font-size: 14px; margin: 0px">
+            <thead>
+            <tr>
+                <th scope="col">물품 대분류</th>
+                <th scope="col">물품 소분류</th>
+                <th scope="col">물품명</th>
+                <th scope="col">물품 코드</th>
+                <th scope="col">대여일</th>
+                <th scope="col">반납 예정일</th>
+                <th scope="col">대여 사유</th>
+                <th scope="col">반납</th>
+            </tr>
+            </thead>
+            <tbody id="tr_rentInfoList">
+            <% rentInfo.map(res => {%>
+                <% let rentDate = res.rentDate.getFullYear()
+                        + "." + (res.rentDate.getMonth() + 1)
+                        + "." + res.rentDate.getDate()
+                        + " / " + res.rentDate.getHours()
+                        + " : " + res.rentDate.getMinutes()
+                %>
+                <% let returnPlanDate = res.returnPlanDate.getFullYear()
+                        + "." + (res.returnPlanDate.getMonth() + 1)
+                        + "." + res.returnPlanDate.getDate()
+                        + " / " + res.returnPlanDate.getHours()
+                        + " : " + res.returnPlanDate.getMinutes()
+                %>
+                <tr>
+                    <td><%=res.itemInfo.category.parentCategory%></td>
+                    <td><%=res.itemInfo.category.childCategory%></td>
+                    <td><%=res.itemInfo.name%></td>
+                    <td><%=res.itemInfo.code%></td>
+                    <td><%=rentDate%></td>
+                    <td><%=returnPlanDate%></td>
+                    <td><%=res.purpose%></td>
+                    <td><button class="btn-return" onclick="returnItem('<%=res._id%>', '<%=res.itemInfo._id%>')">반납하기</button></td>
+                </tr>
+            <%});%>
+            </tbody>
+        </table>
+    </div>
+
+</div>
