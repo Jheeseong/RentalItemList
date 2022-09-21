@@ -7,7 +7,7 @@
 <html>
 <head>
     <title>이용자 관리</title>
-    <script defer src="/javaScripts/userManagement.js"></script>
+    <script defer src="/javaScripts/user/userManagement.js"></script>
     <script defer src="https://code.jquery.com/jquery-3.6.1.js"></script>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/stylesheets/table.css' />
@@ -44,9 +44,9 @@
                 <td class="btn_authority" onclick="updateRentalAuthority('<%=res._id%>')"><%=res.authority.rentalAuthority ? "가능" : "불가능"%></td>
                 <td class="btn_authority" onclick="updateOpenAuthority('<%=res._id%>')"><%=res.authority.openAuthority ? "가능" : "불가능"%></td>
                 <td>
-                    <button class="btn_admin" onclick="updateAdminAuthority('<%=res._id%>')">관리자 권한</button>
-                    <button class="btn_exile" onclick="exile('<%=res._id%>')">추방</button>
-                    <button class="btn_reset" onclick="resetPassword('<%=res._id%>')">비밀번호 초기화</button>
+                    <button class="btn-primary" onclick="updateAdminAuthority('<%=res._id%>')">관리자 권한</button>
+                    <button class="btn-primary" onclick="resetPassword('<%=res._id%>')">비밀번호 초기화</button>
+                    <button class="btn-danger" onclick="exile('<%=res._id%>')">추방</button>
                 </td>
             </tr>
             <%});%>

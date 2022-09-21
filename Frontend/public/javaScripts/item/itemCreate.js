@@ -5,6 +5,11 @@ const btnCreateItem = document.querySelector('.btn-createItem');
 const btnInitItem = document.querySelector('.btn-initItem');
 const btnCancel = document.querySelector('.btn-cancel');
 
+// 물품관리에서 물품등록 버튼 클릭 시
+function createItemClick(){
+    btnOpenPopup.click();
+}
+
 //nav의 물품등록 버튼 클릭 시 modal 실행
 btnOpenPopup.addEventListener('click', async () => {
     //toggle을 통해 물품버튼 클릭 수에 맞게 modal 창 오픈

@@ -13,10 +13,10 @@
     <link rel='stylesheet' type="text/css" href='/stylesheets/itemEdit.css' />
     <link rel='stylesheet' type="text/css" href='/stylesheets/itemManagement.css' />
     <link rel='stylesheet' type="text/css" href='/stylesheets/table.css' />
-    <script defer src="/javaScripts/itemManagement.js"></script>
-    <script defer src="/javaScripts/itemEdit.js"></script>
-    <script defer src="/javaScripts/managerFunction.js"></script>
-    <script defer src="/javaScripts/itemPutExcel.js"></script>
+    <script defer src="/javaScripts/item/itemManagement.js"></script>
+    <script defer src="/javaScripts/item/itemEdit.js"></script>
+    <script defer src="/javaScripts/item/managerFunction.js"></script>
+    <script defer src="/javaScripts/item/itemPutExcel.js"></script>
     <script defer src="https://code.jquery.com/jquery-3.6.1.js"></script>
     <!--SheetJS 라이브러리 사용-->
     <script src="/javaScripts/library/xlsx.full.min.js"></script>
@@ -49,7 +49,7 @@
         <% if(authority.openAuthority){ %>
         <button class="btn-secondary" id="btn_put_excel" onclick="putExcel(<%=JSON.stringify(items)%>)"><img class="excel-icon" src="/img/excel.png">&nbsp 엑셀로 변환</button>
         <%}%>
-        <button class="btn-secondary">물품 등록</button>
+        <button class="btn-secondary" onclick="createItemClick()">물품 등록</button>
     </div>
     <div class="tableWrapper itemInfoList">
         <table id="itemInfoListTable">

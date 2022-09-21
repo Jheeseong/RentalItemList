@@ -78,3 +78,45 @@ a {
   position:relative;
   top:1px;
 }
+
+.btn-danger {
+  background: white;
+  border-radius:6px;
+  border:1px solid #dc3545;
+  display:inline-block;
+  cursor:pointer;
+  color: #dc3545;
+  font-size:12px;
+  padding:6px 12px;
+  text-decoration:none;
+}
+.btn-danger:hover {
+  background: #dc3545;
+  color: white;
+  border:1px solid #dc3545;
+}
+.btn-danger:active {
+  position:relative;
+  top:1px;
+}
+
+.btn-warning{
+  background: white;
+  border-radius:6px;
+  border:1px solid #ffc107;
+  display:inline-block;
+  cursor:pointer;
+  color: #ffc107;
+  font-size:12px;
+  padding:6px 12px;
+  text-decoration:none;
+}
+.btn-warning:hover {
+   background: #ffc107;
+   color: black;
+   border:1px solid #ffc107;
+ }
+.btn-danger:active {
+  position:relative;
+  top:1px;
+}

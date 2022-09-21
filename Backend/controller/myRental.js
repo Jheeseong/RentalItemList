@@ -24,10 +24,12 @@ const myRental = {
         /* populate 사용 */
         const rentInfo = await Rent.find({$and : [{workNumber : req.workNumber}, {rentStatus : true} ]})
             .populate("itemInfo")
+            .sort({rentDate : 1})
             .exec();
 
         const returnInfo = await Rent.find({$and : [{workNumber : req.workNumber}, {rentStatus : false} ]})
             .populate("itemInfo")
+            .sort({rentDate : -1, returnDate: -1})
             .exec();
 
         const userInfo = await User.findOne({workNumber: req.workNumber})
