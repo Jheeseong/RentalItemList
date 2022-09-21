@@ -1,4 +1,4 @@
 module.exports = {
     mongoURI:
-        'mongodb://beast:bease@3.34.48.199:27017/admin'
+        'mongodb://beast:bease@15.164.33.21:27017/admin'
 };
