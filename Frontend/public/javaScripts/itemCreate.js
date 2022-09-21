@@ -97,6 +97,7 @@ btnInitItem.addEventListener('click', () => {
 btnCancel.addEventListener('click', () => {
     initItem();
     modal.classList.toggle('show');
+    body.style.overflow = 'auto';
 })
 
 

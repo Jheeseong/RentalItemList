@@ -16,18 +16,48 @@
 </head>
 <body>
 <%- include('../layouts/nav.ejs')%>
-<h1>나의 대여 현황</h1>
+<div class="myRentalUserIcon">
+    <img class="userIcon" src="/img/userIcon.png" width="150px" height="150px">
+    <h2><%=userInfo.name%></h2>
+</div>
 <div class="myRentalInfoList">
     <ul class="tab-container">
         <li class="tab-container__item active" data-tab="tab1">
-            <a class="tab-container__item--title" href="#">대여 중인 물품</a>
+            <a class="tab-container__item--title" href="#">회원 정보</a>
         </li>
         <li class="tab-container__item" data-tab="tab2">
+            <a class="tab-container__item--title" href="#">대여 중인 물품</a>
+        </li>
+        <li class="tab-container__item" data-tab="tab3">
             <a class="tab-container__item--title" href="#">대여 이력</a>
         </li>
     </ul>
     <section class="content-container">
         <article id="tab1" class="content-container__content target">
+            <p>
+            <div class="userInfoList">
+                <label class="myPage_label"> 이름 :
+                    <input type="text" id="myPage_name" class="myPage_input" value='<%= userInfo.name%>' readonly>
+                </label>
+                <label class="myPage_label">부서 :
+                    <input type="text" id="myPage_department" class="myPage_input" value='<%= userInfo.department%>' readonly>
+                </label>
+                <label class="myPage_label">직책 :
+                    <input type="text" id="myPage_role" class="myPage_input" value='<%= userInfo.role%>' readonly>
+                </label>
+                <label class="myPage_label">사번 :
+                    <input type="text" id="myPage_workNumber" class="myPage_input" value='<%= userInfo.workNumber%>' readonly>
+                </label>
+                <label class="myPage_label">메일 :
+                    <input type="text" id="myPage_email" class="myPage_input" value='<%= userInfo.email%>' readonly>
+                </label>
+                <div class="btn_MyPage">
+                    <button class="btn-return" id="btn_editUser" onclick="editUser()">회원 정보 수정</button>
+                </div>
+            </div>
+            </p>
+        </article>
+        <article id="tab2" class="content-container__content">
             <p>
             <div class="tableWrapper_default rentInfoList">
                 <table id="rentInfoListTable">
@@ -75,7 +105,7 @@
             </div>
             </p>
         </article>
-        <article id="tab2" class="content-container__content">
+        <article id="tab3" class="content-container__content">
             <p>
             <div class="tableWrapper_default returnInfoList">
                 <table id="returnInfoListTable">
@@ -131,25 +161,44 @@
         </article>
     </section>
 </div>
-<h1>마이페이지</h1>
-<div class="userInfoList">
-    <label class="myPage_label"> 이름 :
-        <input type="text" id="myPage_name" class="myPage_input" value='<%= userInfo.name%>' readonly>
-    </label>
-    <label class="myPage_label">부서 :
-        <input type="text" id="myPage_department" class="myPage_input" value='<%= userInfo.department%>' readonly>
-    </label>
-    <label class="myPage_label">직책 :
-        <input type="text" id="myPage_role" class="myPage_input" value='<%= userInfo.role%>' readonly>
-    </label>
-    <label class="myPage_label">사번 :
-        <input type="text" id="myPage_workNumber" class="myPage_input" value='<%= userInfo.workNumber%>' readonly>
-    </label>
-    <label class="myPage_label">메일 :
-        <input type="text" id="myPage_email" class="myPage_input" value='<%= userInfo.email%>' readonly>
-    </label>
+<div class="editUserModal">
+    <div class="editUserModal_body">
+        <h2>유저 정보 수정</h2>
+            <label class="myPage_label"> 이름 :
+                <input type="text" id="myPage_name_edit" class="myPage_input" value='<%= userInfo.name%>'>
+            </label>
+            <label class="myPage_label">부서 :
+                <input type="text" id="myPage_department_edit" class="myPage_input" value='<%= userInfo.department%>' >
+            </label>
+            <label class="myPage_label">직책 :
+                <select type="text" id="myPage_role_edit" class="myPage_input" value='<%= userInfo.role%>' >
+                    <option value="대표" <%= userInfo.role === "대표" ? "selected" : ""%> >대표</option>
+                    <option value="부장" <%= userInfo.role === "부장" ? "selected" : ""%>>부장</option>
+                    <option value="팀장" <%= userInfo.role === "팀장" ? "selected" : ""%>>팀장</option>
+                    <option value="대리" <%= userInfo.role === "대리" ? "selected" : ""%>>대리</option>
+                    <option value="사원" <%= userInfo.role === "사원" ? "selected" : ""%>>사원</option>
+                </select>
+            </label>
+            <label class="myPage_label">사번 :
+                <input type="text" id="myPage_workNumber_edit" class="myPage_input" value='<%= userInfo.workNumber%>' readonly>
+            </label>
+            <label class="myPage_label">메일 :
+                <span id="email_message_edit"></span>
+                <input type="text" id="myPage_email_edit" class="myPage_input" value='<%= userInfo.email%>' onkeyup="emailEditTest()" >
+            </label>
 
-    <label class="myPage_label">비밀번호 :
-    </label>
+        <button type="submit" onclick="edit(<%=userInfo.workNumber%>)">회원정보 수정</button>
+
+            <label class="myPage_label">비밀번호 :
+                <span id="password_message_edit"></span>
+                <input type="text" id="myPage_password_edit" class="myPage_input" value='' onkeyup="passwordEditTest()" >
+            </label>
+            <label class="myPage_label">비밀번호 확인 :
+                <span id="passwordConfirm_message_edit"></span>
+                <input type="text" id="myPage_passwordConfirm_edit" class="myPage_input" value='' onkeyup="passwordEditTest()" >
+            </label>
+        <button type="submit" onclick="passwordEdit(<%=userInfo.workNumber%>)">비밀번호 수정</button>
+
+    </div>
 </div>
 </body>
