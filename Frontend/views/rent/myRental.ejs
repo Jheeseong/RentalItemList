@@ -163,7 +163,7 @@
 </div>
 <div class="editUserModal">
     <div class="editUserModal_body">
-        <h2>유저 정보 수정</h2>
+        <h2 class="myPage_h2">유저 정보 수정</h2>
             <label class="myPage_label"> 이름 :
                 <input type="text" id="myPage_name_edit" class="myPage_input" value='<%= userInfo.name%>'>
             </label>
@@ -187,8 +187,9 @@
                 <input type="text" id="myPage_email_edit" class="myPage_input" value='<%= userInfo.email%>' onkeyup="emailEditTest()" >
             </label>
 
-        <button type="submit" onclick="edit(<%=userInfo.workNumber%>)">회원정보 수정</button>
-
+            <div class="btn_MyPage">
+                <button type="submit" class="btn-return" onclick="edit(<%=userInfo.workNumber%>)">회원정보 수정</button>
+            </div>
             <label class="myPage_label">비밀번호 :
                 <span id="password_message_edit"></span>
                 <input type="text" id="myPage_password_edit" class="myPage_input" value='' onkeyup="passwordEditTest()" >
@@ -197,7 +198,9 @@
                 <span id="passwordConfirm_message_edit"></span>
                 <input type="text" id="myPage_passwordConfirm_edit" class="myPage_input" value='' onkeyup="passwordEditTest()" >
             </label>
-        <button type="submit" onclick="passwordEdit(<%=userInfo.workNumber%>)">비밀번호 수정</button>
+            <div class="btn_MyPage">
+                <button type="submit" class="btn-return" onclick="passwordEdit(<%=userInfo.workNumber%>)">비밀번호 수정</button>
+            </div>
 
     </div>
 </div>
