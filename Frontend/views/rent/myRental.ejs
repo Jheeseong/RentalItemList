@@ -63,7 +63,6 @@
                 <table id="rentInfoListTable">
                     <thead>
                     <tr>
-                        <th scope="col">물품 번호</th>
                         <th scope="col">물품 대분류</th>
                         <th scope="col">물품 소분류</th>
                         <th scope="col">물품명</th>
@@ -89,7 +88,6 @@
                                 + " : " + res.returnPlanDate.getMinutes()
                         %>
                         <tr>
-                            <td><%=res.itemInfo.number%></td>
                             <td><%=res.itemInfo.category.parentCategory%></td>
                             <td><%=res.itemInfo.category.childCategory%></td>
                             <td><%=res.itemInfo.name%></td>
@@ -111,7 +109,6 @@
                 <table id="returnInfoListTable">
                     <thead>
                     <tr>
-                        <th scope="col">물품 번호</th>
                         <th scope="col">물품 대분류</th>
                         <th scope="col">물품 소분류</th>
                         <th scope="col">물품명</th>
@@ -137,7 +134,6 @@
                                 + " : " + res.returnDate.getMinutes()) : null
                         %>
                         <tr>
-                            <td><%=res.itemInfo.number%></td>
                             <td><%=res.itemInfo.category.parentCategory%></td>
                             <td><%=res.itemInfo.category.childCategory%></td>
                             <td><%=res.itemInfo.name%></td>
