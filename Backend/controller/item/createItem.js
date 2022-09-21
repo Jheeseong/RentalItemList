@@ -1,6 +1,6 @@
-const { Item } = require('../models/Item')
-const { Category } = require('../models/Category')
-const category = require('../controller/category')
+const { Item } = require('../../models/Item')
+const { Category } = require('../../models/Category')
+const category = require('./category')
 const createItem = {
     saveItem: async (req, res) => {
         const item = new Item(req.body);

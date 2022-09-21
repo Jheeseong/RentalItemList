@@ -1,7 +1,7 @@
-const { Rent } = require('../models/rent')
-const { Item } = require('../models/Item')
-const { User } = require('../models/User')
-const jwt = require("../config/jwt/jwt");
+const { Rent } = require('../../models/rent')
+const { Item } = require('../../models/Item')
+const { User } = require('../../models/User')
+const jwt = require("../../config/jwt/jwt");
 
 const myRental = {
     index: async (req, res) => {

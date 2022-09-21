@@ -1,5 +1,5 @@
-const { Rent } = require('../models/rent')
-const { Item } = require('../models/Item')
+const { Rent } = require('../../models/rent')
+const { Item } = require('../../models/Item')
 
 const rentItem = {
     rentItem: async (req, res) => {

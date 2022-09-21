@@ -1,13 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const createItemController = require('../controller/createItem');
-const createCategoryController = require('../controller/category');
-const itemManagementController = require("../controller/ItemManagement");
-const authAdmin = require('../config/jwt/auth').authAdmin;
-const authRental = require('../config/jwt/auth').authRental;
-const authEdit = require('../config/jwt/auth').authEdit;
-const authOpen = require('../config/jwt/auth').authOpen;
-const authUtil = require('../config/jwt/auth').checkToken;
+const createItemController = require('../../controller/item/createItem');
+const createCategoryController = require('../../controller/item/category');
+const authEdit = require('../../config/jwt/auth').authEdit;
+const authUtil = require('../../config/jwt/auth').checkToken;
 
 //POST 물품 등록
 router.post('/api/createItem',authUtil, authEdit, createItemController.saveItem);

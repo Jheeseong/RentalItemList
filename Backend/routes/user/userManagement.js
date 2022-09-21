@@ -1,11 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const userManagement = require('../controller/user/usermanagement')
-const authUtil = require('../config/jwt/auth').checkToken;
-const authAdmin = require('../config/jwt/auth').authAdmin;
-const authRental = require('../config/jwt/auth').authRental;
-const authEdit = require('../config/jwt/auth').authEdit;
-const authOpen = require('../config/jwt/auth').authOpen;
+const userManagement = require('../../controller/user/usermanagement')
+const authUtil = require('../../config/jwt/auth').checkToken;
+const authAdmin = require('../../config/jwt/auth').authAdmin;
 module.exports = router;
 
 router.get('/', authUtil, authAdmin, userManagement.index);

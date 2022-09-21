@@ -1,13 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const itemManagementController = require('../controller/ItemManagement');
-const categoryController = require('../controller/category');
-const itemEditController = require('../controller/editItem');
-const authUtil = require('../config/jwt/auth').checkToken;
-const authAdmin = require('../config/jwt/auth').authAdmin;
-const authRental = require('../config/jwt/auth').authRental;
-const authEdit = require('../config/jwt/auth').authEdit;
-const authOpen = require('../config/jwt/auth').authOpen;
+const itemManagementController = require('../../controller/item/ItemManagement');
+const categoryController = require('../../controller/item/category');
+const itemEditController = require('../../controller/item/editItem');
+const authUtil = require('../../config/jwt/auth').checkToken;
+const authEdit = require('../../config/jwt/auth').authEdit;
+const authOpen = require('../../config/jwt/auth').authOpen;
 
 
 

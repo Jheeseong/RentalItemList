@@ -1,5 +1,5 @@
-const { Rent } = require('../models/rent')
-const jwt = require("../config/jwt/jwt");
+const { Rent } = require('../../models/rent')
+const jwt = require("../../config/jwt/jwt");
 
 const rentalStatus = {
     index: (req, res) => {

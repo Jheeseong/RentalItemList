@@ -40,16 +40,16 @@ mongoose.connect(config.mongoURI, {
 
 // router 연결
 const indexRouter = require('./Backend/routes/index');
-const usersRouter = require('./Backend/routes/users');
-const loginRouter = require('./Backend/routes/Login');
-const signUpRouter = require('./Backend/routes/signUp');
-const itemManagement = require('./Backend/routes/ItemManagement');
-const createItem = require('./Backend/routes/createItem');
-const rentItem = require('./Backend/routes/rentItem');
-const myRental = require('./Backend/routes/myRental');
-const userManagement = require('./Backend/routes/userManagement');
-const rentRecord = require('./Backend/routes/rentRecord');
-const rentalStatus = require('./Backend/routes/rentalStatus')
+const usersRouter = require('./Backend/routes/user/users');
+const loginRouter = require('./Backend/routes/user/Login');
+const signUpRouter = require('./Backend/routes/user/signUp');
+const itemManagement = require('./Backend/routes/item/ItemManagement');
+const createItem = require('./Backend/routes/item/createItem');
+const rentItem = require('./Backend/routes/rent/rentItem');
+const myRental = require('./Backend/routes/rent/myRental');
+const userManagement = require('./Backend/routes/user/userManagement');
+const rentRecord = require('./Backend/routes/rent/rentRecord');
+const rentalStatus = require('./Backend/routes/rent/rentalStatus')
 
 
 app.use("/", indexRouter);

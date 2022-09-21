@@ -1,5 +1,5 @@
-const { Item } = require("../models/Item")
-const { Category } = require("../models/Category")
+const { Item } = require("../../models/Item")
+const { Category } = require("../../models/Category")
 
 const itemEdit = {
     index: async (req, res) => {

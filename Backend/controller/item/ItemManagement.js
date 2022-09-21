@@ -1,6 +1,6 @@
-const { Item } = require("../models/Item");
-const { Rent } = require("../models/rent");
-const { Category } = require('../models/Category');
+const { Item } = require("../../models/Item");
+const { Rent } = require("../../models/rent");
+const { Category } = require('../../models/Category');
 
 const itemManagement = {
     index: async (req, res) => {
