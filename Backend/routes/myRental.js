@@ -12,4 +12,7 @@ router.get('/', authUtil, myRentalController.index);
 
 router.get('/returnItem/:rentId/:itemId', authUtil, authRental, myRentalController.returnItem);
 
+router.post('/update/:keyword', authUtil, myRentalController.updateUser);
+
+router.post('/update/password/:keyword', authUtil, myRentalController.updatePassword)
 module.exports = router;

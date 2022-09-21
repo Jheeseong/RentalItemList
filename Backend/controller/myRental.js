@@ -59,6 +59,33 @@ const myRental = {
         });
 
     },
+    updateUser: (req, res) => {
+        User.updateOne({workNumber: req.params.keyword},
+            {
+                $set: {name: req.body.name,
+                    department: req.body.department,
+                    role: req.body.role,
+                    email: req.body.email,
+                    }
+            },
+            (err, user) => {
+            console.log(user)
+            if (err) console.log(err);
+            else res.json({user: user, message: "회원 수정이 완료되었습니다!"})
+            });
+    },
+
+    updatePassword: (req, res) => {
+        User.updateOne({workNumber: req.params.keyword},
+            {
+                $set: {password: req.body.password}
+            },
+            (err, user) => {
+                console.log(user)
+                if (err) console.log(err);
+                else res.json({user: user, message: "비밀번호 수정이 완료되었습니다!"})
+            });
+    }
 }
 
 

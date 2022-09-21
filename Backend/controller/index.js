@@ -13,7 +13,7 @@ const index = {
             {'$limit': 5}];
 
         const hotItems = await Item.aggregate(hotItemFilter, error => {
-            console.log(error);
+            if(error) console.log(error);
         });
 
         const rentInfo = await Rent.find({$and : [{workNumber : req.workNumber}, {rentStatus : true} ]})
