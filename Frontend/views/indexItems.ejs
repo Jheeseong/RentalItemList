@@ -1,0 +1,77 @@
+<!--
+    * 담당자 : 강재민
+    * 설명 : 메인홈페이지에서 표시해 줄 정보를 렌더링 하기 위한 파일
+    * 주요기능 : 신규물품과 인기물품을 표시함
+-->
+<div class="div-indexItem">
+    <div class="indexitems">
+        <div class="containerTop">
+            <div style="margin: 0px 10px 0px 10px"></div>
+            <div><h2>신규 아이템</h2></div>
+            <div class="divLinkIcon"><a href="/itemmanagement"><img class="linkIcon" src="/img/next.png"></a></div>
+        </div>
+
+        <div class="containerBottom">
+            <table style="width: 90%;">
+                <thead>
+                    <tr>
+                        <th class="indexTh">대분류</th>
+                        <th class="indexTh">소분류</th>
+                        <th class="indexTh">물품명</th>
+                        <th class="indexTh">물품코드</th>
+                        <th class="indexTh">등록일</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <% newItems.map((res) => {%>
+                <% let createDate = res.createDate.getFullYear()
+                        + "." + (res.createDate.getMonth() + 1)
+                        + "." + res.createDate.getDate() %>
+                    <tr>
+                        <td><%=res.category.parentCategory%></td>
+                        <td><%=res.category.childCategory%></td>
+                        <td><%=res.name%></td>
+                        <td><%=res.code%></td>
+                        <td><%=createDate%></td>
+                    </tr>
+                <%});%>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="indexitems">
+        <div class="containerTop">
+            <div style="margin: 0px 10px 0px 10px"></div>
+            <div><h2>인기 아이템</h2></div>
+            <div class="divLinkIcon"><a href="/itemmanagement"><img class="linkIcon" src="/img/next.png"></a></div>
+        </div>
+        <div class="containerBottom">
+            <table style="width: 90%">
+                <thead>
+                <tr>
+                    <th class="indexTh">순위</th>
+                    <th class="indexTh">대분류</th>
+                    <th class="indexTh">소분류</th>
+                    <th class="indexTh">물품명</th>
+                    <th class="indexTh">물품코드</th>
+                    <th class="indexTh">현재 대여자 수</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% hotItems.map((res, idx) => {%>
+                    <tr>
+                        <td><%=idx + 1%></td>
+                        <td><%=res.category.parentCategory%></td>
+                        <td><%=res.category.childCategory%></td>
+                        <td><%=res.name%></td>
+                        <td><%=res.code%></td>
+                        <td><%=res.rentInfo%></td>
+                    </tr>
+                <%});%>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

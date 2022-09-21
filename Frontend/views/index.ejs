@@ -1,15 +1,20 @@
+<!--
+    * 담당자 : 강재민
+    * 설명 : 메인페이지
+    * 주요기능 : 로그인시 이동하게되는 초기 화면
+-->
 <!DOCTYPE html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8">
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel='stylesheet' href='/stylesheets/index.css' />
-    <link rel='stylesheet' href='/stylesheets/table.css' />
+    <link rel='stylesheet' type="text/css" href='/stylesheets/style.css' />
+    <link rel='stylesheet' type="text/css" href='/stylesheets/index.css' />
+    <link rel='stylesheet' type="text/css" href='/stylesheets/table.css' />
   </head>
   <body>
   <%- include('./layouts/nav.ejs')%>
   <h1><%= title %></h1>
-  <%- include('./newItem.ejs')%>
+  <%- include('./indexItems.ejs')%>
   <%- include('./indexMyRental.ejs')%>
   </body>

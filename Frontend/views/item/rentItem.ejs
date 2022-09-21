@@ -1,10 +1,16 @@
+<!--
+    * 담당자 : 강재민
+    * 설명 : 물품대여를 위한 모달창
+    * 주요기능 : 물품대여에 필요한 대여 목적, 대여일, 반납일을 입력할 수 있는 input으로 구성
+-->
 <link rel='stylesheet' href='/stylesheets/rentItem.css' />
 <script defer src="/javaScripts/rentItem.js"></script>
 <div class="rent_modal" id="rent_modal">
     <div class="rent_modal_body" id="rent_modal_body">
         <h3>물품 대여</h3>
         <div class="itemInformation" id="itemInformation">
-            <label class="itemInfoList" name="itemInfoList" id="itemInfoList"></label>
+            <label class='rentItem_label'>물품 명 : <input class='input_name' id='ItemNameValue' value='' readonly></label>
+            <label class='rentItem_label'> 물품 코드 : <input class='input_code' id='itemCodeValue' value='' readonly></label>
         </div>
         <div class="rent_input" id="rent_input">
             <label class="rentItem_label" for="purpose">대여 목적 :

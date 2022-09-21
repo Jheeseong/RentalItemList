@@ -21,12 +21,12 @@ function itemsRender(items, auth){
         "<td>" + res.count.all + "</td>" +
         "<td>" + dateFormatter(res.createDate) + "</td><td>";
         if(auth.editAuthority){
-            rows += "<button class='btn-manager' onclick='editItem(\"" + res._id + "\")'><img class='manage-icon' src='/img/edit.png'></button>" +
-                    "<button class='btn-manager' onclick='deleteItem(\"" + res._id +"\")'><img class='manage-icon' src='/img/trash.png'></button> ";
+            rows += "<button title='물품 편집' class='btn-manager' onclick='editItem(\"" + res._id + "\")'><img class='manage-icon' src='/img/edit.png'></button>" +
+                    "<button title='물품 삭제' class='btn-manager' onclick='deleteItem(\"" + res._id +"\")'><img class='manage-icon' src='/img/trash.png'></button> ";
         }
         if(auth.openAuthority){
-            rows += "<button class='btn-open-lender btn-manager' onclick='lenderList(\"" + res.name + "\"," + JSON.stringify(res.rentInfo) +")'><img class=\"manage-icon\" src=\"/img/customer.png\"></button>" +
-                    "<button class='btn-open-rentHistory btn-manager' onClick='rentHistory(" + JSON.stringify(res) + ")'><img class='manage-icon' src='/img/history.png'></button>";
+            rows += "<button title='대여자 목록' class='btn-open-lender btn-manager' onclick='lenderList(\"" + res.name + "\"," + JSON.stringify(res.rentInfo) +")'><img class=\"manage-icon\" src=\"/img/customer.png\"></button>" +
+                    "<button title='물품 대여 이력' class='btn-open-rentHistory btn-manager' onClick='rentHistory(" + JSON.stringify(res) + ")'><img class='manage-icon' src='/img/history.png'></button>";
         }
         rows += "</td></tr>";
     });

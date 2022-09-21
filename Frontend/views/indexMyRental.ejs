@@ -1,19 +1,28 @@
+<!--
+    * 담당자 : 강재민
+    * 설명 : 메인페이지에서 내가 대여한 물품에 대해 확인하고 반납처리할 수 있도록 하기 위한 컴포넌트
+    * 주요기능 : 나의 대여 현황을 받아와 렌더링
+-->
 <link rel='stylesheet' href='/stylesheets/myRental.css' />
 <script defer src="/javaScripts/myRental.js"></script>
 <div class="indexitems rentInfoList" style="width: 77%">
-    <div class="containerTop"><h2>내가 대여한 물품</h2></div>
+    <div class="containerTop">
+        <div style="margin: 0px 10px 0px 10px"></div>
+        <div><h2>내가 대여한 물품</h2></div>
+        <div class="divLinkIcon"><a href="/myRental"><img class="linkIcon" src="/img/next.png"></a></div>
+    </div>
     <div class="containerBottom" style="background-color:white;">
         <table id="rentInfoListTable" style="font-size: 14px; margin: 0px">
             <thead>
             <tr>
-                <th scope="col">물품 대분류</th>
-                <th scope="col">물품 소분류</th>
-                <th scope="col">물품명</th>
-                <th scope="col">물품 코드</th>
-                <th scope="col">대여일</th>
-                <th scope="col">반납 예정일</th>
-                <th scope="col">대여 사유</th>
-                <th scope="col">반납</th>
+                <th class="indexTh" scope="col">물품 대분류</th>
+                <th class="indexTh" scope="col">물품 소분류</th>
+                <th class="indexTh" scope="col">물품명</th>
+                <th class="indexTh" scope="col">물품 코드</th>
+                <th class="indexTh" scope="col">대여일</th>
+                <th class="indexTh" scope="col">반납 예정일</th>
+                <th class="indexTh" scope="col">대여 사유</th>
+                <th class="indexTh" scope="col">반납</th>
             </tr>
             </thead>
             <tbody id="tr_rentInfoList">
@@ -38,7 +47,7 @@
                     <td><%=rentDate%></td>
                     <td><%=returnPlanDate%></td>
                     <td><%=res.purpose%></td>
-                    <td><button class="btn-return" onclick="returnItem('<%=res._id%>', '<%=res.itemInfo._id%>')">반납하기</button></td>
+                    <td><button class="btn-third" onclick="returnItem('<%=res._id%>', '<%=res.itemInfo._id%>')">반납하기</button></td>
                 </tr>
             <%});%>
             </tbody>

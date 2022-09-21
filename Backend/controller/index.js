@@ -5,15 +5,16 @@ const {Rent} = require("../models/rent");
 
 const index = {
     index: async (req, res) => {
-        const newItems = await Item.find({}).sort({createDate : -1}).limit(5).exec();
+        const newItems = await Item.find({}).sort({createDate : -1}).limit(6).exec();
+
         const hotItemFilter = [
             {'$match': {'delete': false }},
-            {'$project': {'name': 1, 'category': 1, 'rentInfo': {'$size': '$rentInfo'}}},
+            {'$project': {'name': 1, 'code' : 1, 'category': 1, 'rentInfo': {'$size': '$rentInfo'}}},
             {'$sort': {'rentInfo': -1}},
             {'$limit': 5}];
 
         const hotItems = await Item.aggregate(hotItemFilter, error => {
-            console.log(error);
+            if(error) console.log(error);
         });
 
         const rentInfo = await Rent.find({$and : [{workNumber : req.workNumber}, {rentStatus : true} ]})

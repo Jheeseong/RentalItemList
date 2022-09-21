@@ -36,3 +36,45 @@ a {
   position:relative;
   top:1px;
 }
+
+.btn-secondary {
+  box-shadow:inset 0px 1px 0px 0px #f6f6f8;
+  background: #ffffff;
+  border-radius:6px;
+  border:1px solid #dcdcdc;
+  display:inline-block;
+  cursor:pointer;
+  color:gray;
+  font-size:12px;
+  padding:6px 12px;
+  text-decoration:none;
+}
+.btn-secondary:hover {
+   background: #f6f6f8;
+ }
+.btn-secondary:active {
+  position:relative;
+  top:1px;
+}
+
+.btn-third {
+  box-shadow:inset 0px 1px 0px 0px #f6f6f8;
+  background: #ececef;
+  border-radius:6px;
+  border:1px solid #575757;
+  display:inline-block;
+  cursor:pointer;
+  color: #575757;
+  font-size:12px;
+  padding:6px 12px;
+  text-decoration:none;
+}
+.btn-third:hover {
+  background: #e8f6ff;
+  color: #0098fe;
+  border:1px solid #0098FE;
+}
+.btn-third:active {
+  position:relative;
+  top:1px;
+}

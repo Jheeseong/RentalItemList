@@ -1,13 +1,18 @@
+<!--
+    * 담당자 : 강재민
+    * 설명 : 전체적인 물품을 관리할 수 있는 페이지
+    * 주요기능 : 검색란, 물품테이블 등이 존재하고, 초기데이터를 받아와 렌더링 해주기위해 전체 물품을 찾아 ejs기능을 활용하여 데이터를 표시해주었음
+-->
 <!DOCTYPE html>
 <html>
 <head>
     <title>물품 관리</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel='stylesheet' href='/stylesheets/nav.css' />
-    <link rel='stylesheet' href='/stylesheets/itemCreate.css' />
-    <link rel='stylesheet' href='/stylesheets/itemEdit.css' />
-    <link rel='stylesheet' href='/stylesheets/itemManagement.css' />
-    <link rel='stylesheet' href='/stylesheets/table.css' />
+    <link rel='stylesheet' type="text/css" href='/stylesheets/style.css' />
+    <link rel='stylesheet' type="text/css" href='/stylesheets/nav.css' />
+    <link rel='stylesheet' type="text/css" href='/stylesheets/itemCreate.css' />
+    <link rel='stylesheet' type="text/css" href='/stylesheets/itemEdit.css' />
+    <link rel='stylesheet' type="text/css" href='/stylesheets/itemManagement.css' />
+    <link rel='stylesheet' type="text/css" href='/stylesheets/table.css' />
     <script defer src="/javaScripts/itemManagement.js"></script>
     <script defer src="/javaScripts/itemEdit.js"></script>
     <script defer src="/javaScripts/managerFunction.js"></script>
@@ -42,9 +47,9 @@
     </div>
     <div class="div-put-excel" id="div-put-excel">
         <% if(authority.openAuthority){ %>
-        <button class="btn-put-excel" id="btn_put_excel" onclick="putExcel(<%=JSON.stringify(items)%>)"><img class="excel-icon" src="/img/excel.png">&nbsp 엑셀로 변환</button>
+        <button class="btn-secondary" id="btn_put_excel" onclick="putExcel(<%=JSON.stringify(items)%>)"><img class="excel-icon" src="/img/excel.png">&nbsp 엑셀로 변환</button>
         <%}%>
-        <button class="btn-primary">물품 등록</button>
+        <button class="btn-secondary">물품 등록</button>
     </div>
     <div class="tableWrapper itemInfoList">
         <table id="itemInfoListTable">
@@ -81,12 +86,12 @@
                 <td><%=date%></td>
                 <td>
                     <% if(authority.editAuthority){ %>
-                    <button class="btn-manager" onclick="editItem('<%=res._id%>')"><img class="manage-icon" src="/img/edit.png"></button>
-                    <button class="btn-manager" onclick="deleteItem('<%=res._id%>')"><img class="manage-icon" src="/img/trash.png"></button>
+                    <button title="물품 편집" class="btn-manager" onclick="editItem('<%=res._id%>')"><img class="manage-icon" src="/img/edit.png"></button>
+                    <button title="물품 삭제" class="btn-manager" onclick="deleteItem('<%=res._id%>')"><img class="manage-icon" src="/img/trash.png"></button>
                     <%}%>
                     <% if(authority.openAuthority){%>
-                    <button class="btn-open-lender btn-manager" onclick="lenderList('<%=res.name%>', <%= JSON.stringify(res.rentInfo) %>)"><img class="manage-icon" src="/img/customer.png"></button>
-                    <button class="btn-open-rentHistory btn-manager" onclick="rentHistory(<%= JSON.stringify(res) %>)"><img class="manage-icon" src="/img/history.png"></button>
+                    <button title="대여자 목록" class="btn-open-lender btn-manager" onclick="lenderList('<%=res.name%>', <%= JSON.stringify(res.rentInfo) %>)"><img class="manage-icon" src="/img/customer.png"></button>
+                    <button title="물품 대여 이력" class="btn-open-rentHistory btn-manager" onclick="rentHistory(<%= JSON.stringify(res) %>)"><img class="manage-icon" src="/img/history.png"></button>
                     <%}%>
                 </td>
             </tr>

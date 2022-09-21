@@ -11,7 +11,7 @@ body {
     justify-content: center;
     align-items: center;
     width: 80%;
-    height: 500px;
+    min-height: 350px;
     position : relative;
 }
 
@@ -21,7 +21,7 @@ body {
     flex-direction: column;
     width: 50%;
     margin : 30px;
-    min-height: 400px;
+    min-height: 350px;
     background-color: white;
     border-radius: 6px;
     box-shadow: 6px 6px 15px 0 rgb(96 96 96 / 24%)
@@ -29,20 +29,46 @@ body {
 
 .containerTop{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    flex-direction: column;
     width: 100%;
     height: 50px;
     border-bottom: solid 1px #e3e3e3;
 }
 
 .containerBottom{
+    justify-content: center;
+    align-items: center;
+    display: flex;
     width: 100%;
-    background-color: #e3e3e3;
     margin : 5px 5px 5px 5px;
 }
 
 .containerRow{
     flex-direction: column;
 }
+
+.indexTh{
+    background-color: #3c4250;
+    color: white;
+}
+.divLinkIcon{
+    background: no-repeat;
+    border: none;
+    cursor: pointer;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin : 0px 5px 0px 5px;
+}
+
+.linkIcon{
+    background: no-repeat;
+    border: none;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin:5px;
+}
+

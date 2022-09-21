@@ -8,7 +8,7 @@
     text-align: right;
     width: 80%;
     display: inline-block;
-    margin-top: 30px;
+    margin : 30px 0px 5px 0px;
 }
 
 
@@ -164,8 +164,8 @@ body {
 
 /*엑셀 내보내기 버튼 아이콘*/
 .excel-icon{
-    width: 24px;
-    height: 24px;
+    width: 12px;
+    height: 12px;
     vertical-align: middle;
 }
 

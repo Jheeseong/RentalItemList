@@ -1,3 +1,8 @@
+<!--
+    * 담당자 : 정희성
+    * 설명 :
+    * 주요기능 :
+-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +21,7 @@
         <table id="userInfoListTable">
             <thead>
             <tr>
+                <th scope="col">사번</th>
                 <th scope="col">이름</th>
                 <th scope="col">부서</th>
                 <th scope="col">직책</th>
@@ -29,6 +35,7 @@
             <tbody id="tr_userList">
             <%users.map(res => { %>
             <tr>
+                <td><%=res.workNumber%></td>
                 <td><%=res.name%></td>
                 <td><%=res.department%></td>
                 <td><%=res.role%></td>
