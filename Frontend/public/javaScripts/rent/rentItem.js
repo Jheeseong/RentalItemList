@@ -4,7 +4,6 @@
  */
 
 let rentModal = document.querySelector('.rent_modal');
-
 /**
  * 담당자 : 강재민
  * 함수 설명 : 물품관리 페이지에서 물품을 대여하기위해 클릭 했을 때 실행되는 이벤트 함수 입니다.

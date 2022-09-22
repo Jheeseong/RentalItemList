@@ -1,5 +1,12 @@
 const mongoose = require('mongoose'); // mongoose를 선언해주고,
 
+/**
+ * 담당자 : 강재민, 정희성
+ * 함수 설명 : 대여이력 스키마
+ * 기능 설명 : - 대여상태, 대여자명, 대여자사번, 물품코드, 대여목적, 대여일, 반납예정일, 반납일, 대여한물품정보(물품_id로 매핑), 유저정보(유저_id로 매핑)
+ *              - 물품 정보가 item의 _id로 mongoose를 이용해 매핑되어있습니다.
+ *              - 대여자 정보가 user의 _id로 mongoose를 이용해 매핑되어있습니다.
+ */
 const rentSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 작성해준다.
     /*대여 상태*/
     rentStatus: {

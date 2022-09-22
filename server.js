@@ -48,7 +48,6 @@ const createItem = require('./Backend/routes/item/createItem');
 const rentItem = require('./Backend/routes/rent/rentItem');
 const myRental = require('./Backend/routes/rent/myRental');
 const userManagement = require('./Backend/routes/user/userManagement');
-const rentRecord = require('./Backend/routes/rent/rentRecord');
 const rentalStatus = require('./Backend/routes/rent/rentalStatus')
 
 
@@ -61,7 +60,6 @@ app.use("/itemmanagement", itemManagement);
 app.use("/rentItem", rentItem);
 app.use("/myRental", myRental);
 app.use("/usermanagement", userManagement);
-app.use("/rentRecord", rentRecord);
 app.use("/rentalStatus", rentalStatus);
 
 

@@ -1,3 +1,8 @@
+/**
+ * 담당자 : 강재민, 정희성
+ * 파일 설명 : 나의 대여현황 및 마이페이지에 필요한 함수들을 구성하기 위한 javaScript 파일 입니다.
+ */
+
 const tabItem = document.querySelectorAll(".tab-container__item");
 const tabContent = document.querySelectorAll(".content-container__content");
 
@@ -18,6 +23,13 @@ function tabHandler(item) {
     tabTarget.classList.add("active");
 }
 
+/**
+ * 담당자 : 강재민
+ * 함수 설명 : 물품반납하기 버튼 클릭 이벤트 입니다.
+ * 주요 기능 : - 반납 시 반납 API와 통신하여 물품을 반납하도록 처리하였습니다.
+ *              - 아이템(items) 컬렉션에서 대여자정보를 삭제하고, 대여중수량을 증가 시켜주도록 하였습니다.
+ *              - 대여(rents) 컬렉션에서 대여 상태를 반납으로 변경하고, 반납일을 저장해주도록 하였습니다.
+ */
 async function returnItem(rentId, itemId){
     if(window.confirm("물품을 반납하시겠습니까?") === true){
         await fetch('myRental/returnItem/' + rentId + "/" +itemId, {

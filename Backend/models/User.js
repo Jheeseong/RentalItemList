@@ -2,6 +2,11 @@ const mongoose = require('mongoose'); // mongoose를 선언해주고,
 const bcrypt = require('bcrypt')
 const saltRounds = 10
 
+/**
+ * 담당자 : 강재민, 정희성
+ * 함수 설명 : 유저정보 스키마
+ * 기능 설명 : - 사용자명, 부서, 직급, 사번, 이메일, 비밀번호, 권한{대여, 편집, 열람, 관리자}로 구성
+ */
 const userSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 작성해준다.
     name: {
         type: String,
@@ -50,12 +55,6 @@ const userSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 �
             default:false
         }
 
-    },
-    token: {
-        type: String
-    },
-    tokenExp: {
-        type: Number
     }
 });
 /*monggose pre 메소드를 사용해서 save 실행 전에 실행되도록 설계*/

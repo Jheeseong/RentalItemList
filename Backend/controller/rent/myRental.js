@@ -4,6 +4,13 @@ const { User } = require('../../models/User')
 const jwt = require("../../config/jwt/jwt");
 
 const myRental = {
+    /**
+     * 담당자 : 강재민
+     * 함수 설명 : 나의 대여 현황 렌더링
+     * 기능 설명 : - user_id로 현재 대여중인 대여 현황 검색(populate를 사용하여 물품 정보도 함께 검색)
+     *              - user_id로 반납 완료 된 대여 현황 검색(populate를 사용하여 물품 정보도 함께 검색)
+     *              - 유저 정보 검색
+     */
     index: async (req, res) => {
         /* aggregate를 사용해 데이터를 바인딩하는 방법 */
         // const filter = [
@@ -21,24 +28,35 @@ const myRental = {
         //     });
         // });
 
+        // 대여중인 나의 대여 이력 검색(사번과 대여상태가 대여중)
         /* populate 사용 */
         const rentInfo = await Rent.find({$and : [{workNumber : req.workNumber}, {rentStatus : true} ]})
             .populate("itemInfo")
             .sort({rentDate : 1})
             .exec();
 
+        // 반납처리된 나의 대여 이력 검색(사번과 대여상태가 반납)
         const returnInfo = await Rent.find({$and : [{workNumber : req.workNumber}, {rentStatus : false} ]})
             .populate("itemInfo")
             .sort({rentDate : -1, returnDate: -1})
             .exec();
 
+        // 유저 정보 검색
         const userInfo = await User.findOne({workNumber: req.workNumber})
             .exec();
 
         res.render('./rent/myRental', {userInfo, rentInfo, returnInfo, name: req.name, workNumber: req.workNumber, authority : req.authority});
 
     },
+    /**
+     * 담당자 : 강재민
+     * 함수 설명 : 물품 반납 함수
+     * 기능 설명 : - 대여이력의 대여상태를 반납으로 변경, 반납일을 현재날짜로 저장
+     *              - 물품정보의 대여중 수량 1 감소
+     *              - 잔여 수량이 부족하여 대여가능여부가 false 였던 아이템 true로 변경
+     */
     returnItem: (req, res) => {
+        // 대여 이력의 대여 상태를 반납으로 변경, 반납일을 현재 날짜로 저장
         Rent.findOneAndUpdate({_id: req.params.rentId},
             {$set : {returnDate : new Date(), rentStatus : false}},
             function(err, result){
@@ -46,10 +64,12 @@ const myRental = {
                 else return res.json({returnSuccess : true, result});
             });
 
+        // 물품정보의 대여 중 수량 1 감소
         Item.findOneAndUpdate({_id: req.params.itemId},
             {$pull : {rentInfo : req.params.rentId}, $inc : {"count.renting" : -1}},
             function(err, result){
                 if(err) console.log(err);
+                // 대여수량이 총 수량과 같고, 대여가능여부가 false인 경우 대여가능여부를 true로 변경
                 if(result.available.rental === false && result.count.renting === result.count.all){
                     Item.findOneAndUpdate({_id: req.params.itemId},
                         {$set: {"available.rental" : true}},
