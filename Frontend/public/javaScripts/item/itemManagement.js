@@ -29,7 +29,6 @@ function itemsRender(items, auth){
         `<td>${res.code}</td>` +
         `<td>${(res.available.rental ? 'O' : 'X')}</td>` +
         `<td>${(res.available.return ? 'O' : 'X')}</td>` +
-        `<td>${(res.available.return ? 'O' : 'X')}</td>` +
         `<td>${(res.count.all - res.count.renting)}</td>` +
         `<td>${res.count.renting}</td>` +
         `<td>${res.count.all}</td>` +
