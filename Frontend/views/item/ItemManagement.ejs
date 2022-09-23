@@ -76,7 +76,11 @@
             <tr>
                 <td><%=res.category.parentCategory%></td>
                 <td><%=res.category.childCategory%></td>
+                <% if(authority.rentalAuthority){ %>
                 <td class="btn-rent" onclick="rentModalView(<%=JSON.stringify(res)%>)"><%=res.name%></td>
+                <%} else {%>
+                <td><%=res.name%></td>
+                <% } %>
                 <td><%=res.code%></td>
                 <td><%=res.available.rental ? "O" : "X"%></td>
                 <td><%=res.available.return ? "O" : "X"%></td>

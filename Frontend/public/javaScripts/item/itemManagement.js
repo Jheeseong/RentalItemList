@@ -24,8 +24,11 @@ function itemsRender(items, auth){
     // 테이블에 새로운 데이터 바인딩
     items.map(res => {
         rows += `<tr><td>${res.category.parentCategory}</td>` +
-        `<td>${res.category.childCategory}</td>` +
-        `<td class='btn-rent' onclick='rentModalView(${JSON.stringify(res)})'>${res.name}</td>` +
+        `<td>${res.category.childCategory}</td>`;
+
+        rows += auth.rentalAuthority ? `<td class='btn-rent' onclick='rentModalView(${JSON.stringify(res)})'>${res.name}</td>` : `<td>${res.name}</td>`;
+
+        rows +=
         `<td>${res.code}</td>` +
         `<td>${(res.available.rental ? 'O' : 'X')}</td>` +
         `<td>${(res.available.return ? 'O' : 'X')}</td>` +
