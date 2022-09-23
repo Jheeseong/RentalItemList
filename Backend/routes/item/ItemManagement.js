@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const itemManagementController = require('../../controller/item/ItemManagement');
+const itemManagementController = require('../../controller/item/itemManagement');
 const categoryController = require('../../controller/item/category');
 const itemEditController = require('../../controller/item/editItem');
 const authUtil = require('../../config/jwt/auth').checkToken;
