@@ -5,12 +5,20 @@ const btnCreateItem = document.querySelector('.btn-createItem');
 const btnInitItem = document.querySelector('.btn-initItem');
 const btnCancel = document.querySelector('.btn-cancel');
 
-// 물품관리에서 물품등록 버튼 클릭 시
+/**
+ * 담당자 : 정희성
+ * 함수 설명 : 물품관리에서 물품등록 버튼 클릭 시 물품등록 팝업 창 실행
+ * **/
+// 물품관리에서 물품등록 클릭 시
 function createItemClick(){
     btnOpenPopup.click();
 }
 
-//nav의 물품등록 버튼 클릭 시 modal 실행
+/**
+ * 담당자 정희성
+ * 함수 설명 : 물품등록 클릭 시 저장된 대분류 카테고리 값들을 불러오는 함수
+ * **/
+//nav의 물품등록 클릭 시 modal 실행
 btnOpenPopup.addEventListener('click', async () => {
     //toggle을 통해 물품버튼 클릭 수에 맞게 modal 창 오픈
     modal.classList.toggle('show');
@@ -40,6 +48,10 @@ btnOpenPopup.addEventListener('click', async () => {
     }
 });
 
+/**
+ * 담당자 : 정희성
+ * 주요 기능 : 모달 창 바깥 클릭 시 모달 창 꺼지는 기능
+ * **/
 //모달 창 바깥 클릭 시 모달 창 꺼지는 기능 구현
 modal.addEventListener('click', (event) => {
     if (event.target === modal) {
@@ -51,6 +63,11 @@ modal.addEventListener('click', (event) => {
     }
 });
 
+/**
+ * 담당자 : 정희성
+ * 주요 기능 : 모달 창 내 물품등록 버튼 클릭 시 input 및 select의 value 값을 가져와서 post 전송을 통해
+ *            저장해주는 기능
+ * **/
 //물품 등록 버튼 구현
 btnCreateItem.addEventListener('click', async () => {
     // 모달 창 내 입력 값들을 items에 담아둠
@@ -89,15 +106,22 @@ btnCreateItem.addEventListener('click', async () => {
             console.log(err);
         })
 });
-
+/**
+ * 담당자 : 정희성
+ * 주요 기능 : 모달창 내 초기화 버츤 클릭 시 모든 값들을 초기화해주는 기능
+ * **/
 //초기화 버튼
 btnInitItem.addEventListener('click', () => {
+    //confirm을 통해 확인 클릭 시 초기화
     let result = window.confirm("초기화를 하시겠습니까?");
     if (result) {
         initItem();
     }
 });
-
+/**
+ * 담당자 : 정희성
+ * 주요 기능 : 모달창 내 취소 버튼 클릭 시 값을 초기화 우 모달창 종료
+ * **/
 //취소 버튼
 btnCancel.addEventListener('click', () => {
     initItem();
@@ -105,7 +129,10 @@ btnCancel.addEventListener('click', () => {
     body.style.overflow = 'auto';
 })
 
-
+/**
+ * 담당자 : 정희성
+ * 함수 설명 : input 및 select 값들을 초기화해주는 함수
+ * **/
 function initItem() {
     // input 값 초기화
     document.getElementById('select_parentCategory').value = null
@@ -117,14 +144,22 @@ function initItem() {
     document.getElementById('all').value = null
 
 }
-
+/**
+ * 담당자 : 정희성
+ * 함수 설명 : 엑셀 파일을 불러올 시 해당 파일에 저장되어 있는 물품을 DB에 저장해주는 함수
+ * 주요 기능 : 엑셀 파일 내에 물품의 카테고리가 기존에 없는 카테고리일 경우 우선적으로 저장해준 후
+ *            물품의 정보를 가져와서 저장해주는 기능을 구현
+ * **/
 function excelExport(event){
     let input = event.target;
     let reader = new FileReader();
+    // 엑셀 파일을 onload
     reader.onload = function(){
         const fileData = reader.result;
+        //엑셀 파일을 binary 타입으로 read
         const wb = XLSX.read(fileData, {type : 'binary'});
         wb.SheetNames.forEach(function(sheetName){
+            //엑셀에 기록된 정보를 json으로 변경 후 각각의 정보를 post전송하여 저장
             const rowObj = XLSX.utils.sheet_to_json(wb.Sheets[sheetName]);
             for (let i = 0; i < rowObj.length; i++) {
                 let items = {
