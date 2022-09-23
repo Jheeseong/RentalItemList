@@ -17,12 +17,13 @@ const itemSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 �
     },
     name: {
         type: String,
-    },
-    number: {
-        type: Number,
+        trim : true,
+        index : true
     },
     code: {
         type: String,
+        index: true,
+        unique : true,
     },
     count: {
         all : {

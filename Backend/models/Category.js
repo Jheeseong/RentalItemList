@@ -8,11 +8,14 @@ const mongoose = require('mongoose');
 const CategorySchema = mongoose.Schema({
     // 대분류 이름
     name:{
-        type : String
+        type : String,
+        index : true,
+        trim : true
     },
     // 소분류 배열
     children: {
-        type : [String]
+        type : [String],
+        trim : true
     }
 
 });

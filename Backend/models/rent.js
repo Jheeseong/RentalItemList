@@ -10,7 +10,8 @@ const mongoose = require('mongoose'); // mongoose를 선언해주고,
 const rentSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 작성해준다.
     /*대여 상태*/
     rentStatus: {
-        type: Boolean
+        type: Boolean,
+        index : true
     },
     /*대여자*/
     userName: {
@@ -18,11 +19,8 @@ const rentSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 �
     },
     /*대여자 사번*/
     workNumber: {
-        type: Number
-    },
-    /*물품 코드*/
-    itemCode: {
-        type: String
+        type: Number,
+        index : true
     },
     /*대여 목적*/
     purpose: {

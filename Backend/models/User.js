@@ -11,7 +11,8 @@ const userSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 �
     name: {
         type: String,
         maxLength: 50,
-        require: true
+        require: true,
+        trim: true
     },
     department: {
         type: String,
@@ -22,7 +23,8 @@ const userSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 �
     workNumber: {
         type: Number,
         unique:true,
-        require: true
+        require: true,
+        index: true
     },
     email: {
         type: String,

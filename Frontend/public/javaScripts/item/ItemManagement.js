@@ -18,28 +18,29 @@ function itemsRender(items, auth){
 
     if(auth.openAuthority){ // 열람권한 여부 확인
         divPutExcel.innerHTML =
-            "<button class='btn-put-excel' id='btn_put_excel' onClick='putExcel(" + JSON.stringify(items) + ")'><img class='excel-icon' src='/img/excel.png'>&nbsp 엑셀로 변환</button>"
+            `<button class='btn-put-excel' id='btn_put_excel' onClick='putExcel(${JSON.stringify(items)})'><img class='excel-icon' src='/img/excel.png'>&nbsp 엑셀로 변환</button>`
     } // 엑셀 onclick 인자를 새로운 데이터로 변경
 
     // 테이블에 새로운 데이터 바인딩
     items.map(res => {
-        rows += "<tr><td>" + res.category.parentCategory + "</td>" +
-        "<td>" +res.category.childCategory + "</td>" +
-        "<td class='btn-rent' onclick='rentModalView(" + JSON.stringify(res) + ")'>" +res.name + "</td>" +
-        "<td>" +res.code + "</td>" +
-        "<td>" + (res.available.rental ? 'O' : 'X') + "</td>" +
-        "<td>" + (res.available.return ? 'O' : 'X') + "</td>" +
-        "<td>" + (res.count.all - res.count.renting) + "</td>" +
-        "<td>" + res.count.renting + "</td>" +
-        "<td>" + res.count.all + "</td>" +
-        "<td>" + dateFormatter(res.createDate) + "</td><td>";
+        rows += `<tr><td>${res.category.parentCategory}</td>` +
+        `<td>${res.category.childCategory}</td>` +
+        `<td class='btn-rent' onclick='rentModalView(${JSON.stringify(res)})'>${res.name}</td>` +
+        `<td>${res.code}</td>` +
+        `<td>${(res.available.rental ? 'O' : 'X')}</td>` +
+        `<td>${(res.available.return ? 'O' : 'X')}</td>` +
+        `<td>${(res.available.return ? 'O' : 'X')}</td>` +
+        `<td>${(res.count.all - res.count.renting)}</td>` +
+        `<td>${res.count.renting}</td>` +
+        `<td>${res.count.all}</td>` +
+        `<td>${dateFormatter(res.createDate)}</td><td>`;
         if(auth.editAuthority){ // 편집 권한 여부 확인(편집, 삭제 버튼)
-            rows += "<button title='물품 편집' class='btn-manager' onclick='editItem(\"" + res._id + "\")'><img class='manage-icon' src='/img/edit.png'></button>" +
-                    "<button title='물품 삭제' class='btn-manager' onclick='deleteItem(\"" + res._id +"\")'><img class='manage-icon' src='/img/trash.png'></button> ";
+            rows += `<button title='물품 편집' class='btn-manager' onclick='editItem("${res._id}")'><img class='manage-icon' src='/img/edit.png'></button>` +
+                    `<button title='물품 삭제' class='btn-manager' onclick='deleteItem("${res._id}")'><img class='manage-icon' src='/img/trash.png'></button>`;
         }
         if(auth.openAuthority){ // 열람 권한 여부 확인(대여자 목록, 물품 대여 이력 버튼)
-            rows += "<button title='대여자 목록' class='btn-open-lender btn-manager' onclick='lenderList(\"" + res.name + "\"," + JSON.stringify(res.rentInfo) +")'><img class=\"manage-icon\" src=\"/img/customer.png\"></button>" +
-                    "<button title='물품 대여 이력' class='btn-open-rentHistory btn-manager' onClick='rentHistory(" + JSON.stringify(res) + ")'><img class='manage-icon' src='/img/history.png'></button>";
+            rows += `<button title='대여자 목록' class='btn-open-lender btn-manager' onclick='lenderList("${res.name}", ${JSON.stringify(res.rentInfo)})'><img class="manage-icon" src="/img/customer.png"></button>` +
+                    `<button title='물품 대여 이력' class='btn-open-rentHistory btn-manager' onClick='rentHistory(${JSON.stringify(res)})'><img class='manage-icon' src='/img/history.png'></button>`;
         }
         rows += "</td></tr>";
     });
@@ -100,7 +101,7 @@ async function changeParentCategory(){
     const childCategory = document.getElementById('childCategory');
     document.getElementById('input_search').value = null; // 검색창 비우기
 
-    let rows = "<option value=''>소분류 전체</option>"; // 소분류 default 렌더링
+    let rows = `<option value=''>소분류 전체</option>`; // 소분류 default 렌더링
     /* 분류 항목이 전체 일 시 전체 데이터 API 요청, 카테코리 선택 시 카테고리 API로 데이터 요청 */
     let URL;
     if(parentCategoryVal === "대분류 전체"){
@@ -117,7 +118,7 @@ async function changeParentCategory(){
             .then((item) => {
                 // 받아온 데이터 소분류 select의 option 렌더링
                 item.children.children.map(res => {
-                    rows += "<option value=" + res + ">" + res + "</option>";
+                    rows += `<option value="${res}">${res}</option>`;
                 });
                 childCategory.innerHTML = rows;
             }).catch((err) => {

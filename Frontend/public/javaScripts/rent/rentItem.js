@@ -19,10 +19,9 @@ function rentModalView(itemInfo){
     }else{ // 대여 가능일 시
         const rentModalBody = document.getElementById('rent_modal_body');
         // 대여 신청 시 필요한 정보를 받아와 사용하기 위해 hidden으로 데이터들을 넣어주었음
-        rentModalBody.innerHTML += "<input type='hidden' id='itemCode' value='" + itemInfo.code + "'>"
-        + "<input type='hidden' id='itemId' value='" + itemInfo._id + "'>"
-        + "<input type='hidden' id='returnAvailable' value='" + itemInfo.available.return + "'>";
-
+        rentModalBody.innerHTML += `<input type='hidden' id='itemCode' value='${itemInfo.code}'>`
+        + `<input type='hidden' id='itemId' value='${itemInfo._id}'>`
+        + `<input type='hidden' id='returnAvailable' value='${itemInfo.available.return}'>`;
         // 모달 내 물품 정보 표시
         document.getElementById('ItemNameValue').value = itemInfo.name;
         document.getElementById('itemCodeValue').value = itemInfo.code;

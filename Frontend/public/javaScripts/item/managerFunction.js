@@ -82,10 +82,9 @@ async function rentHistory(itemInfo){
     historyModal.classList.toggle('show');
     // 모달에 물품 정보 표시
     const modal_iteminfo = document.getElementById('modal_iteminfo');
-    modal_iteminfo.innerHTML = "<h4>" + itemInfo.category.parentCategory + " > " +
-        itemInfo.category.childCategory +
-        "</h4><h4> 물품 코드 : " + itemInfo.code +
-        "</h4><h4> 물품명 : " + itemInfo.name + "</h4>"
+    modal_iteminfo.innerHTML = `<h4>${itemInfo.category.parentCategory} > ${itemInfo.category.childCategory}</h4>` +
+        `<h4> 물품 코드 :  ${itemInfo.code}</h4>` +
+        `<h4> 물품명 : ${itemInfo.name}</h4>`
 
     // 물품 _id로 대여이력 조회
     const historyTable = document.getElementById('history_table_body')
@@ -96,15 +95,15 @@ async function rentHistory(itemInfo){
         .then((history) => {
             if(history.histories.length){ // 물품 대여 이력이 있을 경우
                 history.histories.map((res) => {
-                    rows += "<tr><td>"+ (res.rentStatus ? "대여중" : "반납") + "</td>" +
-                        "<td>"+ res.userName + "</td>" +
-                        "<td>"+ res.purpose + "</td>" +
-                        "<td>"+ dateFormatter(res.rentDate) + "</td>" +
-                        "<td>"+ (itemInfo.available.return ?  (dateFormatter(res.rentStatus ? res.returnPlanDate : res.returnDate)) : "반납불필요") + "</td></tr>";
+                    rows += `<tr><td>${res.rentStatus ? "대여중" : "반납"}</td>` +
+                        `<td>${res.userName}</td>` +
+                        `<td>${res.purpose}</td>` +
+                        `<td>${dateFormatter(res.rentDate)}</td>` +
+                        `<td>${(itemInfo.available.return ?  (dateFormatter(res.rentStatus ? res.returnPlanDate : res.returnDate)) : "반납불필요")}</td></tr>`;
                         // 반납 필요 여부가 false 일 시에는 "반납불필요"를 표시, 대여 중이면 반납 예정일을, 반납 상태이면 반납일을 표시
                 })
             } else{ // 물품 대여 이력이 없을 경우
-                rows += "<p style='color: red'>대여 이력이 존재하지 않습니다.</p>"
+                rows += `<p style='color: red'>대여 이력이 존재하지 않습니다.</p>`
             }
 
             historyTable.innerHTML = rows;
@@ -136,11 +135,7 @@ historyModal.addEventListener('click', (e) => {
  */
 function dateFormatter(date){
     date = new Date(date);
-    return date.getFullYear()
-        + "년 " + (date.getMonth() + 1)
-        + "월 " + date.getDate()
-        + "일 " + date.getHours()
-        + "시 " + date.getMinutes() + "분"
+    return `${date.getFullYear()}년 ${(date.getMonth() + 1)}월 ${date.getDate()}일 ${date.getHours()}시 ${date.getMinutes()}분`
 
 
 }
