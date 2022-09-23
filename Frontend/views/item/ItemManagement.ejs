@@ -49,7 +49,9 @@
         <% if(authority.openAuthority){ %>
         <button class="btn-secondary" id="btn_put_excel" onclick="putExcel(<%=JSON.stringify(items)%>)"><img class="excel-icon" src="/img/excel.png">&nbsp 엑셀로 변환</button>
         <%}%>
+        <% if(authority.editAuthority) {%>
         <button class="btn-secondary" onclick="createItemClick()">물품 등록</button>
+        <%}%>
     </div>
     <div class="tableWrapper itemInfoList">
         <table id="itemInfoListTable">
