@@ -49,7 +49,9 @@
         <% if(authority.openAuthority){ %>
         <button class="btn-secondary" id="btn_put_excel" onclick="putExcel(<%=JSON.stringify(items)%>)"><img class="excel-icon" src="/img/excel.png">&nbsp 엑셀로 변환</button>
         <%}%>
+        <% if(authority.editAuthority) {%>
         <button class="btn-secondary" onclick="createItemClick()">물품 등록</button>
+        <%}%>
     </div>
     <div class="tableWrapper itemInfoList">
         <table id="itemInfoListTable">
@@ -76,7 +78,11 @@
             <tr>
                 <td><%=res.category.parentCategory%></td>
                 <td><%=res.category.childCategory%></td>
+                <% if(authority.rentalAuthority){ %>
                 <td class="btn-rent" onclick="rentModalView(<%=JSON.stringify(res)%>)"><%=res.name%></td>
+                <%} else {%>
+                <td><%=res.name%></td>
+                <% } %>
                 <td><%=res.code%></td>
                 <td><%=res.available.rental ? "O" : "X"%></td>
                 <td><%=res.available.return ? "O" : "X"%></td>

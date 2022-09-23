@@ -18,14 +18,20 @@ function itemsRender(items, auth){
 
     if(auth.openAuthority){ // 열람권한 여부 확인
         divPutExcel.innerHTML =
-            `<button class='btn-put-excel' id='btn_put_excel' onClick='putExcel(${JSON.stringify(items)})'><img class='excel-icon' src='/img/excel.png'>&nbsp 엑셀로 변환</button>`
+            `<button class='btn-secondary' id='btn_put_excel' onClick='putExcel(${JSON.stringify(items)})'><img class='excel-icon' src='/img/excel.png'>&nbsp 엑셀로 변환</button>`
     } // 엑셀 onclick 인자를 새로운 데이터로 변경
+    if(auth.editAuthority){
+        divPutExcel.innerHTML += `<button class="btn-secondary" onClick="createItemClick()">물품 등록</button>`
+    }
 
     // 테이블에 새로운 데이터 바인딩
     items.map(res => {
         rows += `<tr><td>${res.category.parentCategory}</td>` +
-        `<td>${res.category.childCategory}</td>` +
-        `<td class='btn-rent' onclick='rentModalView(${JSON.stringify(res)})'>${res.name}</td>` +
+        `<td>${res.category.childCategory}</td>`;
+
+        rows += auth.rentalAuthority ? `<td class='btn-rent' onclick='rentModalView(${JSON.stringify(res)})'>${res.name}</td>` : `<td>${res.name}</td>`;
+
+        rows +=
         `<td>${res.code}</td>` +
         `<td>${(res.available.rental ? 'O' : 'X')}</td>` +
         `<td>${(res.available.return ? 'O' : 'X')}</td>` +
