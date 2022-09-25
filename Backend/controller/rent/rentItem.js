@@ -11,7 +11,7 @@ const { Item } = require('../../models/Item')
  *              - 물품 대여 후 잔여수량이 부족할 경우 대여가능여부를 false로 변경
  */
 const rentItem = {
-    rentItem: async (req, res) => {
+    rentItem: (req, res) => {
         const rentItem = new Rent({
             rentStatus : req.body.returnAvailable,
             userName : req.name,
