@@ -38,7 +38,7 @@
         </select>
         <select class="select-itemManagement" name="searchCategory" id="searchCategory">
             <option value="itemName">물품이름</option>
-            <%if(authority.openAuthority){%>
+            <%if(authority.openAuthority || authority.administrator){%>
             <option value="lenderName">대여자이름</option>
             <%}%>
         </select>
@@ -46,10 +46,10 @@
         <button class="btn-search" name="btn_search" id="btn_search" onclick="searchBtnEvent()"><img class="search-icon" src="/img/search.png"></button>
     </div>
     <div class="div-put-excel" id="div-put-excel">
-        <% if(authority.openAuthority){ %>
+        <% if(authority.openAuthority || authority.administrator){ %>
         <button class="btn-secondary" id="btn_put_excel" onclick="putExcel(<%=JSON.stringify(items)%>)"><img class="excel-icon" src="/img/excel.png">&nbsp 엑셀로 변환</button>
         <%}%>
-        <% if(authority.editAuthority) {%>
+        <% if(authority.editAuthority || authority.administrator) {%>
         <button class="btn-secondary" onclick="createItemClick()">물품 등록</button>
         <%}%>
     </div>
@@ -78,7 +78,7 @@
             <tr>
                 <td><%=res.category.parentCategory%></td>
                 <td><%=res.category.childCategory%></td>
-                <% if(authority.rentalAuthority){ %>
+                <% if(authority.rentalAuthority || authority.administrator){ %>
                 <td class="btn-rent" onclick="rentModalView(<%=JSON.stringify(res)%>)"><%=res.name%></td>
                 <%} else {%>
                 <td><%=res.name%></td>
@@ -91,11 +91,11 @@
                 <td><%=res.count.all%></td>
                 <td><%=date%></td>
                 <td>
-                    <% if(authority.editAuthority){ %>
+                    <% if(authority.editAuthority || authority.administrator){ %>
                     <button title="물품 편집" class="btn-manager" onclick="editItem('<%=res._id%>')"><img class="manage-icon" src="/img/edit.png"></button>
                     <button title="물품 삭제" class="btn-manager" onclick="deleteItem('<%=res._id%>')"><img class="manage-icon" src="/img/trash.png"></button>
                     <%}%>
-                    <% if(authority.openAuthority){%>
+                    <% if(authority.openAuthority || authority.administrator){%>
                     <button title="대여자 목록" class="btn-open-lender btn-manager" onclick="lenderList('<%=res.name%>', <%= JSON.stringify(res.rentInfo) %>)"><img class="manage-icon" src="/img/customer.png"></button>
                     <button title="물품 대여 이력" class="btn-open-rentHistory btn-manager" onclick="rentHistory(<%= JSON.stringify(res) %>)"><img class="manage-icon" src="/img/history.png"></button>
                     <%}%>
