@@ -58,8 +58,17 @@ router.get('/find/item/parentCategory/:keyword', authUtil, itemManagementControl
 router.get('/find/item/childCategory/:keyword', authUtil, itemManagementController.findByChildCategory);
 
 
+/**
+ * 담당자 : 정희성
+ * 함수 내용 : 해당 물품 정보 불러오는 GET API
+ * 미들 웨어 : 토큰 검증, 편집 권한 검증
+ **/
 router.get('/edit/:id', authUtil, authEdit, itemEditController.index);
-
+/**
+ * 담당자 : 정희성
+ * 함수 내용 : 수정한 물품 정보를 저장하는 POST API
+ * 미들 웨어 : 토큰 검증, 편집 권한 검증
+ **/
 router.post('/update/:id', authUtil, authEdit, itemEditController.updateItem);
 
 router.delete('/delete/:id', authUtil, authEdit, itemManagementController.deleteById);

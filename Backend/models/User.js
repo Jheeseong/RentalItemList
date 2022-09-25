@@ -59,6 +59,12 @@ const userSchema = mongoose.Schema({  // userSchema라는 이름의 schema를 �
 
     }
 });
+/**
+* 담당자 : 정희성
+* 함수 내용 : 저장 전 비밀번호를 암호화해주는 함수
+* 주요 기능 : save 미들웨어로 저장 전 실행되는 기능
+ *          저장 시 비밀번호를 salt와 함께 hash 한 후 DB에 저장하는 기능
+**/
 /*monggose pre 메소드를 사용해서 save 실행 전에 실행되도록 설계*/
 userSchema.pre('save', function (next) {
 
@@ -85,10 +91,12 @@ userSchema.pre('save', function (next) {
     * - 나머지 salt와 hash 값
     * - compare 원리 : plain Text와 저장된 salt 정보를 가지고 bcrypt에 넣으면 hash 값 확인 가능
     *                 hash 값을 적절하게 조합하여 암호화되어 저장된 문자열과 비교하여 체크*/
+    // 유저의 비밀번호가 생성된 경우
     if (user.isModified('password')) {
+        //salt 10자리를 랜덤으로 생성(매번 다른 값)
         bcrypt.genSalt(saltRounds, function (err, salt) {
             if (err) return next(err);
-
+            //랜덤으로 생성된 salt 값과 유저의 비밀번호를 hash 처리
             bcrypt.hash(user.password, salt, function (err, hash) {
                 if (err) return next(err);
                 user.password = hash;
@@ -99,13 +107,21 @@ userSchema.pre('save', function (next) {
         next()
     }
 });
+/**
+* 담당자 : 정희성
+* 함수 내용 : 유저 비밀번호를 초기화 혹은 수정 시 암호화해주는 함수
+* 주요 기능 : 유저가 초기화 혹은 수정을 위해 updateOne 사용 시 DB 저장 직전에 실행되는 기능
+ *          유저의 수정된 비밀번호를 salt와 함께 hash하여 저장
+**/
 //유저 비밀번호 업데이트 시 암호화해주는 과정
 userSchema.pre('updateOne', function (next) {
     const user =this;
+    //유저의 비밀번호가 변경된 경우
     if (user.getUpdate().$set.password) {
+        //salt 10자리를 생성
         bcrypt.genSalt(saltRounds, function (err, salt) {
             if (err) return next(err);
-
+            //생성된 salt와 유저 비밀번호를 hash 처리
             bcrypt.hash(user.getUpdate().$set.password, salt, function (err, hash) {
                 if (err) return next(err);
                 user.getUpdate().$set.password = hash;
@@ -116,7 +132,12 @@ userSchema.pre('updateOne', function (next) {
         next()
     }
 });
-
+/**
+* 담당자 : 정희성
+* 함수 내용 : 암호화되어 저장된 비밀번호를 풀어서 로그인할 떄 입력한 비밀번호와 일치하는지 확인하는 함수
+* 주요 기능 : bcrypt 의 compare 함수를 통해 해석하는 기능
+ *           로그인 시 입력된 비밀번호와 일치하는지 확인하는 기능
+**/
 userSchema.methods.comparePassword = function (plainPassword, cb) {
     bcrypt.compare(plainPassword, this.password, function (err, isMatch) {
         if (err) return cb(err)

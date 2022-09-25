@@ -18,8 +18,16 @@ router.get('/', authUtil, myRentalController.index);
  */
 router.get('/returnItem/:rentId/:itemId', authUtil, authRental, myRentalController.returnItem);
 
-
+/**
+ * 담당자 : 정희성
+ * 함수 내용 : 수정한 유저 정보를 저장하는 POST API
+ * 미들 웨어 : 토큰 검증
+ **/
 router.post('/update/:keyword', authUtil, myRentalController.updateUser);
-
+/**
+ * 담당자 : 정희성
+ * 함수 내용 : 수정한 유저 비밀번호를 저장하는 POST API
+ * 미들 웨어 : 토큰 검증
+ **/
 router.post('/update/password/:keyword', authUtil, myRentalController.updatePassword)
 module.exports = router;

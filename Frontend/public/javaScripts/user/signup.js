@@ -1,9 +1,20 @@
+/**
+ * 담당자 : 정희성
+ * 파일 설명 : 회원 가입 시 밀표한 기능들을 작성한 스크립트 파일
+ * **/
 let checkPasswordBoolean = Boolean;
 let checkPasswordConfirm = Boolean;
 let checkEmailBoolean = Boolean;
-
+/**
+ * 담당자 : 정희성
+ * 함수 설명 : 버튼 클릭 시 이메일과 비밀번호 유효성 검사 후 입력 값을 POST 전송하는 함수(회원가입)
+ * 주요 기능 : boolean을 통해 이메일, 비밀번호 4자리 체크, 비밀번호와 확인란 동일 여부를 판단하는 기능
+ *            휴효성 검사 후 입력 값을 Post로 해당 url에 전송하는 기능
+ *            유효성 검사 실패 시 알람을 통해 저장 실패를 알려주는 기능
+ * **/
 async function btn_signup() {
     if (checkPasswordBoolean && checkEmailBoolean && checkPasswordConfirm === true) {
+        //입력 값을 userinfo에 담은 후 변수 선언
         let userinfo = {
             name: document.getElementById('name').value,
             department: document.getElementById('department').value,
@@ -36,7 +47,12 @@ async function btn_signup() {
         window.alert("회원 정보를 다시 확인해주세요.");
     }
 }
-
+/**
+ * 담당자 : 정희성
+ * 함수 설명 : 비밀번호 자릿 수 체크 및 확인란과 동일 여부를 판단하는 함수(회원간입)
+ * 주요 기능 : 유효성 검사 실패 시 해당 실패 이유를 onkeyup을 통해 이유를 표시하는 기능
+ *            유효성 검사 실패 시 해당 boolean이 false가 되는 기능
+ * **/
 function passwordTest(){
     const password = document.getElementById("password").value;
     const passwordConfirm = document.getElementById("passwordConfirm").value;
@@ -78,6 +94,13 @@ function passwordTest(){
     document.getElementById("passwordConfirm_message").style.color = confirmColor;
 
 }
+/**
+ * 담당자 : 정희성
+ * 함수 설명 : 이메일 유효성 검사하는 함수(회원가입)
+ * 주요 기능 : 이메일 형식을 정규 표현식을 통해 검증하는 기능
+ *            유효성 검사 실패 시 해당 boolean 값이 false가 되는 기능
+ *            유효서 검사 실패 시 onkeyup을 통해 해당 이유를 표시하는 기능
+ * **/
 function emailTest() {
     function checkEmail(str) {
         const reg_email = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]*[.][0-9a-zA-Z]*.[a-zA-Z]{2,3}$/i

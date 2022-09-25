@@ -1,3 +1,8 @@
+/**
+* 담당자 : 정희성
+* 파일 내용 : 물품 편집 CSS
+**/
+/*모달 뒷배경 CSS*/
 .modal_edit {
     position: fixed;
     top: 0;
@@ -10,10 +15,11 @@
 
     background-color: rgba(0, 0, 0, 0.4);
 }
+/*모달창 띄어주는 CSS*/
 .modal_edit.show {
     display: block;
 }
-
+/*물품 편집 모달 창 CSS*/
 .modal_edit_body {
     position: fixed;
     top: 50%;
@@ -49,8 +55,6 @@
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
 }
-
-
 .edit__input {
     color: rgba(105, 102, 105);
     font-size: 0.8rem;

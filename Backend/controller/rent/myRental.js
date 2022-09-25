@@ -81,7 +81,14 @@ const myRental = {
         });
 
     },
+    /**
+    * 담당자 : 정희성
+    * 함수 내용 : 접속한 유저 정보를 수정해주는 함수
+    * 주요 기능 : 접속한 유저의 사번을 통해 filter 한 후 입력한 값으로 수정해주는 기능
+     *           수정 완료 시 메시지로 알려주는 기능
+    **/
     updateUser: (req, res) => {
+        //url로 받은 keword(workNumber)로 filter 후 업데이트
         User.updateOne({workNumber: req.params.keyword},
             {
                 $set: {name: req.body.name,
@@ -96,8 +103,14 @@ const myRental = {
             else res.json({user: user, message: "회원 수정이 완료되었습니다!"})
             });
     },
-
+    /**
+    * 담당자 : 정희성
+    * 함수 내용 : 접속한 유저의 비밀번호를 수정해주는 함수
+    * 주요 기능 : 접속한 유저의 사번을 통해 filter 후 입력한 비밀번호로 수정해주는 기능
+     *           비밀번호 수정 완료 시 메시지로 알려주는 기능
+    **/
     updatePassword: (req, res) => {
+        //url로 받은 keword(workNumber)로 filter 후 업데이트
         User.updateOne({workNumber: req.params.keyword},
             {
                 $set: {password: req.body.password}

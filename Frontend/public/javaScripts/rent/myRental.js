@@ -1,11 +1,17 @@
 /**
  * 담당자 : 강재민, 정희성
- * 파일 설명 : 나의 대여현황 및 마이페이지에 필요한 함수들을 구성하기 위한 javaScript 파일 입니다.
+ * 파일 설명 : 나의 대여현황 및 탭메뉴에 필요한 함수들을 구성하기 위한 javaScript 파일 입니다.
  */
 
 const tabItem = document.querySelectorAll(".tab-container__item");
 const tabContent = document.querySelectorAll(".content-container__content");
 
+/**
+ * 담당자 : 정희성
+ * 함수 설명 : 해당 탭메뉴를 띄어주고 띄운 메뉴 색상을 변경해주는 함수
+ * 주요 기능 : 탭메뉴 클릭 시 해당 메뉴를 띄어주는 기능
+ *            클릭한 메뉴 색상을 변경해주는 기능
+ * **/
 tabItem.forEach((item) => {
     item.addEventListener("click", tabHandler);
 });

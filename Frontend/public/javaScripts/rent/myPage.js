@@ -28,13 +28,18 @@ editUserModal.addEventListener('click', (event) => {
 });
 
 /**
- *
+ * 담당자 : 정희성
+ * 함수 설명 : 유저의 변경 내용을 저장해주는 함수
+ * 주요 기능 : 접속한 유저의 사번을 통해 유저를 찾은 후 업데이트 해주는 기능
+ *            Input에 기록된 value 값을 가져와서 post 전송을 통해 저장되는 기능
+ *            이메일의 형식이 맞는지 판단 후 맞을 경우에 저장이 실행되는 기능
  * **/
 let checkPasswordBoolean = false;
 let checkPasswordConfirm = false;
 let checkEmailBoolean = true;
 
 function edit(workNumber) {
+    //이메일의 형식이 맞는지 체크
     if (checkEmailBoolean === true) {
         let editUserInfo = {
             name: document.getElementById('myPage_name_edit').value,
@@ -42,7 +47,7 @@ function edit(workNumber) {
             role: document.getElementById('myPage_role_edit').value,
             email: document.getElementById('myPage_email_edit').value,
         };
-
+        //유저의 사번을 url에 담은 후 전송
         fetch('myRental/update/' + workNumber, {
             method: 'post',
             headers: {
@@ -62,12 +67,20 @@ function edit(workNumber) {
         window.alert("회원 정보 수정 내용을 다시 확인해주세요.")
     }
 }
+/**
+ * 담당자 : 정희성
+ * 함수 설명 : 비밀번호 유효성 검사 후 변경해주는 함수(마이페이지 부분)
+ * 주요 기능 : 비밀번호가 4자리 이상인지 비밀번호 확인란과 똑같은지 비교하는 기능
+ *            유효성 검사 통과 시 변경된 비밀번호로 저장하는 기능
+ * **/
 function passwordEdit(workNumber) {
+    // 비밀번호 유효성 검사 체크
     if (checkPasswordBoolean && checkPasswordConfirm === true) {
         let editUserInfo = {
             password: document.getElementById('myPage_password_edit').value
         };
 
+        // 유저의 사번을 url에 담은 후 전송
         fetch('myRental/update/password/' + workNumber, {
             method: 'post',
             headers: {
@@ -87,7 +100,12 @@ function passwordEdit(workNumber) {
         window.alert("비밀번호 수정을 다시 확인해주세요.")
     }
 }
-
+/**
+ * 담당자 : 정희성
+ * 함수 설명 : 비밀번호가 4자리 이상인지 비밀번호 확인란과 동일한지 체크하는 함수(마이페이지 부분)
+ * 주요 기능 : 4자리 이하일 경우 메시지를 띄어주고 boolean 함수를 false로 변환하는 기능
+ *            비밀번호와 확인란 미일지 경우 메시지를 띄어주고 bo0lean 함수를 false로 변환하는 기능
+ * **/
 function passwordEditTest(){
     const password = document.getElementById("myPage_password_edit").value;
     const passwordConfirm = document.getElementById("myPage_passwordConfirm_edit").value;
@@ -125,6 +143,12 @@ function passwordEditTest(){
     document.getElementById("passwordConfirm_message_edit").style.color = confirmColor;
 
 }
+/**
+ * 담당자 : 정희성
+ * 함수 설명 : 이메일 유효성을 검사하는 기능
+ * 주요 기능 : 이메일의 형식을 정규 표현식을 통해 검사하는 기능
+ *            형시이 맞지 않을 경우 메시지를 띄우고 boolean을 false로 변환하는 기능
+ * **/
 function emailEditTest() {
     function checkEditEmail(str) {
         const reg_email = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]*[.][0-9a-zA-Z]*.[a-zA-Z]{2,3}$/i
