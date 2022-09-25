@@ -9,7 +9,15 @@ app.use(cookieParser());
 
 // 액세스 권한 인증
 const authUtil = {
-    checkToken: async (req, res, next) => {
+    /**
+     * 담당자 : 강재민
+     * 함수 설명 : 토큰 검증 미들웨어
+     * 기능 설명 : - 쿠키에 있는 토큰을 검증하여 그결과를 return하는 함수입니다.
+     *              - 토큰이 존재하지 않는 경우에는 login 페이지로 redirect합니다.
+     *              - 토큰의 유효기간이 만료되었거나, 유효하지 않은 경우에는 요류메시지를 표시하고 login 페이지로 redirect 합니다.
+     *              - 토큰 검증이 통과되면 request에 사번, 이름, 권한을 실어 다음 함수로 전송합니다.
+     */
+    checkToken: async (req, res, next) =>{
         // 초기 화면 접속시
         if(req.headers.cookie === undefined)
             return res.redirect('/login');
@@ -63,6 +71,13 @@ const authUtil = {
         req.authority = user.authority;
         next();
     },
+    /**
+     * 담당자 : 강재민
+     * 함수 설명 : 관리자 권한 검증 미들웨어
+     * 기능 설명 : - 관리자만이 접근할 수 있는 API 혹은 페이지를 사용할때 걸어주는 미들웨어입니다.
+     *              - 위의 토큰 검증 미들웨어에서 받아온 request를 통해 관리자인지 판단합니다.
+     *              - 관리자의 권한이 없으면 에러메시지를 표시하고 error 페이지를 return 렌더합니다.
+     */
     authAdmin: (req, res, next) => {
         if(req.authority.administrator){
             next();
@@ -73,6 +88,13 @@ const authUtil = {
                 + "<script>location.replace('/error')</script>")
         }
     },
+    /**
+     * 담당자 : 강재민
+     * 함수 설명 : 대여 권한 검증 미들웨어
+     * 기능 설명 : - 대여권한을 가진 사용자이 접근할 수 있는 API 혹은 페이지를 사용할때 걸어주는 미들웨어입니다.
+     *              - 위의 토큰 검증 미들웨어에서 받아온 request를 통해 관리자인지 판단합니다.
+     *              - 대여권한 혹은 관리자권한이 없으면 에러메시지를 표시하고 error 페이지를 return 렌더합니다.
+     */
     authRental: (req, res, next) => {
         if(req.authority.rentalAuthority === true || req.authority.administrator === true){
             next();
@@ -82,6 +104,13 @@ const authUtil = {
                 + "<script>location.replace('/error')</script>")
         }
     },
+    /**
+     * 담당자 : 강재민
+     * 함수 설명 : 편집 권한 검증 미들웨어
+     * 기능 설명 : - 편집권한을 가진 사용자만이 접근할 수 있는 API 혹은 페이지를 사용할때 걸어주는 미들웨어입니다.
+     *              - 위의 토큰 검증 미들웨어에서 받아온 request를 통해 관리자인지 판단합니다.
+     *              - 편집권한 혹은 관리자권한이 없으면 에러메시지를 표시하고 error 페이지를 return 렌더합니다.
+     */
     authEdit: (req, res, next) => {
         if(req.authority.editAuthority === true || req.authority.administrator === true){
             next();
@@ -89,10 +118,15 @@ const authUtil = {
             return res.writeHead(200, {'Content-Type': 'text/html;charset=UTF-8'})
                 .write("<script>window.alert('접근권한이 없습니다.')</script>"
                 + "<script>location.replace('/error')</script>")
-
         }
-
     },
+    /**
+     * 담당자 : 강재민
+     * 함수 설명 : 열람 권한 검증 미들웨어
+     * 기능 설명 : - 열람권한을 가진 사용자만이 접근할 수 있는 API 혹은 페이지를 사용할때 걸어주는 미들웨어입니다.
+     *              - 위의 토큰 검증 미들웨어에서 받아온 request를 통해 관리자인지 판단합니다.
+     *              - 열람권한 혹은 관리자권한이 없으면 에러메시지를 표시하고 error 페이지를 return 렌더합니다.
+     */
     authOpen: (req, res, next) => {
         if(req.authority.openAuthority === true || req.authority.administrator === true){
             next();

@@ -16,11 +16,11 @@ function itemsRender(items, auth){
     const divPutExcel = document.getElementById('div-put-excel');
     let rows = "<div></div>";
 
-    if(auth.openAuthority){ // 열람권한 여부 확인
+    if(auth.openAuthority || auth.administrator){ // 열람권한 여부 확인
         divPutExcel.innerHTML =
             `<button class='btn-secondary' id='btn_put_excel' onClick='putExcel(${JSON.stringify(items)})'><img class='excel-icon' src='/img/excel.png'>&nbsp 엑셀로 변환</button>`
     } // 엑셀 onclick 인자를 새로운 데이터로 변경
-    if(auth.editAuthority){
+    if(auth.editAuthority || auth.administrator){
         divPutExcel.innerHTML += `<button class="btn-secondary" onClick="createItemClick()">물품 등록</button>`
     }
 
@@ -29,7 +29,7 @@ function itemsRender(items, auth){
         rows += `<tr><td>${res.category.parentCategory}</td>` +
         `<td>${res.category.childCategory}</td>`;
 
-        rows += auth.rentalAuthority ? `<td class='btn-rent' onclick='rentModalView(${JSON.stringify(res)})'>${res.name}</td>` : `<td>${res.name}</td>`;
+        rows += auth.rentalAuthority || auth.administrator ? `<td class='btn-rent' onclick='rentModalView(${JSON.stringify(res)})'>${res.name}</td>` : `<td>${res.name}</td>`;
 
         rows +=
         `<td>${res.code}</td>` +
@@ -39,11 +39,11 @@ function itemsRender(items, auth){
         `<td>${res.count.renting}</td>` +
         `<td>${res.count.all}</td>` +
         `<td>${dateFormatter(res.createDate)}</td><td>`;
-        if(auth.editAuthority){ // 편집 권한 여부 확인(편집, 삭제 버튼)
+        if(auth.editAuthority || auth.administrator){ // 편집 권한 여부 확인(편집, 삭제 버튼)
             rows += `<button title='물품 편집' class='btn-manager' onclick='editItem("${res._id}")'><img class='manage-icon' src='/img/edit.png'></button>` +
                     `<button title='물품 삭제' class='btn-manager' onclick='deleteItem("${res._id}")'><img class='manage-icon' src='/img/trash.png'></button>`;
         }
-        if(auth.openAuthority){ // 열람 권한 여부 확인(대여자 목록, 물품 대여 이력 버튼)
+        if(auth.openAuthority || auth.administrator){ // 열람 권한 여부 확인(대여자 목록, 물품 대여 이력 버튼)
             rows += `<button title='대여자 목록' class='btn-open-lender btn-manager' onclick='lenderList("${res.name}", ${JSON.stringify(res.rentInfo)})'><img class="manage-icon" src="/img/customer.png"></button>` +
                     `<button title='물품 대여 이력' class='btn-open-rentHistory btn-manager' onClick='rentHistory(${JSON.stringify(res)})'><img class='manage-icon' src='/img/history.png'></button>`;
         }
