@@ -2,7 +2,10 @@ const { User } = require('../models/User');
 const { Item } = require('../models/Item');
 const jwt = require("../config/jwt/jwt");
 const {Rent} = require("../models/rent");
-
+/**
+ * 담당자 : 강재민
+ * 파일 설명 : 메인페이지의 Service기능을 담당하는 JavaScript 파일 입니다.
+ */
 const index = {
     /**
      * 담당자 : 강재민

@@ -1,16 +1,20 @@
 const { Rent } = require('../../models/rent')
 const { Item } = require('../../models/Item')
-
 /**
  * 담당자 : 강재민
- * 함수 설명 : 물품 대여 함수
- * 기능 설명 : - 대여 데이터를 넘겨 받아 데이터 가공
- *              - 물품 잔여 갯수가 부족할 시 return
- *              - 대여정보를 rents 컬렉션에 저장
- *              - 물품 정보에서 대여중수량 증가, 대여정보 추가
- *              - 물품 대여 후 잔여수량이 부족할 경우 대여가능여부를 false로 변경
+ * 파일 설명 : 물품대여의 Service기능을 담당하는 JavaScript 파일 입니다.
  */
+
 const rentItem = {
+    /**
+     * 담당자 : 강재민
+     * 함수 설명 : 물품 대여 함수
+     * 기능 설명 : - 대여 데이터를 넘겨 받아 데이터 가공
+     *              - 물품 잔여 갯수가 부족할 시 return
+     *              - 대여정보를 rents 컬렉션에 저장
+     *              - 물품 정보에서 대여중수량 증가, 대여정보 추가
+     *              - 물품 대여 후 잔여수량이 부족할 경우 대여가능여부를 false로 변경
+     */
     rentItem: async (req, res) => {
         const rentItem = new Rent({
             rentStatus : req.body.returnAvailable,

@@ -5,6 +5,10 @@ const app = express();
 const cookie = require('cookie')
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
+/**
+ * 담당자 : 강재민
+ * 파일 설명 : 로그인페이지의 Service기능을 담당하는 JavaScript 파일 입니다.
+ */
 
 const login = {
     /**

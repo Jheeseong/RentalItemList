@@ -2,7 +2,10 @@ const { Rent } = require('../../models/rent')
 const { Item } = require('../../models/Item')
 const { User } = require('../../models/User')
 const jwt = require("../../config/jwt/jwt");
-
+/**
+ * 담당자 : 강재민, 정희성
+ * 파일 설명 : 나의 대여 현황의 Service기능을 담당하는 JavaScript 파일 입니다.
+ */
 const myRental = {
     /**
      * 담당자 : 강재민

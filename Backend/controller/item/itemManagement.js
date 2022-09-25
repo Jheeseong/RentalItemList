@@ -1,6 +1,11 @@
 const { Item } = require("../../models/Item");
 const { Rent } = require("../../models/rent");
 const { Category } = require('../../models/Category');
+/**
+ * 담당자 : 강재민
+ * 파일 설명 : 물품관리페이지의 Service기능을 담당하는 JavaScript 파일 입니다.
+ */
+
 
 const itemManagement = {
     /**
