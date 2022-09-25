@@ -1,11 +1,26 @@
+/**
+* 담당자 : 정희성
+* 파일 설명 : 유저 회원가입 기능이 작성된 자바 스크립트 파일
+**/
 const { User } = require('../../models/User')
 
 const signUp = {
+    /**
+    * 담당자 : 정희성
+    * 주요 기능 : 회원가입 ejs를 불러와주는 기능
+    **/
     signUp: (req, res) => {
         res.render('./user/signUp')
     },
+    /**
+    * 담당자 : 정희성
+    * 함수 내용 : 작성된 내용을 유저 DB에 저장해주는 함수
+    * 주요 기능 : 사번을 통해 중복 검사 후 없을 시 저장해주는 기능
+     *          중복 검사하여 존재할 시 메시지로 알려주는 기능
+    **/
     saveUser: (req, res) => {
         const user = new User(req.body);
+        // 사번을 통해 중복 검사
         User.findOne({workNumber: req.body.workNumber}, (err, findUser) => {
             if (findUser === null) {
                 user.save((err,userinfo) => {
@@ -25,33 +40,13 @@ const signUp = {
         })
 
     },
-    findUser: (req, res) => {
+    /*findUser: (req, res) => {
         User.findOne({workNumber: req.workNumber}, (err, result) => {
             if (result != null) {
                 res.json({message: "이미 존재하는 사번입니다."})
             }
         })
-    }
-    // loginUser: async (req, res) => {
-    //     User.findOne({workNumber: req.body.workNumber }, (err, user) => {
-    //         if (!user) {
-    //             return res.json({
-    //                 loginSuccess: false,
-    //                 message: "제공된 이메일에 해당하는 유저가 없습니다."
-    //             })
-    //         }
-    //         //요청된 이메일이 DB에 있다면 비밀번호가 맞는 비밀번호인지 확인
-    //
-    //         user.comparePassword(req.body.password, (err, isMatch) => {
-    //             if (!isMatch)
-    //                 return res.json({ loginSuccess: false, message: "비밀번호가 틀렸습니다."});
-    //
-    //             res.status(200)
-    //                 .json({loginSuccess: true, userId: user})
-    //
-    //         })
-    //     })
-    // }
+    }*/
 }
 
 

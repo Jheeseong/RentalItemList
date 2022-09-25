@@ -1,7 +1,14 @@
+/**
+* 담당자 : 정희성
+* 파일 내용 : nav바 에 관련된 스크립트 파일
+**/
 let dropdowns = document.querySelectorAll('.navbar .dropdown-toggler')
 let dropdownIsOpen = false
 
-
+/**
+* 담당자 : 정희성
+* 주요 기능 : nav 바 크기가 줄어들 시 dropdown 버튼을 생성해주는 기능
+**/
 if (dropdowns.length) {
     dropdowns.forEach((dropdown) => {
         dropdown.addEventListener('click', (event) => {
@@ -19,7 +26,10 @@ if (dropdowns.length) {
         })
     })
 }
-
+/**
+* 담당자 : 정희성
+* 함수 내용 : nav바에 페이지 이동하는 버튼들이 존재할 경우 꺼주고 기존 nav바 형태로 변환해주는 함수
+**/
 window.addEventListener('mouseup', (event) => {
     if (dropdownIsOpen) {
         dropdowns.forEach((dropdownButton) => {
@@ -36,7 +46,10 @@ window.addEventListener('mouseup', (event) => {
         })
     }
 })
-
+/**
+* 담당자 : 정희성
+* 함수 내용 : nav가 줄어들어 생긴 버튼 클릭 시 여러 페이지 이동 버튼이 생기도록 해주는 함수
+**/
 function handleSmallScreens() {
     document.querySelector('.navbar-toggler')
         .addEventListener('click', () => {

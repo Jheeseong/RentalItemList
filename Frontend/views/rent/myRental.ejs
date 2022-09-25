@@ -1,7 +1,11 @@
 <!--
-    * 담당자 : 강재민
-    * 설명 : 내가 현재 대여중인 물품들을 표시하고, 반납할 수 있게 하기 위한 페이지
+    * 담당자 : 강재민, 정희성
+    * 설명 : 내가 현재 대여중인 물품들을 표시하고, 반납할 수 있게 하기 위한 페이지,
+            마이 페이지 기능 추가로 접속한 유저 정보 확인 및 수정이 가능한 페이지
     * 주요기능 : 현재 본인이 대여중인 물품들만을 보여주고, 반납할 수 있는 버튼이 있음
+                본인이 회원 가입할 때 작성하였던 내용을 보여주고 사번을 제외한 나버지 내용이 수정이 가능한 기능
+                비밀번호 수정 시 비밀번호와 확인란 비교 후 맞을 시 수정이 가능한 기능
+                이메일 혹은 비밀번호 형식이 맞는지 체크 후 수정이 가능한 기능
 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -180,21 +184,26 @@
                 <input type="text" id="myPage_workNumber_edit" class="myPage_input" value='<%= userInfo.workNumber%>' readonly>
             </label>
             <label class="myPage_label">메일 :
-                <span id="email_message_edit"></span>
                 <input type="text" id="myPage_email_edit" class="myPage_input" value='<%= userInfo.email%>' onkeyup="emailEditTest()" >
             </label>
+            <span id="email_message_edit"></span>
 
-            <div class="btn_MyPage">
+
+        <div class="btn_MyPage">
                 <button type="submit" class="btn-return" onclick="edit(<%=userInfo.workNumber%>)">회원정보 수정</button>
             </div>
-            <label class="myPage_label">비밀번호 :
-                <span id="password_message_edit"></span>
-                <input type="password" id="myPage_password_edit" class="myPage_input" value='' onkeyup="passwordEditTest()" >
-            </label>
-            <label class="myPage_label">비밀번호 확인 :
-                <span id="passwordConfirm_message_edit"></span>
-                <input type="password" id="myPage_passwordConfirm_edit" class="myPage_input" value='' onkeyup="passwordEditTest()" >
-            </label>
+        <div class="all_password_class">
+            <div class="password_class">
+                <label class="myPage_label">비밀번호 :</label>
+                <input type="password" id="myPage_password_edit" class="myPage_input_password" value='' onkeyup="passwordEditTest()" >
+            </div>
+            <span id="password_message_edit"></span>
+            <div class="password_class">
+                <label class="myPage_label">비밀번호 확인 :</label>
+                <input type="password" id="myPage_passwordConfirm_edit" class="myPage_input_password" value='' onkeyup="passwordEditTest()" >
+            </div>
+            <span id="passwordConfirm_message_edit"></span>
+        </div>
             <div class="btn_MyPage">
                 <button type="submit" class="btn-return" onclick="passwordEdit(<%=userInfo.workNumber%>)">비밀번호 수정</button>
             </div>

@@ -1,6 +1,6 @@
 /**
  * 담당자 : 정희성
- * 파일 설명 : 대분류 카테고리와 소분류 카테고리를 저장하는 기능이 담긴 파일입니다.
+ * 파일 설명 : 대분류 카테고리와 소분류 카테고리를 저장하는 기능이 담긴 파일
  * **/
 const parentCategory = document.querySelector('.parentCategory')
 const childCategory = document.querySelector('.childCategory')
@@ -88,8 +88,8 @@ function deleteInput(categoryClass) {
 /**
  * 담당자 : 정희성
  * 함수 설명 : onchange를 통해 대분류 카테고리 값 선택 시 해당 소분류 카테고리 값을 불러온 후 select의 option에 추가시켜주는 함수
- * 주요 기능 : 대분류 카테고리 선택 시 해당 값에 포함되어있는 소분류 카테고리를 불러와서 map을 통해 하나씩
- *            소분류 카테고리 select의 option에 추가하는 기능
+ * 주요 기능 : 대분류 카테고리 선택 시 해당 값에 포함되어있는 소분류 카테고리(대분류 카테고리 내 소분류 카테고리가 배열로 저장되어 있음)를 불러와서
+ *             map을 통해 하나씩 소분류 카테고리 select의 option에 추가하는 기능
  * **/
 async function optionParentCategory() {
     const parentCategory = document.getElementById('select_parentCategory');
@@ -97,9 +97,10 @@ async function optionParentCategory() {
     const childCategory = document.getElementById('select_childCategory')
 
     let rows = "<option value=\'\' disabled selected>소분류 선택</option>";
-
+    //대분류 카테고리가 선택되어 있지 않을 경우
     if (parentCategory === "대분류 선택") {
         childCategory.innerHTML = rows;
+        //대분류 카테고리가 선택되었을 경우
     } else {
         await fetch('createItem/api/find/childcategory/' + parentCategoryVal, {
             method: 'get'

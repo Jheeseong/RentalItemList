@@ -164,16 +164,19 @@ async function optionParentCategory_edit() {
     const childCategory_edit = document.getElementById('select_childCategory_edit')
 
     let rows_edit = "<option value=\'\' disabled selected>소분류 선택</option>";
-
+    // 대분류 카테고리가 선택되어 있지 않을 경우
     if (parentCategoryVal_edit === "대분류 선택") {
         childCategory_edit.innerHTML = rows_edit;
+        //대분류 카테고리가 선택되었을 경우
     } else {
         await fetch('createItem/api/find/childcategory/' + parentCategoryVal_edit, {
             method: 'get'
         })
             .then((res) => res.json())
             .then((categories) => {
+                //대분류 카테고리 안에 소분류 카테고리가 없을 시에 return
                 if (categories.children === null) return;
+                //값이 잇을 경우 소분류 카테고리에 option 추가
                 categories.children.children.map(res => {
                     rows_edit += "<option value=" + res + ">" + res + "</option>";
                 });

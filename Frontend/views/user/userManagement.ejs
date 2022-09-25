@@ -1,7 +1,11 @@
 <!--
     * 담당자 : 정희성
-    * 설명 :
-    * 주요기능 :
+    * 설명 : 가입된 모든 유저 정보를 보여주고 권한 부여 및 추방, 비밀번호 초기화가 가능한 페이지
+    * 주요기능 : 유저데이터를 랜더링 시 받아와 ejs 기능을 활용하여 데이터를 보여주는 기능
+                유저 권한 변경 시 가능 혹은 불가능 클릭 시 변경되는 기능
+                추방 클릭 시 해당 유저를 삭제해주는 기능
+                비밀번호 초기화 클릭 시 해당 유저의 비밀번호를 0405로 초기화해주는 기능
+
 -->
 <!DOCTYPE html>
 <html>
@@ -17,7 +21,7 @@
 <%- include('../layouts/nav.ejs')%>
 <div class="userManagementBody">
     <h1>이용자 관리</h1>
-    <div class="tableWrapper userList">
+    <div class="tableWrapper_userManagement userList">
         <table id="userInfoListTable">
             <thead>
             <tr>
@@ -29,6 +33,7 @@
                 <th scope="col">편집 권한</th>
                 <th scope="col">대여 권한</th>
                 <th scope="col">열람 권한</th>
+                <th scope="col">관리자 권한</th>
                 <th scope="col">관리자 기능</th>
             </tr>
             </thead>
@@ -43,8 +48,8 @@
                 <td class="btn_authority" onclick="updateEditAuthority('<%=res._id%>')"><%=res.authority.editAuthority ? "가능" : "불가능"%></td>
                 <td class="btn_authority" onclick="updateRentalAuthority('<%=res._id%>')"><%=res.authority.rentalAuthority ? "가능" : "불가능"%></td>
                 <td class="btn_authority" onclick="updateOpenAuthority('<%=res._id%>')"><%=res.authority.openAuthority ? "가능" : "불가능"%></td>
+                <td class="btn_authority" onclick="updateAdminAuthority('<%=res._id%>')"><%=res.authority.administrator ? "가능" : "불가능"%></td>
                 <td>
-                    <button class="btn-primary" onclick="updateAdminAuthority('<%=res._id%>')">관리자 권한</button>
                     <button class="btn-primary" onclick="resetPassword('<%=res._id%>')">비밀번호 초기화</button>
                     <button class="btn-danger" onclick="exile('<%=res._id%>')">추방</button>
                 </td>

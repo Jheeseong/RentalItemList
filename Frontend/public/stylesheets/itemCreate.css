@@ -1,3 +1,8 @@
+/**
+* 담당자 : 정희성
+* 파일 설명 : 물품 등록 페이지 CSS
+**/
+/*물품 등록 모달 창 뒷 배경 CSS*/
 .modal_create {
     position: fixed;
     top: 0;
@@ -11,10 +16,11 @@
     background-color: rgba(0, 0, 0, 0.4);
     z-index: 1;
 }
+/*모달 창 띄어주는 CSS*/
 .modal_create.show {
     display: block;
 }
-
+/*물품 등록 모달 창 CSS*/
 .modal_create_body {
     position: fixed;
     top: 50%;
@@ -126,6 +132,7 @@
     position:relative;
     top:1px;
 }
+/*버튼 전체 div CSS*/
 .btn_class {
     text-align: center;
     margin-top: 20px;

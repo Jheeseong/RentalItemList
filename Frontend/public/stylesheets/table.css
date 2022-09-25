@@ -4,6 +4,12 @@
     overflow: auto;
     display: inline-block;
 }
+.tableWrapper_userManagement{
+    width:90%;
+    height: 600px;
+    overflow: auto;
+    display: inline-block;
+}
 .tableWrapper_default{
     width:80%;
     overflow: auto;

@@ -40,7 +40,6 @@ mongoose.connect(config.mongoURI, {
 
 // router 연결
 const indexRouter = require('./Backend/routes/index');
-const usersRouter = require('./Backend/routes/user/users');
 const loginRouter = require('./Backend/routes/user/Login');
 const signUpRouter = require('./Backend/routes/user/signUp');
 const itemManagement = require('./Backend/routes/item/ItemManagement');
@@ -52,7 +51,6 @@ const rentalStatus = require('./Backend/routes/rent/rentalStatus')
 
 
 app.use("/", indexRouter);
-app.use("/api/users", usersRouter);
 app.use("/login", loginRouter);
 app.use("/signUp", signUpRouter);
 app.use("/createItem", createItem);
