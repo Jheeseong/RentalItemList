@@ -1,3 +1,7 @@
+/**
+ * 담당자 : 강재민, 정희성
+ * 설명 : 프론트서버와 백엔드 전체 서버를 담당하는 JavaScript 파일입니다.
+ */
 const express = require('express'); // express 임포트
 const app = express(); // app생성
 const port = 3000;
@@ -15,14 +19,23 @@ app.use(cookieParser())
 
 app.listen(port, () => console.log(`${port}포트입니다.`));
 
-// view engine setup
+
+/**
+ * 담당자 : 강재민, 정희성
+ * 함수 설명 : view 엔진 연결
+ * 주요 기능 : - ejs 파일들과 연결해주는 역할을 합니다.
+ */
 app.set('views', path.join('Frontend', 'views'));
 app.set('view engine', 'ejs');
 
-// 몽구스 연결
+/**
+ * 담당자 : 강재민, 정희성
+ * 함수 설명 : Mongoose 연결
+ * 주요 기능 : - Mongoose를 통해 MongoDB를 연결해 주는 역할을 합니다.
+ */
 const mongoose = require('mongoose');
 mongoose.connect(config.mongoURI, {
-        dbName:'test',
+        dbName:'RentItem',
         authMechanism:'DEFAULT',
         // useNewUrlPaser: true,
         // useUnifiedTofology: true,
@@ -34,11 +47,12 @@ mongoose.connect(config.mongoURI, {
         console.log(err);
     });
 
-// app.get('/', function (req, res) {
-//     res.send('hello world!!');
-// });
 
-// router 연결
+/**
+ * 담당자 : 강재민, 정희성
+ * 함수 설명 : router 연결
+ * 주요 기능 : - Routes 파일들과 연결해주고, 기본 주소를 배정해주는 역할을 합니다.
+ */
 const indexRouter = require('./Backend/routes/index');
 const loginRouter = require('./Backend/routes/user/Login');
 const signUpRouter = require('./Backend/routes/user/signUp');

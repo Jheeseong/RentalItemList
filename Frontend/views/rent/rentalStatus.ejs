@@ -118,8 +118,8 @@
                             <td><%=res.userName%></td>
                             <td><%=res.purpose%></td>
                             <td><%=rentDate%></td>
-                            <td><%=returnPlanDate%></td>
-                            <td><%=returnDate%></td>
+                            <td><%=res.itemInfo.available.return ? returnPlanDate : "" %></td>
+                            <td><%=res.itemInfo.available.return ? returnDate : "반납불필요"%></td>
                         </tr>
                     <%});%>
                     </tbody>

@@ -87,7 +87,6 @@ const login = {
     passwordReset: async (req, res) => {
         console.log("password Reset");
         User.findOne({$and: [{workNumber: req.body.workNumber}, {email: req.body.email}, {name : req.body.name}] }, (err, result) => {
-            console.log("findOne" + result);
             if (err) {
                 console.log(err);
                 return res.json({resetSuccess: false});
@@ -95,7 +94,6 @@ const login = {
 
             if (result._id) {
                 User.updateOne({_id : result._id}, {$set: {password: "0405"}}, (err, result) => {
-                    console.log("UpdateOne" + result)
                     if(err){
                         console.log(err);
                         return res.json({resetSuccess : false});
