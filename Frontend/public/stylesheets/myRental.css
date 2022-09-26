@@ -1,3 +1,9 @@
+/**
+* 담당자 : 강재민, 정희성
+* 파일 설명 : 나의 대여 현황 페이지 CSS
+**/
+
+/*반납하기 버튼*/
 .btn-return {
     box-shadow:inset 0px 1px 0px 0px #0098FE;
     background: #0098FE;

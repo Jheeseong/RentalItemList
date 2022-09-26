@@ -1,9 +1,14 @@
+/**
+* 담당자 : 강재민
+* 파일 설명 : 물품 관리 페이지 CSS
+**/
 .itemManagementBody {
     width: 100%;
     align-items: center;
     text-align: center;
 }
 
+/*엑셀 내보내기 아이콘 div*/
 .div-put-excel{
     text-align: right;
     width: 80%;
@@ -53,7 +58,7 @@ body {
     transform: translateX(-50%) translateY(-50%);
 }
 
-/*대여자 목록 모달*/
+/*물품 대여 이력 모달*/
 .history_modal {
     position: fixed;
     top: 0;
@@ -88,6 +93,7 @@ body {
     transform: translateX(-50%) translateY(-50%);
 }
 
+/*물품관리 select 전체*/
 .select-itemManagement {
     width: 200px; padding: .8em .5em;
     border: 1px solid #999;
