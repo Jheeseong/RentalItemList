@@ -31,19 +31,37 @@ async function save_child_category() {
     if (parentCategoryVal === "대분류 선택") {
         window.alert("대분류를 선택해주세요!");
     } else {
-        await fetch('createItem/api/createCategory/' + parentCategoryVal, {
+        $.ajax({
+            type: 'POST',
+            data: categories,
+            url: 'createItem/api/createCategory/' + parentCategoryVal,
+            dataType: "json",
+
+            success: function (result) {
+                console.log(result)
+                if (result.categorySuccess === false) {
+                    window.alert("이미 등록된 소분류카테고리입니다.");
+                } else {
+                    optionAdd(select_child);
+                    document.getElementById('input_child').value = null;
+                }},
+            error: function (err) {
+                console.log(err)
+                window.alert(err)
+            }
+        })
+        /*await fetch('createItem/api/createCategory/' + parentCategoryVal, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(categories),
-        }).then((res) => {
-            res.json()
-        })
-            .then(() => {
-                optionAdd(select_child)
-                document.getElementById('input_child').value = null;
-            });
+        }).then(() => {
+        }).then(async (result) => {
+            console.log(await result)
+            optionAdd(select_child);
+            document.getElementById('input_child').value = null;
+        });*/
     }
 }
 /**

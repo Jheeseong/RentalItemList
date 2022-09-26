@@ -22,7 +22,7 @@ app.set('view engine', 'ejs');
 // 몽구스 연결
 const mongoose = require('mongoose');
 mongoose.connect(config.mongoURI, {
-        dbName:'test',
+        dbName:'RentItem',
         authMechanism:'DEFAULT',
         // useNewUrlPaser: true,
         // useUnifiedTofology: true,
