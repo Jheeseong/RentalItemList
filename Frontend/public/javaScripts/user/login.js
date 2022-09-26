@@ -46,4 +46,3 @@ async function enterKeyUp(event){
 }
 let enterKey = document.getElementById('login-container');
 enterKey.addEventListener('keyup', event => enterKeyUp(event));
-
