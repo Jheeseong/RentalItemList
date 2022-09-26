@@ -138,7 +138,7 @@ li {
     margin-top: 40px;
     margin-bottom: 40px;
 }
-.editUserModal {
+.editUserModal, .checkPasswordModal{
     position: fixed;
     top: 0;
     left: 0;
@@ -151,10 +151,9 @@ li {
     background-color: rgba(0, 0, 0, 0.4);
     z-index: 1;
 }
-.editUserModal.show {
+.editUserModal.show, .checkPasswordModal.show{
     display: block;
 }
-
 .editUserModal_body {
     position: fixed;
     top: 50%;
@@ -162,6 +161,25 @@ li {
 
     width: 500px;
     height: 680px;
+
+    padding-top: 30px;
+    padding-left: 40px;
+    padding-right: 40px;
+    *text-align: center;
+
+    background-color: #F4F7F8;
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+    transform: translateX(-50%) translateY(-50%);
+}
+.checkPasswordModal_body {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+
+    width: 400px;
+    height: 400px;
 
     padding-top: 30px;
     padding-left: 40px;

@@ -59,6 +59,7 @@ async function deleteItem(id){
             .then((res) => res.json())
             .then((result) => {
                 window.alert(result.message);
+                window.location.reload();
             }).catch((err) => {
                 window.alert(err);
             });

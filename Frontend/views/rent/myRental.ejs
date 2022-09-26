@@ -57,7 +57,7 @@
                     <input type="text" id="myPage_email" class="myPage_input" value='<%= userInfo.email%>' readonly>
                 </label>
                 <div class="btn_MyPage">
-                    <button class="btn-return" id="btn_editUser" onclick="editUser()">회원 정보 수정</button>
+                    <button class="btn-return" id="btn_editUser" onclick="checkPassword()">회원 정보 수정</button>
                 </div>
             </div>
             </p>
@@ -208,6 +208,18 @@
                 <button type="submit" class="btn-return" onclick="passwordEdit(<%=userInfo.workNumber%>)">비밀번호 수정</button>
             </div>
 
+    </div>
+</div>
+<div class="checkPasswordModal">
+    <div class="checkPasswordModal_body">
+        <h2 class="myPage_h2">비밀번호 확인 창</h2>
+        <div class="password_class">
+            <label class="myPage_label">비밀번호 :</label>
+            <input type="password" id="myPage_password_edit_check" class="myPage_input_password" value=''>
+        </div>
+        <div class="btn_MyPage">
+            <button type="submit" class="btn-return" onclick="editUser(<%=userInfo.workNumber%>)">확인</button>
+        </div>
     </div>
 </div>
 </body>

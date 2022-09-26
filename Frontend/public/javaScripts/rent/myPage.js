@@ -1,13 +1,56 @@
 /**
  * 담당자 : 정희성
- * 함수 설명 : 회원 정보 수정 모달창 띄어주는 함수
+ * 함수 설명 : 회원 정보 수정 모달창 띄우기 전 비밀번호 확인 모달창 띄우는 함수
  * 주요 기능 : 모달창을 띄어주고 모달창 바디 외에 나머지는 어둡게 처리
  * **/
 const editUserModal = document.querySelector('.editUserModal');
-function editUser() {
+const checkPasswordModal = document.querySelector('.checkPasswordModal')
 
-    editUserModal.classList.toggle('show');
+async function checkPassword() {
+    checkPasswordModal.classList.toggle('show');
 
+    if (checkPasswordModal.classList.contains('show')) {
+        body.style.overflow = 'hidden';
+    }
+}
+/**
+* 담당자 : 정희성
+* 함수 내용 : 유저의 비밀번호를 맞게 입력 시 회원정보수정을 띄어주는 함수
+* 주요 기능 : 유저가 입력한 비밀번호를 저장된 DB 비밀번호와 일치여부 판단하는 기능
+ *          맞을 경우 유저 정보 수정하는 모달 창 띄어주는 기능
+ *          미일치 시 알람 띄어주는 기능
+**/
+async function editUser(workNumber) {
+    let pw = document.getElementById('myPage_password_edit_check').value;
+    // 렌더링 떄 맏은 사번과 유저가 입력한 비밀번호를 data에 넣어둠
+    const data = {
+        workNumber: workNumber,
+        password: pw
+    }
+    await fetch('login/api/auth', {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+    })
+        .then((res) => res.json())
+        .then((result) => {
+            //작성한 비밀번호가 맞을 시
+            if (result.loginSuccess === true) {
+                document.getElementById('myPage_password_edit_check').value = "";
+                //기존의 모달창 종료
+                checkPasswordModal.classList.toggle('show');
+                //유저 수정 모달 창 띄어줌
+                editUserModal.classList.toggle('show');
+            //일치하지 않을 시 알람으로 알려줌
+            } else {
+                window.alert("틀린 비밀번호입니다.");
+            }
+        }).catch((err) => {
+            window.alert(err);
+            console.log(err);
+        });
     if (editUserModal.classList.contains('show')) {
         body.style.overflow = 'hidden';
     }
@@ -22,6 +65,20 @@ editUserModal.addEventListener('click', (event) => {
         editUserModal.classList.toggle('show');
 
         if (!editUserModal.classList.contains('show')) {
+            body.style.overflow = 'auto';
+        }
+    }
+});
+/**
+ * 담당자 : 정희성
+ * 함수 설명 : 비밀번호 확인 모달창 외부 클릭 시 꺼지는 함수
+ * 주요 기능 : 모달창 외부 클릭 시 모달을 꺼주고 뭔래 색상으로 돌려주는 기능
+ * **/
+checkPasswordModal.addEventListener('click', (event) => {
+    if (event.target === checkPasswordModal) {
+        checkPasswordModal.classList.toggle('show');
+
+        if (!checkPasswordModal.classList.contains('show')) {
             body.style.overflow = 'auto';
         }
     }
