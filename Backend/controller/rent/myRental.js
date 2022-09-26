@@ -101,7 +101,6 @@ const myRental = {
                     }
             },
             (err, user) => {
-            console.log(user)
             if (err) console.log(err);
             else res.json({user: user, message: "회원 수정이 완료되었습니다!"})
             });
@@ -119,7 +118,6 @@ const myRental = {
                 $set: {password: req.body.password}
             },
             (err, user) => {
-                console.log(user)
                 if (err) console.log(err);
                 else res.json({user: user, message: "비밀번호 수정이 완료되었습니다!"})
             });
