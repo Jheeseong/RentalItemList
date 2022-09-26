@@ -125,6 +125,10 @@ btnInitItem.addEventListener('click', () => {
 //취소 버튼
 btnCancel.addEventListener('click', () => {
     initItem();
+    const childCategory = document.getElementById('select_childCategory');
+
+    for(i=1; i<childCategory.options.length; i++) childCategory.options[i] = null;
+    childCategory.options.length = 1;
     modal.classList.toggle('show');
     body.style.overflow = 'auto';
 })

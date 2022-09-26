@@ -12,9 +12,9 @@ const category = {
      *           대분류 카테고리가 있을 경우 해당 카테고리에 소분류 카테고리를 업데이트 해주는 기능
      *           대분류 카테고리와 소분류 카테고리 둘 다 있는 경우 패스해주는 기능
      **/
-    saveCategory: async (req, res) => {
-        Category.findOne({name: req.params.keyword}, async(err, result) => {
-            let category;
+    saveCategory: (req, res) => {
+        let category;
+        Category.findOne({name: req.params.keyword}, async (err, result) => {
             //프론트에서 받아온 대분류카테고리 값이 없는 경우
             if (result === null) {
                 category = new Category(req.body);
@@ -23,7 +23,7 @@ const category = {
                     //저장할 때 err 발생 시 json으로 반환
                     if (err) return res.json({success: false, err})
                     console.log(("category DB 저장 완료"))
-                    return res.json(category)
+                    return res.json({categorySuccess: true})
                         .status(200)
                 });
                 //프론트에서 받아온 대분류카테고리 값이 있는 경우
@@ -31,25 +31,23 @@ const category = {
                 for (let child of result.children) {
                     //프론트에서 받아온 소분류카테고리 값이 있는 경우 저장하지않고 패스
                     if (child === req.body.children) {
-                        return res.json(result)
-                            .status(200);
-                        //프론트에서 받은 소분류 카테고리 값이 없을 경우 update
-                    } else {
-                        Category.update(
-                            {name: result.name},
-                            {$push: {children: req.body.children}},
-                            (err) => {
-                                if (err) {
-                                    window.alert("저장 실패");
-                                    console.log(err)
-                                }
-                                console.log(("category DB 중복 저장 완료"))
-                                return res.json(result)
-                                    .status(200)
-                            });
+                        return res.json({categorySuccess: false})
                     }
                 }
-            };
+                //프론트에서 받은 소분류 카테고리 값이 없을 경우 update
+                Category.updateOne(
+                    {name: result.name},
+                    {$push: {children: req.body.children}},
+                    (err) => {
+                        if (err) {
+                            window.alert("저장 실패");
+                            console.log(err)
+                        }
+                        console.log(("category DB 중복 저장 완료"))
+                        res.json({categorySuccess: true})
+                            .status(200)
+                    });
+            }
         });
 
     },
