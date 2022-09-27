@@ -179,6 +179,7 @@ function excelExport(event){
                         return: rowObj[i]["반환 필요 여부"]
                     }
                 }
+
                 fetch('createItem/api/createCategory/' + items.category.parentCategory, {
                     method: 'post',
                     headers: {'Content-Type': 'application/json'},
