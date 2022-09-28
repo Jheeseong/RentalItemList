@@ -13,6 +13,7 @@
     <link rel='stylesheet' type="text/css" href='/stylesheets/itemEdit.css' />
     <link rel='stylesheet' type="text/css" href='/stylesheets/itemManagement.css' />
     <link rel='stylesheet' type="text/css" href='/stylesheets/table.css' />
+    <link rel='stylesheet' type="text/css" href='/stylesheets/pagination.css' />
     <script defer src="/javaScripts/item/itemManagement.js"></script>
     <script defer src="/javaScripts/item/itemEdit.js"></script>
     <script defer src="/javaScripts/item/managerFunction.js"></script>
@@ -104,11 +105,23 @@
             <% }); %>
             </tbody>
         </table>
-        <%- include('./lenders.ejs')%>
-        <%- include('./rentHistory.ejs')%>
-        <%- include('./rentItem.ejs')%>
-        <%- include('./editItem.ejs')%>
+    </div>
+    <div class="page_wrap">
+        <div class="page_nation">
+            <a class="arrow prev" href="#" onclick="paginationPrev()"></a>
+            <div class="pages" id="pages">
+                <a href="#" id="page_1" onclick="pagination(1)" class="active">1</a>
+                <% for(let i = 2; i <= 10; i++) {%>
+                <a href="#" id="page_<%=i%>" onclick="pagination(<%=i%>)"><%=i%></a>
+                <% } %>
+            </div>
+            <a class="arrow next" href="#" onclick="paginationNext()"></a>
+        </div>
     </div>
 </div>
+<%- include('./lenders.ejs')%>
+<%- include('./rentHistory.ejs')%>
+<%- include('./rentItem.ejs')%>
+<%- include('./editItem.ejs')%>
 </body>
 </html>

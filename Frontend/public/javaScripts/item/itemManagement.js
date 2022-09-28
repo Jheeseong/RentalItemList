@@ -60,13 +60,15 @@ function itemsRender(items, auth){
  *              - 대분류, 소분류를 받아와 분류에 해당하는 데이터만 검색할 수 있도록 설정
  */
 async function searchBtnEvent(){
-    const input_search = document.getElementById('input_search').value; // 검색 키워드
+    let input_search = document.getElementById('input_search').value; // 검색 키워드
     const searchCategory = document.getElementById('searchCategory').value; // 검색 분류
     const parentCategory = document.getElementById('parentCategory'); // 대분류
     const parentCategoryVal = parentCategory.options[parentCategory.selectedIndex].text;
     const childCategory = document.getElementById('childCategory'); // 소분류
     const childCategoryVal = childCategory.options[childCategory.selectedIndex].text;
-
+    if(input_search === null){
+        input_search = "all";
+    }
     /* 검색 항목 선택 별 API URL 설정 */
     let URL;
     if(searchCategory === "itemName") // 물품 이름으로 검색
@@ -235,4 +237,47 @@ function dateFormatter(date){
     let fullDate = y+ "." + mon + "." + d;
     return fullDate;
 
+}
+
+let currFirstPage = 1;
+function pagination(page){
+    console.log("pagination : " + page);
+    document.querySelector('.active').classList.remove('active');
+
+    document.getElementById('page_' + page).className += 'active';
+}
+
+function paginationPrev(){
+    if(currFirstPage === 1){
+        return;
+    }
+    currFirstPage -= 10;
+
+    let pages = `<a href="#" id="page_${currFirstPage}" onclick="pagination(${currFirstPage})" class="active">${currFirstPage}</a>`;
+
+    for(let i = currFirstPage + 1; i <= currFirstPage + 9; i++){
+        pages += `<a href="#" id="page_${i}" onclick="pagination(${i})">${i}</a>`;
+    }
+
+    document.getElementById('pages').innerHTML = pages;
+}
+
+const lastPage = 32
+function paginationNext(){
+    currFirstPage += 10;
+    let maxPage = currFirstPage + 9;
+    if(lastPage < currFirstPage) {
+        currFirstPage -= 10;
+        return;
+    } else if(lastPage < maxPage){
+        maxPage = lastPage;
+    }
+
+    let pages = `<a href="#" id="page_${currFirstPage}" onclick="pagination(${currFirstPage})" class="active">${currFirstPage}</a>`;
+
+    for(let i = currFirstPage + 1; i <= maxPage; i++){
+        pages += `<a href="#" id="page_${i}" onclick="pagination(${i})">${i}</a>`;
+    }
+
+    document.getElementById('pages').innerHTML = pages;
 }
