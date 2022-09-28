@@ -17,6 +17,7 @@ const category = {
         Category.findOne({name: req.params.keyword}, async (err, result) => {
             //프론트에서 받아온 대분류카테고리 값이 없는 경우
             if (result === null) {
+                console.log(result)
                 category = new Category(req.body);
                 //MongoDB에서 오는 method, 정보들이 category model에 저장
                 category.save((err) => {
