@@ -75,6 +75,13 @@ async function searchBtnEvent(page){
     if(input_search === ""){
         input_search = "all";
     }
+
+    let newSearchFlag;
+    if(page === 0){
+        newSearchFlag = true;
+        page = 1;
+    }
+
     /* 검색 항목 선택 별 API URL 설정 */
     let URL;
     if(searchCategory === "itemName") // 물품 이름으로 검색
@@ -89,7 +96,7 @@ async function searchBtnEvent(page){
         .then((res) => res.json())
         .then((item) => {
             itemsRender(item.items, item.authority); // 아이템 정보와 권한 정보로 Render 함수 실행
-            if(page === 0) newPagination(item.items.length);
+            if(newSearchFlag) newPagination(item.itemCount);
         }).catch((err) => {
             window.alert(err);
             console.log(err);
@@ -222,7 +229,7 @@ async function enterKeyUp(event){
     let key = event.key || event.keyCode;
 
     if(key === 'Enter' || key === 13 ){
-        await searchBtnEvent();
+        await searchBtnEvent(0);
     }
 }
 let enterKey = document.getElementById('itemSearch');
