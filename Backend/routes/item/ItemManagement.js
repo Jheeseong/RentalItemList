@@ -27,14 +27,14 @@ router.get('/findAll', authUtil, itemManagementController.findAll);
  * 함수 설명 : 물품명으로 물품 검색 API(대분류, 소분류, 검색키워드)
  * 미들 웨어 : 토큰 검증
  */
-router.get('/find/item/:parentCategory/:childCategory/:keyword', authUtil, itemManagementController.findByItem);
+router.get('/find/item/:parentCategory/:childCategory/:keyword/:page', authUtil, itemManagementController.findByItem);
 
 /**
  * 담당자 : 강재민
  * 함수 설명 : 대여자명으로 물품 검색 API(대분류, 소분류, 키워드)
  * 미들 웨어 : 토큰 검증, 열람 권한
  */
-router.get('/find/lender/:parentCategory/:childCategory/:keyword', authUtil, authOpen ,itemManagementController.findByLender);
+router.get('/find/lender/:parentCategory/:childCategory/:keyword/:page', authUtil, authOpen ,itemManagementController.findByLender);
 
 /**
  * 담당자 : 강재민

@@ -16,10 +16,12 @@ const itemManagement = {
      *              - 검색로직을 위해 분류를 검색하였습니다.
      *              - 물품정보와 분류 데이터를 함께 response에 담아 물품정보페이지를 렌더링 하였습니다.
      */
-    index: (req, res) => {
-        const itemCount = Item.count();
+    index: async (req, res) => {
+        const itemCount = await Item.count().exec();
         Item.find({delete : false})
             .populate("rentInfo")
+            .sort({createDate : -1})
+            .limit(7)
             .exec((err, items) => {
                 if(err) return console.log(err);
                 Category.find({}, async(err, categories) => {
@@ -39,12 +41,14 @@ const itemManagement = {
      *              - populate 를 사용하여 대여 정보를 함께 검색하였습니다.
      *              - 대분류를 전체로 선택했을 경우에 실행됩니다.
      */
-    findAll: (req, res) => {
-        const itemCount = Item.count();
+    findAll: async (req, res) => {
+        const itemCount = await Item.count().exec();
         Item.find({delete : false})
             .populate("rentInfo")
+            .sort({createDate : -1})
+            .limit(7)
             .exec(async(err, items) => {
-            res.json({ items, authority : req.authority });
+            res.json({ items, itemCount : itemCount, authority : req.authority});
         });
     },
     /**
@@ -54,10 +58,14 @@ const itemManagement = {
      *              - populate 를 사용하여 대여 정보를 함께 검색하였습니다.
      *              - 대분류, 소분류, 검색키워드에 모두 해당하는 물품정보만을 검색하여 return 하였습니다.
      */
-    findByItem: (req, res) => {
-        const itemCount = Item.count();
+    findByItem: async (req, res) => {
         let parentCategory = req.params.parentCategory;
         let childCategory = req.params.childCategory;
+        let page = req.params.page;
+        if(page === 0){
+            page = 1;
+        }
+        let skipCount = (page - 1) * 7 ;
         let keyword = req.params.keyword;
         if(parentCategory === "대분류 전체")
             parentCategory = "";
@@ -67,10 +75,15 @@ const itemManagement = {
             keyword = "";
         }
 
+        let itemCount = await Item.find({$and : [{ name : { $regex: keyword }}, {"category.parentCategory" : { $regex : parentCategory}}, {"category.childCategory" : {$regex : childCategory}}, {delete : false}]}).count().exec();
+
         Item.find({$and : [{ name : { $regex: keyword }}, {"category.parentCategory" : { $regex : parentCategory}}, {"category.childCategory" : {$regex : childCategory}}, {delete : false}]})
             .populate("rentInfo")
+            .sort({createDate : -1})
+            .skip(skipCount)
+            .limit(7)
             .exec(async(err, items) =>{
-            res.json({ items, authority : req.authority });
+            res.json({ items, authority : req.authority, itemCount : itemCount });
         });
     },
     /**
@@ -81,32 +94,40 @@ const itemManagement = {
      *              - 대분류, 소분류, 검색키워드에 모두 해당하는 물품정보만을 검색하여 return 하였습니다.
      *              - 열람권한이 없으면 API에 접근할 수 없도록 미들웨어를 사용하여 제한하였습니다.
      */
-    findByLender: (req, res) => {
-        const itemCount = Item.count();
+    findByLender: async (req, res) => {
         let parentCategory = req.params.parentCategory;
         let childCategory = req.params.childCategory;
         let keyword = req.params.keyword;
-        if(parentCategory === "대분류 전체")
+        let page = req.params.page;
+        if (page === 0) {
+            page = 1;
+        }
+        let skipCount = (page - 1) * 7;
+        if (parentCategory === "대분류 전체")
             parentCategory = "";
-        if(childCategory === "소분류 전체")
+        if (childCategory === "소분류 전체")
             childCategory = "";
-        if(keyword === "all"){
+        if (keyword === "all") {
             keyword = "";
         }
 
-        Item.find({$and : [{"category.parentCategory" : { $regex : parentCategory}}, {"category.childCategory" : {$regex : childCategory}}, {delete : false}]})
-            .populate({ path : "rentInfo",  match : { userName :{ $regex : keyword }}})
-            .exec((err, items) =>{
+        let itemCount = await Item.find({$and: [{"category.parentCategory": {$regex: parentCategory}}, {"category.childCategory": {$regex: childCategory}}, {delete: false}]}).count().exec();
+
+        Item.find({$and: [{"category.parentCategory": {$regex: parentCategory}}, {"category.childCategory": {$regex: childCategory}}, {delete: false}]})
+            .populate({path: "rentInfo", match: {userName: {$regex: keyword}}})
+            .sort({createDate: -1})
+            .skip(skipCount)
+            .limit(7)
+            .exec((err, items) => {
                 // 대여자가 있는 아이템만 구분
                 let item = new Array();
-                items.map((res) =>{
-                    if(res.rentInfo.length){
+                items.map((res) => {
+                    if (res.rentInfo.length) {
                         item.push(res);
                     }
                 });
-                console.log(items);
-                res.json({ items : item , authority : req.authority});
-        });
+                res.json({items: item, authority: req.authority, itemCount: itemCount});
+            });
     },
     /**
      * 담당자 : 강재민
@@ -115,13 +136,13 @@ const itemManagement = {
      *              - populate 를 사용하여 대여 정보를 함께 검색하였습니다.
      *              - 대분류에 해당하는 물품정보만을 검색하여 return 하였습니다.
      */
-    findByParentCategory : (req, res) => {
-        const itemCount = Item.count();
+    findByParentCategory : async (req, res) => {
+        let itemCount = await Item.find({$and: [{"category.parentCategory": req.params.keyword}, {delete: false}]}).count().exec();
         Item.find({$and: [{"category.parentCategory": req.params.keyword}, {delete: false}]})
             .populate("rentInfo")
-            .exec( (err, items) => {
-            res.json({ items , authority : req.authority});
-        });
+            .exec((err, items) => {
+                res.json({items, authority: req.authority, itemCount : itemCount});
+            });
     },
     /**
      * 담당자 : 강재민
@@ -130,13 +151,13 @@ const itemManagement = {
      *              - populate 를 사용하여 대여 정보를 함께 검색하였습니다.
      *              - 소분류에 해당하는 물품정보만을 검색하여 return 하였습니다.
      */
-    findByChildCategory : (req, res) => {
-        const itemCount = Item.count();
-        Item.find({$and : [{"category.childCategory" : req.params.keyword}, {delete : false}]})
+    findByChildCategory : async (req, res) => {
+        let itemCount = await Item.find({$and: [{"category.childCategory": req.params.keyword}, {delete: false}]}).count().exec();
+        Item.find({$and: [{"category.childCategory": req.params.keyword}, {delete: false}]})
             .populate("rentInfo")
             .exec((err, items) => {
-            res.json({ items, authority : req.authority });
-        });
+                res.json({items, authority: req.authority, itemCount : itemCount});
+            });
     },
     /**
      * 담당자 : 강재민
@@ -145,7 +166,6 @@ const itemManagement = {
      *              - 물품이 삭제되어도 대여이력에서의 물품정보는 남아있어야 하기 때문에, 물품을 완전히 삭제하기보다는 물품정보는 그대로 남겨놓는 방법을 선택하였습니다.
      */
     deleteById:(req, res) => {
-        const itemCount = Item.count();
         Item.findOneAndUpdate({_id: req.params.id},{ delete: true } ,(err, result) => {
             res.json({ deleteSuccess : "Success", message : "물품이 성공적으로 삭제되었습니다.", result : result });
         })
@@ -157,7 +177,6 @@ const itemManagement = {
      *              - 대여중인 아이템부터 보이도록 반환하였습니다.
      */
     rentHistory: (req, res) => {
-        const itemCount = Item.count();
         Rent.find({ itemInfo : req.params.itemId})
             .sort({rentStatus : -1})
             .exec((err, histories) => {

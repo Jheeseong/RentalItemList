@@ -3,6 +3,12 @@
  * 파일 설명 : 물품관리페이지의 전반적인 기능들을 담당하는 JavaScript 파일 입니다.
  */
 
+// 초기 페이지 설정
+let lastPage = 20;
+let currFirstPage = 1;
+window.onload = function (){
+    lastPage = document.getElementById('pCount').value;
+};
 
 /**
  * 담당자 : 강재민
@@ -59,27 +65,22 @@ function itemsRender(items, auth){
  * 주요 기능 : - 검색 분류별로 다른 API를 사용하여 검색하도록 설정
  *              - 대분류, 소분류를 받아와 분류에 해당하는 데이터만 검색할 수 있도록 설정
  */
-async function searchBtnEvent(){
+async function searchBtnEvent(page){
     let input_search = document.getElementById('input_search').value; // 검색 키워드
     const searchCategory = document.getElementById('searchCategory').value; // 검색 분류
     const parentCategory = document.getElementById('parentCategory'); // 대분류
     const parentCategoryVal = parentCategory.options[parentCategory.selectedIndex].text;
     const childCategory = document.getElementById('childCategory'); // 소분류
     const childCategoryVal = childCategory.options[childCategory.selectedIndex].text;
-    if(input_search === null){
+    if(input_search === ""){
         input_search = "all";
     }
     /* 검색 항목 선택 별 API URL 설정 */
     let URL;
     if(searchCategory === "itemName") // 물품 이름으로 검색
-        URL = '/itemmanagement/find/item/' + parentCategoryVal + "/" + childCategoryVal + "/" + input_search;
+        URL = `/itemmanagement/find/item/${parentCategoryVal}/${childCategoryVal}/${input_search}/${page}`;
     else // 대여자 이름으로 검색
-        URL = '/itemmanagement/find/lender/' + parentCategoryVal + "/" + childCategoryVal + "/" + input_search;
-
-    if(!input_search){ // 검색 키워드란이 비어있을 경우
-        window.alert("검색내용을 입력하세요");
-        return;
-    }
+        URL = `/itemmanagement/find/lender/${parentCategoryVal}/${childCategoryVal}/${input_search}/${page}`;
 
     // 검색 데이터 요청
     await fetch(URL, {
@@ -88,6 +89,7 @@ async function searchBtnEvent(){
         .then((res) => res.json())
         .then((item) => {
             itemsRender(item.items, item.authority); // 아이템 정보와 권한 정보로 Render 함수 실행
+            if(page === 0) newPagination(item.items.length);
         }).catch((err) => {
             window.alert(err);
             console.log(err);
@@ -141,6 +143,7 @@ async function changeParentCategory(){
         .then((res) => res.json())
         .then((item) => {
             itemsRender(item.items, item.authority); // 받아온 데이터 Render
+            newPagination(item.itemCount);
         }).catch((err) => {
             window.alert(err);
     });
@@ -169,6 +172,7 @@ async function changeChildCategory(){
         .then((res) => res.json())
         .then((item) => {
             itemsRender(item.items, item.authority); // 받아온 데이터 Render
+            newPagination(item.itemCount);
         }).catch((err) => {
             window.alert(err);
         });
@@ -239,30 +243,66 @@ function dateFormatter(date){
 
 }
 
-let currFirstPage = 1;
-function pagination(page){
-    console.log("pagination : " + page);
+/**
+ * 담당자 : 강재민
+ * 함수 설명 : 새로운 데이터를 받아왔을 때 페이지를 새로 바꿔주는 함수
+ * 주요 기능 : - 페이지를 1페이지로 변경하고 마지막 페이지를 재설정 후 렌더링
+ */
+function newPagination(cnt){
+    lastPage = cnt / 7;
+    currFirstPage = 1;
+    let pageCount = lastPage <= 10 ? ((cnt % 7 === 0) ? lastPage : lastPage + 1) : 10;
+
+    let pages = `<a href="#" id="page_${currFirstPage}" onclick="paginationChange(${currFirstPage})" class="active">${currFirstPage}</a>`;
+
+    for(let i = currFirstPage + 1; i <= pageCount; i++){
+        pages += `<a href="#" id="page_${i}" onclick="paginationChange(${i})">${i}</a>`;
+    }
+
+    document.getElementById('pages').innerHTML = pages;
+}
+
+/**
+ * 담당자 : 강재민
+ * 함수 설명 : 페이지가 변경 되었을 때 실행되는 함수
+ * 주요 기능 : - 페이지에 맞는 데이터를 다시 요청하고 페이지 값을 변경
+ */
+async function paginationChange(page){
+
     document.querySelector('.active').classList.remove('active');
 
     document.getElementById('page_' + page).className += 'active';
+    await searchBtnEvent(page);
 }
 
+/**
+ * 담당자 : 강재민
+ * 함수 설명 : prev page 버튼 아이콘을 클릭했을 때 이전의 10페이지를 보여주도록 하는 함수
+ * 주요 기능 : - 페이지 수를 계산하여 렌더링할 페이지 수를 계산
+ *              - 초기 페이지이면 return
+ */
 function paginationPrev(){
     if(currFirstPage === 1){
         return;
     }
     currFirstPage -= 10;
 
-    let pages = `<a href="#" id="page_${currFirstPage}" onclick="pagination(${currFirstPage})" class="active">${currFirstPage}</a>`;
+    let pages = `<a href="#" id="page_${currFirstPage}" onclick="paginationChange(${currFirstPage})" class="active">${currFirstPage}</a>`;
 
     for(let i = currFirstPage + 1; i <= currFirstPage + 9; i++){
-        pages += `<a href="#" id="page_${i}" onclick="pagination(${i})">${i}</a>`;
+        pages += `<a href="#" id="page_${i}" onclick="paginationChange(${i})">${i}</a>`;
     }
 
     document.getElementById('pages').innerHTML = pages;
 }
 
-const lastPage = 32
+
+/**
+ * 담당자 : 강재민
+ * 함수 설명 : next page 버튼 아이콘을 클릭했을 때 이전의 10페이지를 보여주도록 하는 함수
+ * 주요 기능 : - 페이지 수를 계산하여 렌더링할 페이지 수를 계산
+ *              - 마지막 페이지이면 return
+ */
 function paginationNext(){
     currFirstPage += 10;
     let maxPage = currFirstPage + 9;
@@ -273,10 +313,10 @@ function paginationNext(){
         maxPage = lastPage;
     }
 
-    let pages = `<a href="#" id="page_${currFirstPage}" onclick="pagination(${currFirstPage})" class="active">${currFirstPage}</a>`;
+    let pages = `<a href="#" id="page_${currFirstPage}" onclick="paginationChange(${currFirstPage})" class="active">${currFirstPage}</a>`;
 
     for(let i = currFirstPage + 1; i <= maxPage; i++){
-        pages += `<a href="#" id="page_${i}" onclick="pagination(${i})">${i}</a>`;
+        pages += `<a href="#" id="page_${i}" onclick="paginationChange(${i})">${i}</a>`;
     }
 
     document.getElementById('pages').innerHTML = pages;

@@ -44,7 +44,7 @@
             <%}%>
         </select>
         <input class="input_search" type="text" name="input_search" id="input_search">
-        <button class="btn-search" name="btn_search" id="btn_search" onclick="searchBtnEvent()"><img class="search-icon" src="/img/search.png"></button>
+        <button class="btn-search" name="btn_search" id="btn_search" onclick="searchBtnEvent(0)"><img class="search-icon" src="/img/search.png"></button>
     </div>
     <div class="div-put-excel" id="div-put-excel">
         <% if(authority.openAuthority || authority.administrator){ %>
@@ -110,10 +110,14 @@
         <div class="page_nation">
             <a class="arrow prev" href="#" onclick="paginationPrev()"></a>
             <div class="pages" id="pages">
-                <a href="#" id="page_1" onclick="pagination(1)" class="active">1</a>
-                <% for(let i = 2; i <= 10; i++) {%>
-                <a href="#" id="page_<%=i%>" onclick="pagination(<%=i%>)"><%=i%></a>
+                <% let pCount = 10;
+                if(itemCount / 7 < 10) pCount = (itemCount / 7 ) + 1;
+                %>
+                <a href="#" id="page_1" onclick="paginationChange(1)" class="active">1</a>
+                <% for(let i = 2; i <= pCount; i++) {%>
+                <a href="#" id="page_<%=i%>" onclick="paginationChange(<%=i%>)"><%=i%></a>
                 <% } %>
+                <input type="hidden" id="pCount" value="<%=pCount%>">
             </div>
             <a class="arrow next" href="#" onclick="paginationNext()"></a>
         </div>

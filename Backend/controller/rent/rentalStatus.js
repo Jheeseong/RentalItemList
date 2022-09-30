@@ -12,7 +12,7 @@ const rentalStatus = {
     * 주요 기능 : populate를 통해 해당 itemInfo 정보를 가져오는 기능
      *           sort를 통해 대여 날짜, 반납 날짜를 정렬해주는 기능
     **/
-    index: (req, res) => {
+    index: async (req, res) => {
         // 대여 중이거나 반납이 완료된 모든 물품을 찾는 기능
         Rent.find({})
             .populate("itemInfo")
@@ -28,7 +28,7 @@ const rentalStatus = {
                             name: req.name,
                             workNumber: req.workNumber,
                             authority: req.authority,
-                            rentRecord: rentRecord
+                            rentRecord: rentRecord,
                         });
                     });
             });
