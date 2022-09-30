@@ -3,6 +3,7 @@
 * 파일 설명 : 유저 회원가입 기능이 작성된 자바 스크립트 파일
 **/
 const { User } = require('../../models/User')
+const Aws = require('../../config/aws/aws')
 
 const signUp = {
     /**
@@ -40,6 +41,15 @@ const signUp = {
         })
 
     },
+    emailConfiguration: (req, res) => {
+        let ranNum = Math.floor(Math.random()*(999999-111111)) + 111111;
+        if (req.body.email === "") {
+            res.json({sendSuccess: false});
+        } else {
+            Aws.awsEMail(req.body.email,ranNum);
+            res.json({sendSuccess: true, random: ranNum})
+        }
+    }
     /*findUser: (req, res) => {
         User.findOne({workNumber: req.workNumber}, (err, result) => {
             if (result != null) {

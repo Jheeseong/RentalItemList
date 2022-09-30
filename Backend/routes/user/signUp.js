@@ -12,4 +12,6 @@ router.get("/",signUpController.signUp);
  **/
 router.post("/api/signUp",signUpController.saveUser)
 
+router.post("/api/certification",signUpController.emailConfiguration)
+
 module.exports = router;

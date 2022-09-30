@@ -5,6 +5,7 @@
 let checkPasswordBoolean = Boolean;
 let checkPasswordConfirm = Boolean;
 let checkEmailBoolean = Boolean;
+let checkRanNumBoolean = false;
 /**
  * 담당자 : 정희성
  * 함수 설명 : 버튼 클릭 시 이메일과 비밀번호 유효성 검사 후 입력 값을 POST 전송하는 함수(회원가입)
@@ -13,40 +14,79 @@ let checkEmailBoolean = Boolean;
  *            유효성 검사 실패 시 알람을 통해 저장 실패를 알려주는 기능
  * **/
 async function btn_signup() {
-    if (checkPasswordBoolean && checkEmailBoolean && checkPasswordConfirm === true) {
-        //입력 값을 userinfo에 담은 후 변수 선언
-        let userinfo = {
-            name: document.getElementById('name').value,
-            department: document.getElementById('department').value,
-            role: document.getElementById('role').value,
-            workNumber: document.getElementById('workNumber').value,
-            email: document.getElementById('email').value,
-            password: document.getElementById('password').value
-        };
+    if (checkRanNumBoolean === true) {
+        if (checkPasswordBoolean && checkEmailBoolean && checkPasswordConfirm === true) {
+            //입력 값을 userinfo에 담은 후 변수 선언
+            let userinfo = {
+                name: document.getElementById('name').value,
+                department: document.getElementById('department').value,
+                role: document.getElementById('role').value,
+                workNumber: document.getElementById('workNumber').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value
+            };
 
-        await fetch('signUp/api/signUp', {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(userinfo),
-        }).then((res) => res.json())
-            .then((result) => {
-                window.alert(result.message);
-                console.log(result.message);
+            await fetch('signUp/api/signUp', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userinfo),
+            }).then((res) => res.json())
+                .then((result) => {
+                    window.alert(result.message);
+                    console.log(result.message);
 
-                if (result.signup === true) {
-                    location.replace('/login');
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-                window.alert("회원 가입 정보를 다시 확인해주세요");
-            })
+                    if (result.signup === true) {
+                        location.replace('/login');
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                    window.alert("회원 가입 정보를 다시 확인해주세요");
+                });
+        } else {
+            window.alert("회원 정보를 다시 확인해주세요.");
+        }
     } else {
-        window.alert("회원 정보를 다시 확인해주세요.");
+        window.alert("이메일을 인증해주세요.")
+    }
+
+}
+function emailCertification() {
+    const certification = document.querySelector('.email_certification')
+
+    fetch('signUp/api/certification', {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({email: document.getElementById('email').value}),
+    }).then((res) => res.json())
+        .then((res) => {
+            if (res.sendSuccess === false) {
+                window.alert("이메일을 다시 한 번 확인해주세요.");
+            } else {
+                window.alert("이메일에 인증번호를 전송하였습니다.");
+                certification.innerHTML =
+                    "            <input type=\"text\" name=\"input_ranNum\" id=\"input_ranNum\" class=\"input_ranNum\">\n" +
+                    "            <button id=\"btn_checkRanNum\" name=\"btn_checkRanNum\" class=\"btn_checkRanNum\" onclick=checkRandomNumber("+ res.random +")>인증하기</button>"
+
+            }
+        })
+}
+
+function checkRandomNumber(ranNum) {
+    const inputNum = document.getElementById('input_ranNum').value;
+    console.log(ranNum, inputNum.toString())
+    if (inputNum === ranNum.toString()) {
+        checkRanNumBoolean = true;
+        window.alert("이메일 인증에 성공하셨습니다.");
+    } else {
+        window.alert("이메일 인증에 실패하셨습니다.")
     }
 }
+
 /**
  * 담당자 : 정희성
  * 함수 설명 : 비밀번호 자릿 수 체크 및 확인란과 동일 여부를 판단하는 함수(회원간입)
