@@ -4,7 +4,7 @@
  */
 const express = require('express'); // express 임포트
 const app = express(); // app생성
-const port = 3000;
+const port = 3001;
 const path = require('path');
 const cookieParser = require('cookie-parser')
 
