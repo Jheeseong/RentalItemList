@@ -78,10 +78,16 @@ function emailCertification() {
 
 function checkRandomNumber(ranNum) {
     const inputNum = document.getElementById('input_ranNum').value;
+    const certification = document.querySelector('.email_certification')
+    const certificationButton = document.getElementById('certificationButton');
+
     console.log(ranNum, inputNum.toString())
     if (inputNum === ranNum.toString()) {
         checkRanNumBoolean = true;
         window.alert("이메일 인증에 성공하셨습니다.");
+        certification.innerHTML = "";
+        certificationButton.value = "인증 완료"
+        certificationButton.disabled = true;
     } else {
         window.alert("이메일 인증에 실패하셨습니다.")
     }
